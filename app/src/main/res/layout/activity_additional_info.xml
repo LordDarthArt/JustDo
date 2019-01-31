@@ -4,14 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".AdditionalnfoActivity">
 
-    <fragment
-        android:id="@+id/frMain"
-        class="tk.lorddarthart.justdo.EnterFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout="@layout/fragment_enter">
-
-    </fragment>
 </android.support.constraint.ConstraintLayout>

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/frgt"
         android:textColor="@color/txtColor"
         app:layout_constraintBottom_toTopOf="@+id/btnLogIn"
@@ -37,8 +37,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -48,6 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:autofillHints="@string/password"
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
@@ -55,7 +54,6 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            android:autofillHints="@string/password"
             tools:ignore="UnusedAttribute" />
 
         <EditText
@@ -65,6 +63,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
+            android:autofillHints="@string/email"
             android:ems="10"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
@@ -72,7 +71,6 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:autofillHints="@string/email"
             tools:ignore="UnusedAttribute" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "601423367992",
+    "firebase_url": "https://tk-lorddarthart-justdo.firebaseio.com",
+    "project_id": "tk-lorddarthart-justdo",
+    "storage_bucket": "tk-lorddarthart-justdo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601423367992:android:3e28f6db5ba4fe7b",
+        "android_client_info": {
+          "package_name": "tk.lorddarthart.justdo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "601423367992-8b2nvgprlbvrehvqt9rslomffqb167lc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUthkq4-KSsKT8QZhyC2i9zGrLUDmVxZw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -25,8 +25,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -37,12 +35,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:ems="10"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="@+id/etSUe"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/etSUe"
-            app:layout_constraintTop_toBottomOf="@+id/etSUe" />
+            app:layout_constraintTop_toBottomOf="@+id/etSUe"
+            android:importantForAutofill="no"
+            tools:targetApi="o" />
 
         <EditText
             android:id="@+id/etSUpc"
@@ -50,12 +50,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:ems="10"
-            android:hint="Confirm password"
+            android:hint="@string/confirm_password"
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="@+id/etSUe"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/etSUe"
-            app:layout_constraintTop_toBottomOf="@+id/etSUp" />
+            app:layout_constraintTop_toBottomOf="@+id/etSUp"
+            android:importantForAutofill="no"
+            tools:targetApi="o" />
 
         <EditText
             android:id="@+id/etSUe"
@@ -65,11 +67,13 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:ems="10"
-            android:hint="E-mail"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:importantForAutofill="no"
+            tools:targetApi="o" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

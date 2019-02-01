@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,13 +38,16 @@ class SignUpFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        container?.removeAllViews()
         return inflater.inflate(R.layout.fragment_sign_up, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onResume() {
         super.onResume()
-        val btnEnter = view?.findViewById<Button>(R.id.btnSignUp)
-        btnEnter!!.text = resources.getString(R.string.signup)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -55,6 +57,10 @@ class SignUpFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
     }
 
     override fun onDetach() {

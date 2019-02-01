@@ -1,6 +1,7 @@
 package tk.lorddarthart.justdo
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -43,6 +45,8 @@ class EnterFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_enter, container, false)
         val btnSignUp = view.findViewById<Button>(R.id.btnSignUpMS)
         val btnLogIn = view.findViewById<Button>(R.id.btnLogInMS)
+        val txtTermsConditions = view.findViewById<TextView>(R.id.textView2)
+        val txtPrivacyPolicy = view.findViewById<TextView>(R.id.textView8)
         var fragment: Fragment?
         btnSignUp.setOnClickListener {
             fragment = SignUpFragment()
@@ -60,13 +64,21 @@ class EnterFragment : Fragment() {
             btnSignUp.setTextColor(view.resources.getColor(R.color.txtDisColor))
             btnLogIn.setTextColor(view.resources.getColor(R.color.txtColor))
         }
-        // TODO: button switching not working
+        txtTermsConditions.setOnClickListener {
+            val intent = Intent(activity, AdditionalnfoActivity::class.java)
+            intent.putExtra("act","tc")
+            startActivity(intent)
+        }
+        txtPrivacyPolicy.setOnClickListener {
+            val intent = Intent(activity, AdditionalnfoActivity::class.java)
+            intent.putExtra("act","pp")
+            startActivity(intent)
+        }
         return view
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed() {
-
     }
 
     override fun onAttach(context: Context) {

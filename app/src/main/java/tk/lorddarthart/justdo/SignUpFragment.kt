@@ -39,17 +39,17 @@ class SignUpFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var view = inflater.inflate(R.layout.fragment_sign_up, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_sign_up, container, false)
     }
 
     override fun onResume() {
         super.onResume()
-        var a = 3
+        val btnEnter = view?.findViewById<Button>(R.id.btnSignUp)
+        btnEnter!!.text = resources.getString(R.string.signup)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
+    fun onButtonPressed() {
 
     }
 

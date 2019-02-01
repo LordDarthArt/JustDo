@@ -24,6 +24,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
+@Suppress("DEPRECATION")
 class EnterFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -40,28 +41,31 @@ class EnterFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_enter, container, false)
-        val btnSignUp = view.findViewById<Button>(R.id.btnSignUp)
-        val btnLogIn = view.findViewById<Button>(R.id.btnLogIn)
-        var btnEnter: Button?
+        val btnSignUp = view.findViewById<Button>(R.id.btnSignUpMS)
+        val btnLogIn = view.findViewById<Button>(R.id.btnLogInMS)
         var fragment: Fragment?
-        btnSignUp.setOnClickListener(View.OnClickListener {
+        btnSignUp.setOnClickListener {
             fragment = SignUpFragment()
             val transaction = fragmentManager!!.beginTransaction()
             transaction.replace(R.id.frEnter, fragment!!)
             transaction.commit()
-        })
-        btnLogIn.setOnClickListener(View.OnClickListener {
+            btnLogIn.setTextColor(view.resources.getColor(R.color.txtDisColor))
+            btnSignUp.setTextColor(view.resources.getColor(R.color.txtColor))
+        }
+        btnLogIn.setOnClickListener {
             fragment = LogInFragment()
             val transaction = fragmentManager!!.beginTransaction()
             transaction.replace(R.id.frEnter, fragment!!)
             transaction.commit()
-        })
+            btnSignUp.setTextColor(view.resources.getColor(R.color.txtDisColor))
+            btnLogIn.setTextColor(view.resources.getColor(R.color.txtColor))
+        }
         // TODO: button switching not working
         return view
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
+    fun onButtonPressed() {
 
     }
 

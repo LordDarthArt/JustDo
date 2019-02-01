@@ -47,10 +47,12 @@ class LogInFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        val btnEnter = view?.findViewById<Button>(R.id.btnLogIn)
+        btnEnter!!.text = resources.getString(R.string.login)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
+    fun onButtonPressed() {
 
     }
 

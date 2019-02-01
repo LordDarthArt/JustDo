@@ -12,9 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="Terms conditions"
+        android:text="@string/tc"
         android:textColor="@color/txtColor"
-        android:textSize="15dp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@+id/textView7"
         app:layout_constraintTop_toTopOf="@+id/textView7" />
 
@@ -25,7 +25,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="By accessing your account, you agree to our   "
+        android:text="@string/agree"
         android:textColor="@color/txtDisColor"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
@@ -39,9 +39,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
-        android:text="and"
+        android:text="@string/and"
         android:textColor="@color/txtDisColor"
-        android:textSize="15dp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -51,14 +51,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Privacy Policy"
+        android:text="@string/pp"
         android:textColor="@color/txtColor"
-        android:textSize="15dp"
+        android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toTopOf="@+id/textView7" />
 
     <Button
-        android:id="@+id/btnSignUp"
+        android:id="@+id/btnSignUpMS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -66,9 +66,10 @@
         android:background="@drawable/button_enter_mode"
         android:text="@string/signup"
         android:textColor="@color/txtDisColor"
+        app:layout_constraintBottom_toTopOf="@+id/frEnter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/btnLogIn" />
+        app:layout_constraintTop_toTopOf="@+id/view" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -77,14 +78,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:contentDescription="logo"
+        android:contentDescription="@string/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_logo" />
 
     <Button
-        android:id="@+id/btnLogIn"
+        android:id="@+id/btnLogInMS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -95,7 +96,7 @@
         android:textColor="@color/txtColor"
         app:layout_constraintEnd_toStartOf="@+id/view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <View
         android:id="@+id/view"
@@ -103,10 +104,10 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnLogIn"
+        app:layout_constraintBottom_toBottomOf="@+id/btnLogInMS"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnLogIn" />
+        app:layout_constraintTop_toTopOf="@+id/btnLogInMS" />
 
     <fragment
         android:id="@+id/frEnter"

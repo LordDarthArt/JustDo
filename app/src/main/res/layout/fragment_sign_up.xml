@@ -8,15 +8,18 @@
 
     <Button
         android:id="@+id/btnSignUp"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="102dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/button_gradient"
         android:text="@string/signup"
         android:textColor="@android:color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -29,51 +32,74 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/etSUp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:ems="10"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="@+id/etSUe"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/etSUe"
-            app:layout_constraintTop_toBottomOf="@+id/etSUe"
-            android:importantForAutofill="no"
-            tools:targetApi="o" />
-
-        <EditText
-            android:id="@+id/etSUpc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:ems="10"
-            android:hint="@string/confirm_password"
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="@+id/etSUe"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/etSUe"
-            app:layout_constraintTop_toBottomOf="@+id/etSUp"
-            android:importantForAutofill="no"
-            tools:targetApi="o" />
-
-        <EditText
-            android:id="@+id/etSUe"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilSignUpEmail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:ems="10"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:importantForAutofill="no"
-            tools:targetApi="o" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/tvSignUpEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/email"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/txtDisColor"
+                tools:targetApi="o" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilSignUpPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/tilSignUpEmail"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/tilSignUpEmail"
+            app:layout_constraintTop_toBottomOf="@+id/tilSignUpEmail">
+
+            <EditText
+                android:id="@+id/tvSignUpPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/password"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:textColorHint="@color/txtDisColor"
+                tools:targetApi="o" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilSignUpConfirmPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/tilSignUpEmail"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/tilSignUpEmail"
+            app:layout_constraintTop_toBottomOf="@+id/tilSignUpPassword">
+
+            <EditText
+                android:id="@+id/tvSignUpConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/confirm_password"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:textColorHint="@color/txtDisColor"
+                tools:targetApi="o" />
+        </android.support.design.widget.TextInputLayout>
+
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

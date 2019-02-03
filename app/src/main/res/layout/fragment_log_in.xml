@@ -7,12 +7,12 @@
     tools:context=".LogInFragment">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tvLogInFrgt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/frgt"
         android:textColor="@color/txtColor"
         app:layout_constraintBottom_toTopOf="@+id/btnLogIn"
@@ -21,17 +21,21 @@
 
     <Button
         android:id="@+id/btnLogIn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="102dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/button_gradient"
         android:text="@string/login"
         android:textColor="@android:color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintStart_toStartOf="@+id/textView5" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -41,36 +45,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/textView2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:autofillHints="@string/password"
-            android:ems="10"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="@+id/textView"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:ignore="UnusedAttribute" />
-
-        <EditText
-            android:id="@+id/textView"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilLogInEmail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:autofillHints="@string/email"
-            android:ems="10"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UnusedAttribute" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/tvLogInEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/email"
+                android:ems="10"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                tools:ignore="UnusedAttribute" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilLogInPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/tilLogInEmail"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/tilLogInEmail"
+            app:layout_constraintTop_toBottomOf="@+id/tilLogInEmail">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/tvLogInPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/password"
+                android:ems="10"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                tools:ignore="UnusedAttribute" />
+
+        </android.support.design.widget.TextInputLayout>
+
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

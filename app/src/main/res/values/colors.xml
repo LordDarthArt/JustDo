@@ -7,4 +7,8 @@
     <color name="colorButtonEnd">#ADB4EF</color>
     <color name="txtColor">#5B5993</color>
     <color name="txtDisColor">#BBBBC7</color>
+    <color name="highPriorityMarkColor">#DD4A52</color>
+    <color name="middlePriorityMarkColor">#FCD3A0</color>
+    <color name="lowPriorityMarkColor">#BDC3FB</color>
+    <color name="emptyPriorityMarkColor">#DADADE</color>
 </resources>

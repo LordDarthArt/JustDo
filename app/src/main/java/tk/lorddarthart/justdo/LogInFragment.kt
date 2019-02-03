@@ -2,13 +2,17 @@ package tk.lorddarthart.justdo
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_log_in.view.*
+import org.apache.commons.validator.routines.EmailValidator
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -29,6 +33,8 @@ class LogInFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var auth: FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,17 +48,53 @@ class LogInFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         container?.removeAllViews()
-        val view = inflater.inflate(R.layout.fragment_log_in, container, false)
-        return view
+        auth = FirebaseAuth.getInstance()
+        return inflater.inflate(R.layout.fragment_log_in, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.textView5?.setOnClickListener {
-            val transition = parentFragment?.fragmentManager?.beginTransaction()
-            transition?.replace(R.id.frMain, ResetPasswordFragment())
-            transition?.commit()
+        view.tvLogInFrgt?.setOnClickListener {
+            val intent = Intent(activity, PasswordResetActivity::class.java)
+            if (view.tvLogInEmail.text!=null && view.tvLogInEmail.text.toString() != "") {
+                intent.putExtra("email", view.tvLogInEmail.text)
+            }
+            startActivity(intent)
         }
+        if (activity!!.intent.hasExtra("email")) {
+            view.tvLogInEmail.setText(activity!!.intent.getStringExtra("email"))
+        }
+        view.btnLogIn.setOnClickListener {
+            val email = view.tvLogInEmail.text.toString()
+            val password = view.tvLogInPassword.text.toString()
+            if (email!=""&&password!="") {
+                view.tilLogInEmail.error = null
+                view.tilLogInPassword.error = null
+                if (!isValidEmailAddress(view.tvLogInEmail.text.toString())) {
+                    view.tilLogInEmail.error = "email is not valid"
+                }
+                auth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(activity!!) { task ->
+                            if (task.isSuccessful) {
+                                startActivity(Intent(activity!!, ListActivity::class.java))
+                            } else {
+                                    Toast.makeText(context, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show()
+                            }
+                        }
+            } else {
+                if (email=="") {
+                    view.tilLogInEmail.error = "email must not be empty"
+                }
+                if (password=="") {
+                    view.tilLogInPassword.error = "password must not be empty"
+                }
+            }
+        }
+    }
+
+    fun isValidEmailAddress(email: String): Boolean {
+        return EmailValidator.getInstance().isValid(email)
     }
 
     override fun onResume() {

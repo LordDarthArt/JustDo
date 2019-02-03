@@ -7,7 +7,14 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import kotlinx.android.synthetic.main.fragment_sign_up.view.*
+import java.util.regex.Pattern
+import android.widget.Toast
+import com.google.firebase.auth.AuthResult
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.fragment_sign_up.*
+import org.apache.commons.validator.routines.EmailValidator
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +34,7 @@ class SignUpFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +52,71 @@ class SignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.btnSignUp.setOnClickListener {
+            view.tilSignUpEmail.error = null
+            view.tvSignUpPassword.error = null
+            view.tilSignUpConfirmPassword.error = null
+            val email = view.tvSignUpEmail.text.toString()
+            val password = view.tvSignUpPassword.text.toString()
+            val confirmpassword = view.tvSignUpConfirmPassword.text.toString()
+            if (email!=""&&password!=""&&isValidEmailAddress(tvSignUpEmail.text.toString())&&isValidPassword(view.tvSignUpPassword.text.toString())&&password == confirmpassword) {
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(activity!!) { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(context, "Sign Up is successful",
+                                        Toast.LENGTH_SHORT).show()
+                                fragmentManager!!.beginTransaction().replace(R.id.frEnter, LogInFragment()).commit()
+                            } else {
+                                Toast.makeText(context, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show()
+                            }
+                        }
+            } else {
+                if (password!=confirmpassword) {
+                    view.tilSignUpConfirmPassword.error = "passwords are not similar"
+                }
+                if (!isValidEmailAddress(tvSignUpEmail.text.toString())) {
+                    view.tilSignUpEmail.error = "email is not valid"
+                }
+                if (!isValidPassword(tvSignUpPassword.text.toString())) {
+                    view.tilSignUpPassword.error = "password is not valid"
+                }
+                if (email=="") {
+                    view.tilSignUpEmail.error = "email must not be empty"
+                }
+                if (password=="") {
+                    view.tilSignUpPassword.error = "password must not be empty"
+                }
+                if (confirmpassword=="") {
+                    view.tilSignUpConfirmPassword.error = "password must not be empty"
+                }
+            }
+        }
+    }
+
+    fun isValidEmailAddress(email: String): Boolean {
+        return EmailValidator.getInstance().isValid(email)
+    }
+
+    fun isValidPassword(password: String): Boolean {
+        var result = false
+        var capitalletters = 0
+        if (password.length<8) { return result }
+        else if (password.contains(" ")||password.contains("\n")) { return result }
+        else {
+            val digit = Pattern.compile("[0-9]")
+            val special = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]")
+            for (i in 0 until password.length) {
+                if (password[i]==password[i].toUpperCase()) {
+                    capitalletters++
+                }
+            }
+            val hasCapitalLetters = capitalletters>=2
+            val hasDigit = digit.matcher(password)
+            val hasSpecial = special.matcher(password)
+            result = hasCapitalLetters && hasDigit.find() && hasSpecial.find()
+        }
+        return result
     }
 
     override fun onResume() {

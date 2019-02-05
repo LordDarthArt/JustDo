@@ -26,4 +26,7 @@
     <string name="navmain">Главная</string>
     <string name="navaccount">Аккаунт</string>
     <string name="exit">Exit</string>
+    <string name="priority_normal">Normal</string>
+    <string name="priority_important">Important</string>
+    <string name="priority_urgently">Urgently</string>
 </resources>

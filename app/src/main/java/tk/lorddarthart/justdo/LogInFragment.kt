@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,10 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_log_in.view.*
 import org.apache.commons.validator.routines.EmailValidator
+import com.google.firebase.dynamiclinks.DynamicLink
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+
+
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,7 +38,7 @@ class LogInFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var auth: FirebaseAuth
+    private lateinit var mAuth: FirebaseAuth
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,17 +52,24 @@ class LogInFragment : Fragment() {
     @SuppressLint("SetTextI18n", "CommitTransaction")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_log_in, container, false)
         container?.removeAllViews()
-        auth = FirebaseAuth.getInstance()
-        return inflater.inflate(R.layout.fragment_log_in, container, false)
+        mAuth = FirebaseAuth.getInstance()
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (arguments!=null && arguments!!.containsKey("email")) {
+            view.tvLogInEmail.setText(arguments!!.getString("email"))
+        }
+        if (activity!!.intent.hasExtra("email")) {
+            view.tvLogInEmail.setText(activity!!.intent.getStringExtra("email"))
+        }
         view.tvLogInFrgt?.setOnClickListener {
             val intent = Intent(activity, PasswordResetActivity::class.java)
             if (view.tvLogInEmail.text!=null && view.tvLogInEmail.text.toString() != "") {
-                intent.putExtra("email", view.tvLogInEmail.text)
+                intent.putExtra("email", view.tvLogInEmail.text.toString())
             }
             startActivity(intent)
         }
@@ -73,21 +85,29 @@ class LogInFragment : Fragment() {
                 if (!isValidEmailAddress(view.tvLogInEmail.text.toString())) {
                     view.tilLogInEmail.error = "email is not valid"
                 }
-                auth.signInWithEmailAndPassword(email, password)
+                mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(activity!!) { task ->
                             if (task.isSuccessful) {
-                                startActivity(Intent(activity!!, ListActivity::class.java))
+                                if (mAuth.currentUser!!.isEmailVerified) {
+                                    activity!!.finish()
+                                    startActivity(Intent(activity!!, ListActivity::class.java))
+                                    mAuth.verifyPasswordResetCode("123")
+                                } else {
+                                    Snackbar.make(view, "User's email hasn't been verified. Please check your email",
+                                            Toast.LENGTH_SHORT).show()
+                                    mAuth.signOut()
+                                }
                             } else {
-                                    Toast.makeText(context, "Authentication failed.",
+                                Snackbar.make(view, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show()
                             }
                         }
             } else {
                 if (email=="") {
-                    view.tilLogInEmail.error = "email must not be empty"
+                    view.tilLogInEmail.error = "email must be not empty"
                 }
                 if (password=="") {
-                    view.tilLogInPassword.error = "password must not be empty"
+                    view.tilLogInPassword.error = "password must be not empty"
                 }
             }
         }

@@ -7,6 +7,13 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_reset_password.view.*
+import org.apache.commons.validator.routines.EmailValidator
+import android.support.design.widget.Snackbar
+import com.google.firebase.auth.ActionCodeSettings
+import com.google.firebase.auth.FirebaseAuth
+
+
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -41,6 +48,33 @@ class ResetPasswordFragment : Fragment() {
         // Inflate the layout for this fragment
         container?.removeAllViews()
         return inflater.inflate(R.layout.fragment_reset_password, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (activity!!.intent.hasExtra("email")) {
+            view.tvEmailResetPassword.setText(activity!!.intent.getStringExtra("email"))
+        }
+        val actionCodeSettings = ActionCodeSettings.newBuilder()
+                .setUrl("https://tk-lorddarthart-justdo.firebaseapp.com")
+                .setHandleCodeInApp(true)
+                .setAndroidPackageName(activity!!.packageName, false, null)
+                .build()
+        view.btnSendRequest.setOnClickListener {
+            if (isValidEmailAddress(view.tvEmailResetPassword.text.toString())) {
+                FirebaseAuth.getInstance().sendPasswordResetEmail(view.tvEmailResetPassword.text.toString(), actionCodeSettings)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Snackbar.make(view, "Password reset instructions have been sent. Please check your email", Snackbar.LENGTH_LONG).show()
+                                fragmentManager!!.beginTransaction().replace(R.id.frPWReset, ResetPasswordEnterFragment()).commit()
+                            }
+                        }
+            }
+        }
+    }
+
+    fun isValidEmailAddress(email: String): Boolean {
+        return EmailValidator.getInstance().isValid(email)
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import kotlinx.android.synthetic.main.fragment_log_in.view.*
+import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -50,17 +52,23 @@ class EnterFragment : Fragment() {
         var fragment: Fragment?
         btnSignUp.setOnClickListener {
             fragment = SignUpFragment()
-            val transaction = fragmentManager!!.beginTransaction()
-            transaction.replace(R.id.frEnter, fragment!!)
-            transaction.commit()
+            val bundle = Bundle()
+            if (childFragmentManager.fragments[0].view?.tvLogInEmail?.text.toString()!="") {
+                bundle.putString("email", childFragmentManager.fragments[0].view?.tvLogInEmail?.text.toString())
+            }
+            fragment!!.arguments = bundle
+            fragmentManager!!.beginTransaction().replace(R.id.frEnter, fragment!!).commit()
             btnLogIn.setTextColor(view.resources.getColor(R.color.txtDisColor))
             btnSignUp.setTextColor(view.resources.getColor(R.color.txtColor))
         }
         btnLogIn.setOnClickListener {
             fragment = LogInFragment()
-            val transaction = fragmentManager!!.beginTransaction()
-            transaction.replace(R.id.frEnter, fragment!!)
-            transaction.commit()
+            val bundle = Bundle()
+            if (childFragmentManager.fragments[0].view?.tvSignUpEmail?.text.toString()!="") {
+                bundle.putString("email", childFragmentManager.fragments[0].view?.tvSignUpEmail?.text.toString())
+            }
+            fragment!!.arguments = bundle
+            fragmentManager!!.beginTransaction().replace(R.id.frEnter, fragment!!).commit()
             btnSignUp.setTextColor(view.resources.getColor(R.color.txtDisColor))
             btnLogIn.setTextColor(view.resources.getColor(R.color.txtColor))
         }

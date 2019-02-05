@@ -3,6 +3,7 @@ package tk.lorddarthart.justdo
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +11,14 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 import java.util.regex.Pattern
 import android.widget.Toast
-import com.google.firebase.auth.AuthResult
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.fragment_log_in.view.*
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import org.apache.commons.validator.routines.EmailValidator
+
+
+
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,12 +50,17 @@ class SignUpFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_sign_up, container, false)
         container?.removeAllViews()
-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mAuth = FirebaseAuth.getInstance()
+        if (arguments!=null && arguments!!.containsKey("email")) {
+            view.tvSignUpEmail.setText(arguments!!.getString("email"))
+        }
         view.btnSignUp.setOnClickListener {
             view.tilSignUpEmail.error = null
             view.tvSignUpPassword.error = null
@@ -63,17 +72,16 @@ class SignUpFragment : Fragment() {
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(activity!!) { task ->
                             if (task.isSuccessful) {
-                                Toast.makeText(context, "Sign Up is successful",
-                                        Toast.LENGTH_SHORT).show()
-                                fragmentManager!!.beginTransaction().replace(R.id.frEnter, LogInFragment()).commit()
+                                mAuth.signInWithEmailAndPassword(email, password)
+                                sendVerificationEmail(view)
                             } else {
-                                Toast.makeText(context, "Authentication failed.",
+                                Snackbar.make(view, "Sign Up failed",
                                         Toast.LENGTH_SHORT).show()
                             }
                         }
             } else {
                 if (password!=confirmpassword) {
-                    view.tilSignUpConfirmPassword.error = "passwords are not similar"
+                    view.tilSignUpConfirmPassword.error = "passwords don't match"
                 }
                 if (!isValidEmailAddress(tvSignUpEmail.text.toString())) {
                     view.tilSignUpEmail.error = "email is not valid"
@@ -82,16 +90,32 @@ class SignUpFragment : Fragment() {
                     view.tilSignUpPassword.error = "password is not valid"
                 }
                 if (email=="") {
-                    view.tilSignUpEmail.error = "email must not be empty"
+                    view.tilSignUpEmail.error = "email can't be empty"
                 }
                 if (password=="") {
-                    view.tilSignUpPassword.error = "password must not be empty"
+                    view.tilSignUpPassword.error = "password can't be empty"
                 }
                 if (confirmpassword=="") {
-                    view.tilSignUpConfirmPassword.error = "password must not be empty"
+                    view.tilSignUpConfirmPassword.error = "password confirmation can't be empty"
                 }
             }
         }
+    }
+
+    private fun sendVerificationEmail(view: View) {
+        val user = FirebaseAuth.getInstance().currentUser
+
+        user!!.sendEmailVerification()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        FirebaseAuth.getInstance().signOut()
+                        Snackbar.make(view, "Email verification has been sent. Please check your email",
+                                Toast.LENGTH_SHORT).show()
+                        fragmentManager!!.beginTransaction().replace(R.id.frEnter, LogInFragment()).commit()
+                    } else {
+                        Snackbar.make(view, "", Snackbar.LENGTH_LONG).show()
+                    }
+                }
     }
 
     fun isValidEmailAddress(email: String): Boolean {

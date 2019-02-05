@@ -36,6 +36,7 @@ dependencies {
     // Firebase
     implementation 'com.google.firebase:firebase-core:16.0.7'
     implementation 'com.google.firebase:firebase-auth:16.1.0'
+    implementation 'com.google.firebase:firebase-dynamic-links:16.1.5'
 
     // Email Validator
     implementation 'commons-validator:commons-validator:1.6'

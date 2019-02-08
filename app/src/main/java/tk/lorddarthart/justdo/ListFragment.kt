@@ -2,18 +2,19 @@ package tk.lorddarthart.justdo
 
 
 import android.annotation.SuppressLint
+import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.android.synthetic.main.fragment_list.view.*
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,19 +46,46 @@ class ListFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         container?.removeAllViews()
-        var sdf = SimpleDateFormat("dd.MM.yyyy")
-        FirebaseFirestore.getInstance().collection("todo").document(FirebaseAuth.getInstance().currentUser!!.uid).collection("").get().addOnSuccessListener { tasks ->
-            if (!tasks.isEmpty) {
-                for (docSnap in tasks.documents) {
+        val view = inflater.inflate(R.layout.fragment_list, container, false)
+        val sdf = SimpleDateFormat("dd.MM.yyyy")
+        val sdf2 = SimpleDateFormat("EEE, dd.MM.yyyy")
+        val todo: MutableList<ToDoItem> = mutableListOf()
+        val tododay: MutableList<ToDoItemDay> = mutableListOf()
+        if (FirebaseAuth.getInstance().currentUser!=null) {
+            FirebaseFirestore.getInstance().collection("todo").document(FirebaseAuth.getInstance().currentUser!!.uid).collection("list").get().addOnSuccessListener { tasks ->
+                if (!tasks.isEmpty) {
+                    for (docSnap in tasks.documents) {
+                        FirebaseFirestore.getInstance().collection("todo").document(FirebaseAuth.getInstance().currentUser!!.uid).collection("list").document(docSnap.id).collection("todoofday").get().addOnSuccessListener { tasks2 ->
+                            if (!tasks2.isEmpty) {
+                                tododay.clear()
+                                todo.clear()
+                                val title: String? = sdf2.format(sdf.parse(docSnap.getString("day")))
+                                for (g in tasks.documents) {
+                                    for (i in tasks2.documents) {
+                                        todo.add(ToDoItem(i.getLong("priority"), i.getString("title"), i.getString("comment"), i.getLong("timestamp"), i.getLong("notify"), i.getBoolean("completed")))
+                                    }
+                                    todo.sortWith(CompareObjects)
+                                    tododay.add(ToDoItemDay(title, todo))
+                                }
+                                initializeAdapter(view!!, tododay)
+                            }
+                        }
+                    }
+                } else {
 
                 }
-            } else {
-
             }
         }
-        return inflater.inflate(R.layout.fragment_list, container, false)
+        return view
     }
 
+    private fun initializeAdapter(view: View, todoofday: List<ToDoItemDay>) {
+        val recyclerViewAdapter = RecyclerViewAdapter(activity, todoofday)
+        view.rvToDo.adapter = recyclerViewAdapter
+        recyclerViewAdapter.setReturnCount(todoofday.size)
+        val layoutManager = LinearLayoutManager(activity)
+        view.rvToDo.layoutManager = layoutManager
+    }
 
     companion object {
         /**

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/clToDoDate"
@@ -30,12 +30,12 @@
             android:layout_width="12.76dp"
             android:layout_height="6.09dp"
             android:layout_marginEnd="28dp"
+            android:contentDescription="@string/todo"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="@+id/tvToDoDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvToDoDate"
-            app:srcCompat="@drawable/ic_arrow_up"
-            android:contentDescription="@string/todo" />
+            app:srcCompat="@drawable/ic_arrow_down" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -43,7 +43,10 @@
         android:id="@+id/listToDo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="7dp"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/clToDoDate"
         tools:layout_editor_absoluteX="0dp" />
 

@@ -4,6 +4,7 @@ package tk.lorddarthart.justdo
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -75,6 +76,10 @@ class ListFragment : Fragment() {
 
                 }
             }
+        }
+        view.btnAdd.setOnClickListener {
+            activity!!.finish()
+            startActivity(Intent(activity!!, AddActivity::class.java))
         }
         return view
     }

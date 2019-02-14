@@ -1,21 +1,20 @@
 package tk.lorddarthart.justdo
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_log_in.view.*
+import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 import org.apache.commons.validator.routines.EmailValidator
-import com.google.firebase.dynamiclinks.DynamicLink
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,6 +67,7 @@ class LogInFragment : Fragment() {
             if (view.tvLogInEmail.text!=null && view.tvLogInEmail.text.toString() != "") {
                 intent.putExtra("email", view.tvLogInEmail.text.toString())
             }
+            activity!!.finish()
             startActivity(intent)
         }
         if (activity!!.intent.hasExtra("email")) {
@@ -108,49 +108,14 @@ class LogInFragment : Fragment() {
                 }
             }
         }
+        view.ivLogInHidePass.tag = R.drawable.ic_eye_unvisible
+        view.ivLogInHidePass.setOnClickListener {
+            HidePass().clickHidePass(view.ivLogInHidePass, view.tvLogInPassword)
+        }
     }
 
-    fun isValidEmailAddress(email: String): Boolean {
+    private fun isValidEmailAddress(email: String): Boolean {
         return EmailValidator.getInstance().isValid(email)
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed() {
-
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
     }
 
     companion object {

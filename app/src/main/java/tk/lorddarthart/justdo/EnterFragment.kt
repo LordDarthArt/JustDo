@@ -4,12 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import kotlinx.android.synthetic.main.fragment_enter.*
 import kotlinx.android.synthetic.main.fragment_log_in.view.*
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 
@@ -50,6 +52,13 @@ class EnterFragment : Fragment() {
         val txtTermsConditions = view.findViewById<TextView>(R.id.textView2)
         val txtPrivacyPolicy = view.findViewById<TextView>(R.id.textView8)
         var fragment: Fragment?
+        if (activity!!.intent.hasExtra("extraShow")) {
+            when (activity!!.intent.getStringExtra("extraShow")) {
+               "reset" -> {
+                   Snackbar.make(activity!!.findViewById(android.R.id.content), "Password reset instructions have been sent. Please check your email", Snackbar.LENGTH_LONG).show()
+                }
+            }
+        }
         btnSignUp.setOnClickListener {
             fragment = SignUpFragment()
             val bundle = Bundle()
@@ -83,35 +92,6 @@ class EnterFragment : Fragment() {
             startActivity(intent)
         }
         return view
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed() {
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
     }
 
     companion object {

@@ -5,9 +5,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 import java.util.regex.Pattern
 import android.widget.Toast
@@ -52,6 +55,14 @@ class SignUpFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up, container, false)
         container?.removeAllViews()
+        view.ivSignUpHidePassword.tag = R.drawable.ic_eye_unvisible
+        view.ivSignUpHidePassword.setOnClickListener {
+            HidePass().clickHidePass(view.ivSignUpHidePassword, view.tvSignUpPassword)
+        }
+        view.ivSignUpHideConfirmPassword.tag = R.drawable.ic_eye_unvisible
+        view.ivSignUpHideConfirmPassword.setOnClickListener {
+            HidePass().clickHidePass(view.ivSignUpHideConfirmPassword, view.tvSignUpConfirmPassword)
+        }
         return view
     }
 

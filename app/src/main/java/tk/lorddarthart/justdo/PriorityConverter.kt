@@ -5,7 +5,6 @@ import android.view.View
 class PriorityConverter {
     companion object {
         fun getPriority(priority: Long?): String {
-            lateinit var priorityString: String
             when (priority) {
                 0L -> {
                     return "Neutral"
@@ -42,6 +41,25 @@ class PriorityConverter {
                 }
             }
             return null
+        }
+
+        fun getNumber(priority: String): Long? {
+            when (priority) {
+                "Neutral" -> {
+                    return 0L
+                }
+                "Normal" -> {
+                    return 1L
+                }
+                "Important" -> {
+                    return 2L
+                }
+                "Urgently" -> {
+                    return 3L
+                }
+
+                else -> return null
+            }
         }
     }
 }

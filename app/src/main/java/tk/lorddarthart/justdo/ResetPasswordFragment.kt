@@ -1,6 +1,6 @@
 package tk.lorddarthart.justdo
 
-import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -12,9 +12,6 @@ import org.apache.commons.validator.routines.EmailValidator
 import android.support.design.widget.Snackbar
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
-
-
-
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,7 +54,6 @@ class ResetPasswordFragment : Fragment() {
         }
         val actionCodeSettings = ActionCodeSettings.newBuilder()
                 .setUrl("https://tk-lorddarthart-justdo.firebaseapp.com")
-                .setHandleCodeInApp(true)
                 .setAndroidPackageName(activity!!.packageName, false, null)
                 .build()
         view.btnSendRequest.setOnClickListener {
@@ -65,45 +61,18 @@ class ResetPasswordFragment : Fragment() {
                 FirebaseAuth.getInstance().sendPasswordResetEmail(view.tvEmailResetPassword.text.toString(), actionCodeSettings)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                Snackbar.make(view, "Password reset instructions have been sent. Please check your email", Snackbar.LENGTH_LONG).show()
-                                fragmentManager!!.beginTransaction().replace(R.id.frPWReset, ResetPasswordEnterFragment()).commit()
+                                activity!!.finish()
+                                val intent = Intent(activity!!, LogInActivity::class.java)
+                                intent.putExtra("extraShow", "reset")
+                                startActivity(intent)
                             }
                         }
             }
         }
     }
 
-    fun isValidEmailAddress(email: String): Boolean {
+    private fun isValidEmailAddress(email: String): Boolean {
         return EmailValidator.getInstance().isValid(email)
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed() {
-
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
     }
 
     companion object {

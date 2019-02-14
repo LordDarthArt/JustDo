@@ -39,7 +39,7 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.clUserLogOut.setOnClickListener{
             activity!!.finish()
-            val intent = Intent(activity!!, LoginActivity::class.java)
+            val intent = Intent(activity!!, LogInActivity::class.java)
             intent.putExtra("email", FirebaseAuth.getInstance().currentUser?.email)
             FirebaseAuth.getInstance().signOut()
             startActivity(intent)

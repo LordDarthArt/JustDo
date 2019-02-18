@@ -7,7 +7,7 @@
 
         <fragment
             android:id="@+id/frMain"
-            class="tk.lorddarthart.justdo.EnterFragment"
+            class="tk.lorddarthart.justdoitlist.EnterFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout="@layout/fragment_enter">

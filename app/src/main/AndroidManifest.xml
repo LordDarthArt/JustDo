@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="tk.lorddarthart.justdo">
+    package="tk.lorddarthart.justdoitlist">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".AddActivity"></activity>
-        <activity android:name=".ListActivity">
+        <activity android:name="tk.lorddarthart.justdoitlist.AddActivity" />
+        <activity android:name="tk.lorddarthart.justdoitlist.ListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PasswordResetActivity" />
-        <activity android:name=".AdditionalnfoActivity" />
-        <activity android:name=".LogInActivity" />
+        <activity android:name="tk.lorddarthart.justdoitlist.PasswordResetActivity" />
+        <activity android:name="tk.lorddarthart.justdoitlist.AdditionalnfoActivity" />
+        <activity android:name="tk.lorddarthart.justdoitlist.LogInActivity" />
     </application>
 
 </manifest>

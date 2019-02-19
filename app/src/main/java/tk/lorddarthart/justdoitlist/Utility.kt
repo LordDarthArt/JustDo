@@ -5,10 +5,10 @@ import android.widget.ListView
 
 
 object Utility {
-    fun setListViewHeightBasedOnChildren(listView: ListView) {
+    fun setListViewHeightBasedOnChildren(listView: ListView): Int? {
         val listAdapter = listView.adapter
                 ?: // pre-condition
-                return
+                return null
 
         var totalHeight = 0
         val desiredWidth = MeasureSpec.makeMeasureSpec(listView.width, MeasureSpec.AT_MOST)
@@ -22,5 +22,6 @@ object Utility {
         params.height = totalHeight + listView.dividerHeight * (listAdapter.count - 1)
         listView.layoutParams = params
         listView.requestLayout()
+        return params.height
     }
 }

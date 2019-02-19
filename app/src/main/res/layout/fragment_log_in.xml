@@ -105,10 +105,9 @@
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_eye_unvisible"
+                    app:srcCompat="@drawable/ic_eye_unvisible"
                     app:layout_constraintBottom_toBottomOf="@+id/tvLogInPassword"
-                    app:layout_constraintEnd_toEndOf="@+id/tvLogInPassword"
-                    app:srcCompat="@drawable/ic_eye_visible" />
+                    app:layout_constraintEnd_toEndOf="@+id/tvLogInPassword"/>
             </android.support.constraint.ConstraintLayout>
 
         </android.support.design.widget.TextInputLayout>

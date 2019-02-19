@@ -13,7 +13,9 @@ class PasswordResetActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        val intent = Intent(this, LogInActivity::class.java)
+        intent.putExtra("email", getIntent().extras.getString("email", ""))
         finish()
-        startActivity(Intent(this, LogInActivity::class.java))
+        startActivity(intent)
     }
 }

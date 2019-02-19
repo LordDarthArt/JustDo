@@ -53,11 +53,11 @@ class LogInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (arguments!=null && arguments!!.containsKey("email")) {
-            view.tvLogInEmail.setText(arguments!!.getString("email"))
-        }
         if (activity!!.intent.hasExtra("email")) {
             view.tvLogInEmail.setText(activity!!.intent.getStringExtra("email"))
+        }
+        if (arguments!=null && arguments!!.containsKey("email")) {
+            view.tvLogInEmail.setText(arguments!!.getString("email"))
         }
         view.tvLogInFrgt?.setOnClickListener {
             val intent = Intent(activity, PasswordResetActivity::class.java)
@@ -66,9 +66,6 @@ class LogInFragment : Fragment() {
             }
             activity!!.finish()
             startActivity(intent)
-        }
-        if (activity!!.intent.hasExtra("email")) {
-            view.tvLogInEmail.setText(activity!!.intent.getStringExtra("email"))
         }
         view.btnLogIn.setOnClickListener {
             val email = view.tvLogInEmail.text.toString()

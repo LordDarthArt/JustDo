@@ -20,9 +20,6 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [LogInFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
  * Use the [LogInFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
@@ -59,7 +56,7 @@ class EnterFragment : Fragment() {
         btnSignUp.setOnClickListener {
             fragment = SignUpFragment()
             val bundle = Bundle()
-            if (childFragmentManager.fragments[0].view?.tvLogInEmail?.text.toString()!="") {
+            if (!(childFragmentManager.fragments[0].view?.tvLogInEmail?.text == null&&childFragmentManager.fragments[0].view?.tvLogInEmail?.text.toString() == "")) {
                 bundle.putString("email", childFragmentManager.fragments[0].view?.tvLogInEmail?.text.toString())
             }
             fragment!!.arguments = bundle
@@ -70,7 +67,7 @@ class EnterFragment : Fragment() {
         btnLogIn.setOnClickListener {
             fragment = LogInFragment()
             val bundle = Bundle()
-            if (childFragmentManager.fragments[0].view?.tvSignUpEmail?.text.toString()!="") {
+            if (!(childFragmentManager.fragments[0].view?.tvLogInEmail?.text == null&&childFragmentManager.fragments[0].view?.tvSignUpEmail?.text.toString() == "")) {
                 bundle.putString("email", childFragmentManager.fragments[0].view?.tvSignUpEmail?.text.toString())
             }
             fragment!!.arguments = bundle

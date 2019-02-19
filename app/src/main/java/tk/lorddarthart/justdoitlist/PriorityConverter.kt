@@ -25,6 +25,7 @@ class PriorityConverter {
             }
         }
 
+        @Suppress("DEPRECATION")
         fun getColor(priority: String, view: View?): Int? {
             when (priority) {
                 "Neutral" -> {

@@ -1,17 +1,15 @@
 package tk.lorddarthart.justdoitlist.application.main
 
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_list.*
+import kotlinx.android.synthetic.main.activity_main.*
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.application.main.profile.view.AccountFragment
 import tk.lorddarthart.justdoitlist.application.main.todo.view.ListFragment
-import tk.lorddarthart.justdoitlist.application.signin.SignInActivity
 
 private const val TAG = "ListActivity"
 
@@ -34,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list)
+        setContentView(R.layout.activity_main)
         supportActionBar!!.title = "To Do List"
         if (intent.hasExtra("extraShow")) {
             when (intent.getStringExtra("extraShow")) {

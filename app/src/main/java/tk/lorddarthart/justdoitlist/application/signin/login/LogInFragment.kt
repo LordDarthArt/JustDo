@@ -1,6 +1,7 @@
 package tk.lorddarthart.justdoitlist.application.signin.login
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -15,7 +16,9 @@ import org.apache.commons.validator.routines.EmailValidator
 import tk.lorddarthart.justdoitlist.utils.HidePass
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.application.main.MainActivity
-import tk.lorddarthart.justdoitlist.application.signin.pwreset.PasswordResetActivity
+import tk.lorddarthart.justdoitlist.application.signin.SignInActivity
+import tk.lorddarthart.justdoitlist.application.signin.passwordreset.ResetPasswordFragment
+import tk.lorddarthart.justdoitlist.utils.IntentExtraConstNames
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -26,6 +29,7 @@ class LogInFragment : Fragment() {
     private var param2: String? = null
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mView: View
+    private lateinit var mActivity: SignInActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +37,11 @@ class LogInFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        mActivity = context as SignInActivity
     }
 
     @SuppressLint("SetTextI18n", "CommitTransaction")
@@ -53,15 +62,13 @@ class LogInFragment : Fragment() {
             view.tvLogInEmail.setText(activity!!.intent.getStringExtra("email"))
         }
         view.tvLogInFrgt?.setOnClickListener {
-            val intent = Intent(activity, PasswordResetActivity::class.java)
-            if (view.tvLogInEmail.text!=null && view.tvLogInEmail.text.toString() != "") {
-                intent.putExtra("email", view.tvLogInEmail.text.toString())
-            }
-            activity!!.finish()
-            startActivity(intent)
+//            if (view.tvLogInEmail.text!=null && view.tvLogInEmail.text.toString() != "") {
+//                intent.putExtra(IntentExtraConstNames.mEmail, view.tvLogInEmail.text.toString())
+//            } It's for the future
+            mActivity.supportFragmentManager.beginTransaction().add(R.id.fragment_main, ResetPasswordFragment()).addToBackStack(null).commit()
         }
-        if (activity!!.intent.hasExtra("email")) {
-            view.tvLogInEmail.setText(activity!!.intent.getStringExtra("email"))
+        if (activity!!.intent.hasExtra(IntentExtraConstNames.mEmail)) {
+            view.tvLogInEmail.setText(activity!!.intent.getStringExtra(IntentExtraConstNames.mEmail))
         }
         view.btnLogIn.setOnClickListener {
             val email = view.tvLogInEmail.text.toString()

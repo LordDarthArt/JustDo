@@ -12,10 +12,10 @@ class AdditionalnfoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_additional_info)
         if (intent!=null&&intent.hasExtra("act")) {
             if (intent.extras?.getString("act").equals("tc")) {
-                textView3.text = resources.getString(R.string.tctxt)
+                textView3.text = resources.getString(R.string.terms_condition_txt)
             }
             if (intent.extras?.getString("act").equals("pp")) {
-                textView3.text = resources.getString(R.string.pptxt)
+                textView3.text = resources.getString(R.string.privacy_policy_txt)
             }
         }
         btnAIOK.setOnClickListener { this.finish() }

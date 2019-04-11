@@ -1,17 +1,18 @@
 package tk.lorddarthart.justdoitlist.application.signin
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import tk.lorddarthart.justdoitlist.R
+import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import tk.lorddarthart.justdoitlist.application.signin.login.LogInFragment
+import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.application.signin.view.SignInFragment
+import tk.lorddarthart.justdoitlist.utils.OnBackPressedListener
 
 
 class SignInActivity : AppCompatActivity() {
 
     private var doubleBackToExitPressedOnce = false
+    private var onBackPressedListener: OnBackPressedListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,14 +21,22 @@ class SignInActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            this.finishAffinity()
-            return
+        if (onBackPressedListener != null) {
+            onBackPressedListener!!.doBack()
+        } else {
+            if (doubleBackToExitPressedOnce) {
+                this.finishAffinity()
+                return
+            }
+
+            this.doubleBackToExitPressedOnce = true
+            Toast.makeText(this, "Нажмите еще раз для выхода", Toast.LENGTH_SHORT).show()
+
+            Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
         }
+    }
 
-        this.doubleBackToExitPressedOnce = true
-        Toast.makeText(this, "Нажмите еще раз для выхода", Toast.LENGTH_SHORT).show()
-
-        Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+    fun setOnBackPressedListener(onBackPressedListener: OnBackPressedListener) {
+        this.onBackPressedListener = onBackPressedListener
     }
 }

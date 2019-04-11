@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Задачи</string>
+    <string name="login">Войти</string>
+    <string name="signup">Регистрация</string>
+    <string name="password">Пароль</string>
+    <string name="confirmpw">Подтвердите пароль</string>
+    <string name="frgt">Забыли пароль?</string>
+    <string name="hello_blank_fragment">Нахуй мне переводить этот текст?</string>
+    <string name="tc">Условиями и положениями</string>
+    <string name="agree">"Выполняя вход в приложение, Вы соглашаетесь с "</string>
+    <string name="and">и</string>
+    <string name="pp">Политикой конфиденциальности</string>
+    <string name="logo">Логотип</string>
+    <string name="agreeai">Согласен</string>
+    <string name="asking_for_reset">Пожалуйста введите свой адрес электронной почты чтобы получить инструкции по восстановлению пароля</string>
+    <string name="send_request">отправить запрос</string>
+    <string name="reset_password">Сбросить пароль</string>
+    <string name="code">Код</string>
+    <string name="change_password">Сменить пароль</string>
+    <string name="navmain">Главная</string>
+    <string name="navaccount">Профиль</string>
+    <string name="exit">Выход</string>
+    <string name="priority_important">Важно</string>
+    <string name="priority_normal">Обычно</string>
+    <string name="button_add_description">Кнопка \"добавить\"</string>
+    <string name="priority_urgently">Срочно</string>
+    <string name="priority_neutral">Нейтрально</string>
+</resources>

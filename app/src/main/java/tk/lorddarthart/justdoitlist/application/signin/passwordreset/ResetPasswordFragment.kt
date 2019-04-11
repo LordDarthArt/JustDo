@@ -1,5 +1,6 @@
-package tk.lorddarthart.justdoitlist.application.signin.pwreset
+package tk.lorddarthart.justdoitlist.application.signin.passwordreset
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -12,15 +13,23 @@ import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.application.signin.SignInActivity
+import tk.lorddarthart.justdoitlist.utils.BaseBackPressedListener
+import tk.lorddarthart.justdoitlist.utils.IntentExtraConstNames
+import tk.lorddarthart.justdoitlist.utils.IntentExtraConstValues
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class ResetPasswordFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var mView: View
+    private lateinit var mActivity: SignInActivity
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        mActivity = context as SignInActivity
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +43,11 @@ class ResetPasswordFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 //        Inflate the layout for this fragment
 //        container?.removeAllViews() - Maybe i don't need this???
+        mActivity.setOnBackPressedListener(BaseBackPressedListener(mActivity))
         mView = inflater.inflate(R.layout.fragment_reset_password, container, false)
+
+        // TODO: do something
+
         return mView
     }
 
@@ -54,7 +67,7 @@ class ResetPasswordFragment : Fragment() {
                             if (task.isSuccessful) {
                                 activity!!.finish()
                                 val intent = Intent(activity!!, SignInActivity::class.java)
-                                intent.putExtra("extraShow", "reset")
+                                intent.putExtra(IntentExtraConstNames.mShowExtraNotifications, IntentExtraConstValues.mPasswordResetSuccessful)
                                 startActivity(intent)
                             }
                         }

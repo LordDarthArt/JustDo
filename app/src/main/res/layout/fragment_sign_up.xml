@@ -118,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="@string/confirm_password"
+                    android:hint="@string/confirmpw"
                     android:importantForAutofill="no"
                     android:inputType="textPassword"
                     android:textColorHint="@color/txtDisColor"

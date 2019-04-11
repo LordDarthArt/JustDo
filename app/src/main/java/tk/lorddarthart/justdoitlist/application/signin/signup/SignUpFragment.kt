@@ -105,7 +105,7 @@ class SignUpFragment : Fragment() {
                         FirebaseAuth.getInstance().signOut()
                         Snackbar.make(view, "Email verification has been sent. Please check your email",
                                 Toast.LENGTH_SHORT).show()
-                        fragmentManager!!.beginTransaction().replace(R.id.frEnter, LogInFragment()).commit()
+                        fragmentManager!!.beginTransaction().replace(R.id.fragment_enter, LogInFragment()).commit()
                     } else {
                         Snackbar.make(view, "", Snackbar.LENGTH_LONG).show()
                     }

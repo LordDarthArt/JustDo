@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EnterFragment">
+    tools:context=".application.signin.view.SignInFragment">
 
     <TextView
         android:id="@+id/textView2"
@@ -113,7 +113,7 @@
 
     <fragment
         android:id="@+id/frEnter"
-        class="tk.lorddarthart.justdoitlist.LogInFragment"
+        class="tk.lorddarthart.justdoitlist.application.signin.login.LogInFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"

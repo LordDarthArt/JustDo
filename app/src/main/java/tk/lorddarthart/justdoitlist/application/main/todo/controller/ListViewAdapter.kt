@@ -14,33 +14,29 @@ import tk.lorddarthart.justdoitlist.application.main.todo.model.ToDoItemModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ListViewAdapter : ArrayAdapter<ToDoItemModel> {
-    private var mObjects: List<ToDoItemModel>
-    private var resource: Int
-    internal var context: Context
+class ListViewAdapter(
+        internal var context: Context,
+        private var resource: Int,
+        objects: List<ToDoItemModel>
+) : ArrayAdapter<ToDoItemModel>(context, resource, objects) {
+    private var mObjects: List<ToDoItemModel> = objects
 
-    constructor(context: Context, resource: Int, objects: List<ToDoItemModel>) : super(context, resource, objects) {
-        this.context = context
-        this.resource = resource
-        this.mObjects = objects
-    }
-
-    // кол-во элементов
+    // items count
     override fun getCount(): Int {
         return mObjects.size
     }
 
-    // элемент по позиции
+    // element by position
     override fun getItem(position: Int): ToDoItemModel? {
         return mObjects[position]
     }
 
-    // id по позиции
+    // item id by position
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
 
-    // товар по позиции
+    // ToDoItem by position
     private fun getToDoItem(position: Int): ToDoItemModel {
         return getItem(position) as ToDoItemModel
     }

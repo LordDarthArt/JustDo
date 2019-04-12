@@ -26,4 +26,10 @@
     <string name="button_add_description">Кнопка \"добавить\"</string>
     <string name="priority_urgently">Срочно</string>
     <string name="priority_neutral">Нейтрально</string>
+    <string name="double_press_exit">Пожалуйста, нажмите еще раз для выхода</string>
+    <string name="btn_exit">Выйти</string>
+    <string name="btn_stay">Остаться</string>
+    <string name="disagreeai">Не согласен</string>
+    <string name="todo_added_successfully">Новая задача успешно добавлена</string>
+    <string name="todo_title">Список задач</string>
 </resources>

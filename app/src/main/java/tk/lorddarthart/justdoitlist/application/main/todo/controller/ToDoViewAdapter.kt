@@ -12,14 +12,13 @@ import android.widget.TextView
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.single_item_todo.view.*
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.application.main.todo.model.ToDoItemModel
 import tk.lorddarthart.justdoitlist.application.main.todo.model.ToDoItemDayModel
+import tk.lorddarthart.justdoitlist.application.main.todo.model.ToDoItemModel
 import tk.lorddarthart.justdoitlist.utils.Utility
 import java.text.SimpleDateFormat
 
 
-
-class RecyclerViewAdapter(internal var context: Context?, internal var objects: List<ToDoItemDayModel>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class ToDoViewAdapter(internal var context: Context?, internal var objects: List<ToDoItemDayModel>) : RecyclerView.Adapter<ToDoViewAdapter.ViewHolder>() {
     internal lateinit var view: View
     private lateinit var viewHolder: ViewHolder
     private var size: Int = 0
@@ -43,6 +42,8 @@ class RecyclerViewAdapter(internal var context: Context?, internal var objects: 
                 holder.listToDo.visibility = View.VISIBLE
                 initializeListView(holder.listToDo, objects.mListToDoModel)
                 holder.ivToDoArrow.setImageDrawable(view.context.resources.getDrawable(R.drawable.ic_arrow_up))
+                viewHolder.itemView.requestLayout()
+                //viewHolder.itemView.layoutParams=RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT)
             }
         }
     }
@@ -73,8 +74,8 @@ class RecyclerViewAdapter(internal var context: Context?, internal var objects: 
         adapter.notifyDataSetChanged()
         list.adapter = adapter
         Utility.setListViewHeightBasedOnChildren(list)
-        view.layoutParams=RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT)
-        list.divider==null
-        list.dividerHeight==0
+//        view.layoutParams=RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT)
+        list.divider = null
+        list.dividerHeight = 0
     }
 }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".application.signin.policy.AdditionalnfoActivity">
+    android:background="@android:color/white"
+    tools:context=".application.signin.additionalInfo.AdditionalInfoFragment">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -39,9 +40,9 @@
         android:id="@+id/btnAINotOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_gradient"
+        android:background="@android:color/white"
         android:text="@string/agreeai"
-        android:textColor="@android:color/white"
+        android:textColor="@color/txtColor"
         app:layout_constraintBottom_toBottomOf="@+id/btnAIOK"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,6 +68,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -1,7 +1,6 @@
 package tk.lorddarthart.justdoitlist.application.signin.view
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -13,8 +12,8 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_log_in.view.*
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.application.signin.SignInActivity
-import tk.lorddarthart.justdoitlist.application.signin.policy.AdditionalnfoActivity
+import tk.lorddarthart.justdoitlist.application.BaseActivity
+import tk.lorddarthart.justdoitlist.application.signin.additionalInfo.AdditionalInfoFragment
 import tk.lorddarthart.justdoitlist.application.signin.login.LogInFragment
 import tk.lorddarthart.justdoitlist.application.signin.signup.SignUpFragment
 import tk.lorddarthart.justdoitlist.utils.IntentExtraConstValues
@@ -28,12 +27,12 @@ class SignInFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var mView: View
-    private lateinit var mActivity: SignInActivity
-    private lateinit var fragment: Fragment
+    private lateinit var mActivity: BaseActivity
+    private lateinit var mFragment: Fragment
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        mActivity = context as SignInActivity
+        mActivity = context as BaseActivity
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +45,7 @@ class SignInFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        mView = inflater.inflate(R.layout.fragment_enter, container, false)
+        mView = inflater.inflate(R.layout.fragment_sign_in, container, false)
         mActivity.supportFragmentManager.beginTransaction().replace(R.id.fragment_enter, LogInFragment()).commit()
         val btnSignUp = mView.findViewById<Button>(R.id.button_sign_up)
         val btnLogIn = mView.findViewById<Button>(R.id.button_log_in)
@@ -60,36 +59,40 @@ class SignInFragment : Fragment() {
             }
         }
         btnSignUp.setOnClickListener {
-            fragment = SignUpFragment()
+            mFragment = SignUpFragment()
             val bundle = Bundle()
-            if (childFragmentManager.fragments[0].view?.tvLogInEmail?.text.toString()!="") {
-                bundle.putString(IntentExtraConstNames.mEmail, childFragmentManager.fragments[0].view?.tvLogInEmail?.text.toString())
+            if (mActivity.supportFragmentManager.fragments[1].view?.tvLogInEmail?.text.toString()!="") {
+                bundle.putString(IntentExtraConstNames.mEmail, mActivity.supportFragmentManager.fragments[1].view?.tvLogInEmail?.text.toString())
             }
-            fragment.arguments = bundle
-            fragmentManager!!.beginTransaction().replace(R.id.fragment_enter, fragment).commit()
+            mFragment.arguments = bundle
+            mActivity.supportFragmentManager.beginTransaction().replace(R.id.fragment_enter, mFragment).commit()
             btnLogIn.setTextColor(mView.resources.getColor(R.color.txtDisColor))
             btnSignUp.setTextColor(mView.resources.getColor(R.color.txtColor))
         }
         btnLogIn.setOnClickListener {
-            fragment = LogInFragment()
+            mFragment = LogInFragment()
             val bundle = Bundle()
-            if (childFragmentManager.fragments[0].view?.tvSignUpEmail?.text.toString()!="") {
-                bundle.putString(IntentExtraConstNames.mEmail, childFragmentManager.fragments[0].view?.tvSignUpEmail?.text.toString())
+            if (mActivity.supportFragmentManager.fragments[1].view?.tvSignUpEmail?.text.toString()!="") {
+                bundle.putString(IntentExtraConstNames.mEmail, mActivity.supportFragmentManager.fragments[1].view?.tvSignUpEmail?.text.toString())
             }
-            fragment.arguments = bundle
-            fragmentManager!!.beginTransaction().replace(R.id.fragment_enter, fragment).commit()
+            mFragment.arguments = bundle
+            mActivity.supportFragmentManager.beginTransaction().replace(R.id.fragment_enter, mFragment).commit()
             btnSignUp.setTextColor(mView.resources.getColor(R.color.txtDisColor))
             btnLogIn.setTextColor(mView.resources.getColor(R.color.txtColor))
         }
         txtTermsConditions.setOnClickListener {
-            val intent = Intent(activity, AdditionalnfoActivity::class.java)
-            intent.putExtra(IntentExtraConstNames.mActivity,IntentExtraConstValues.mTermsConditions)
-            startActivity(intent)
+            mFragment = AdditionalInfoFragment()
+            val bundle = Bundle()
+            bundle.putString(IntentExtraConstNames.mActivity,IntentExtraConstValues.mTermsConditions)
+            mFragment.arguments = bundle
+            mActivity.supportFragmentManager.beginTransaction().add(R.id.fragment_main, mFragment).addToBackStack(null).commit()
         }
         txtPrivacyPolicy.setOnClickListener {
-            val intent = Intent(activity, AdditionalnfoActivity::class.java)
-            intent.putExtra(IntentExtraConstNames.mActivity,IntentExtraConstValues.mPrivacyPolicy)
-            startActivity(intent)
+            mFragment = AdditionalInfoFragment()
+            val bundle = Bundle()
+            bundle.putString(IntentExtraConstNames.mActivity,IntentExtraConstValues.mPrivacyPolicy)
+            mFragment.arguments = bundle
+            mActivity.supportFragmentManager.beginTransaction().add(R.id.fragment_main, mFragment).addToBackStack(null).commit()
         }
         return mView
     }

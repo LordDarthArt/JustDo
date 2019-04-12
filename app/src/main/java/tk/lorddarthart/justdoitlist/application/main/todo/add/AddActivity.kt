@@ -4,7 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.application.main.MainActivity
+import tk.lorddarthart.justdoitlist.application.main.MainFragment
 
 class AddActivity : AppCompatActivity() {
 
@@ -16,6 +16,6 @@ class AddActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, MainFragment::class.java))
     }
 }

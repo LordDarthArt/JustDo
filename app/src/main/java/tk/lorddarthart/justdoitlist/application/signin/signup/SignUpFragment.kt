@@ -46,7 +46,7 @@ class SignUpFragment : Fragment() {
         mView.ivSignUpHideConfirmPassword.setOnClickListener {
             HidePass().clickHidePass(mView.ivSignUpHideConfirmPassword, mView.tvSignUpConfirmPassword)
         }
-        return view
+        return mView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

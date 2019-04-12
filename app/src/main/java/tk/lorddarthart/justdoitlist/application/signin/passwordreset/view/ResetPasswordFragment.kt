@@ -1,9 +1,10 @@
-package tk.lorddarthart.justdoitlist.application.signin.passwordreset
+package tk.lorddarthart.justdoitlist.application.signin.passwordreset.view
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import org.apache.commons.validator.routines.EmailValidator
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.application.signin.SignInActivity
+import tk.lorddarthart.justdoitlist.application.BaseActivity
 import tk.lorddarthart.justdoitlist.utils.BaseBackPressedListener
 import tk.lorddarthart.justdoitlist.utils.IntentExtraConstNames
 import tk.lorddarthart.justdoitlist.utils.IntentExtraConstValues
@@ -24,11 +25,11 @@ class ResetPasswordFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var mView: View
-    private lateinit var mActivity: SignInActivity
+    private lateinit var mActivity: BaseActivity
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        mActivity = context as SignInActivity
+        mActivity = context as BaseActivity
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,8 +54,8 @@ class ResetPasswordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (activity!!.intent.hasExtra("email")) {
-            view.tvEmailResetPassword.setText(activity!!.intent.getStringExtra("email"))
+        if (activity!!.intent.hasExtra(IntentExtraConstNames.mEmail)) {
+            view.tvEmailResetPassword.setText(activity!!.intent.getStringExtra(IntentExtraConstNames.mEmail))
         }
         val actionCodeSettings = ActionCodeSettings.newBuilder()
                 .setUrl("https://tk-lorddarthart-justdo.firebaseapp.com")
@@ -66,9 +67,11 @@ class ResetPasswordFragment : Fragment() {
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 activity!!.finish()
-                                val intent = Intent(activity!!, SignInActivity::class.java)
+                                val intent = Intent(activity!!, BaseActivity::class.java)
                                 intent.putExtra(IntentExtraConstNames.mShowExtraNotifications, IntentExtraConstValues.mPasswordResetSuccessful)
                                 startActivity(intent)
+                            } else {
+                                Log.d(TAG, "Can't send password reset, the problem is: ", task.exception)
                             }
                         }
             }

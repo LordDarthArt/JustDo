@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".application.main.MainActivity">
+    android:background="@android:color/white"
+    tools:context=".application.main.MainFragment">
 
-    <fragment
-        class="tk.lorddarthart.justdoitlist.application.main.todo.view.ListFragment"
+    <FrameLayout
+        android:id="@+id/fragment_todo"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_list"
-        android:id="@+id/frToDo" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottomNavigationView"

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +16,9 @@ import kotlinx.android.synthetic.main.fragment_log_in.view.*
 import org.apache.commons.validator.routines.EmailValidator
 import tk.lorddarthart.justdoitlist.utils.HidePass
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.application.main.MainActivity
-import tk.lorddarthart.justdoitlist.application.signin.SignInActivity
-import tk.lorddarthart.justdoitlist.application.signin.passwordreset.ResetPasswordFragment
+import tk.lorddarthart.justdoitlist.application.main.MainFragment
+import tk.lorddarthart.justdoitlist.application.BaseActivity
+import tk.lorddarthart.justdoitlist.application.signin.passwordreset.view.ResetPasswordFragment
 import tk.lorddarthart.justdoitlist.utils.IntentExtraConstNames
 
 private const val ARG_PARAM1 = "param1"
@@ -29,7 +30,7 @@ class LogInFragment : Fragment() {
     private var param2: String? = null
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mView: View
-    private lateinit var mActivity: SignInActivity
+    private lateinit var mActivity: BaseActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +42,7 @@ class LogInFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        mActivity = context as SignInActivity
+        mActivity = context as BaseActivity
     }
 
     @SuppressLint("SetTextI18n", "CommitTransaction")
@@ -62,10 +63,13 @@ class LogInFragment : Fragment() {
             view.tvLogInEmail.setText(activity!!.intent.getStringExtra("email"))
         }
         view.tvLogInFrgt?.setOnClickListener {
-//            if (view.tvLogInEmail.text!=null && view.tvLogInEmail.text.toString() != "") {
-//                intent.putExtra(IntentExtraConstNames.mEmail, view.tvLogInEmail.text.toString())
-//            } It's for the future
-            mActivity.supportFragmentManager.beginTransaction().add(R.id.fragment_main, ResetPasswordFragment()).addToBackStack(null).commit()
+            val fragment = ResetPasswordFragment()
+            val bundle = Bundle()
+            if (view.tvLogInEmail.text!=null && view.tvLogInEmail.text.toString() != "") {
+                bundle.putString(IntentExtraConstNames.mEmail, view.tvLogInEmail.text.toString())
+            }
+            fragment.arguments = bundle
+            mActivity.supportFragmentManager.beginTransaction().add(R.id.fragment_main, fragment).addToBackStack(null).commit()
         }
         if (activity!!.intent.hasExtra(IntentExtraConstNames.mEmail)) {
             view.tvLogInEmail.setText(activity!!.intent.getStringExtra(IntentExtraConstNames.mEmail))
@@ -83,15 +87,17 @@ class LogInFragment : Fragment() {
                         .addOnCompleteListener(activity!!) { task ->
                             if (task.isSuccessful) {
                                 if (mAuth.currentUser!!.isEmailVerified) {
-                                    activity!!.finish()
-                                    startActivity(Intent(activity!!, MainActivity::class.java))
-                                    mAuth.verifyPasswordResetCode("123")
+                                    val mFragment = MainFragment()
+                                    mActivity.supportFragmentManager.beginTransaction().replace(R.id.fragment_main, mFragment).commit()
+//                                    mAuth.verifyPasswordResetCode("123") - What the hell is this?
                                 } else {
                                     Snackbar.make(view, "User's email hasn't been verified. Please check your email",
                                             Toast.LENGTH_SHORT).show()
                                     mAuth.signOut()
                                 }
                             } else {
+                                Log.d(TAG, "Sign-in failed, the reason is: ", task.exception)
+
                                 Snackbar.make(view, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show()
                             }

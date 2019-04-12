@@ -5,15 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.fragment_list.view.*
+import kotlinx.android.synthetic.main.fragment_todo.view.*
 import tk.lorddarthart.justdoitlist.utils.CompareObjects
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.application.main.todo.controller.RecyclerViewAdapter
+import tk.lorddarthart.justdoitlist.application.main.todo.controller.ToDoViewAdapter
 import tk.lorddarthart.justdoitlist.application.main.todo.model.ToDoItemModel
 import tk.lorddarthart.justdoitlist.application.main.todo.model.ToDoItemDayModel
 import tk.lorddarthart.justdoitlist.application.main.todo.add.AddActivity
@@ -22,9 +23,10 @@ import java.text.SimpleDateFormat
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class ListFragment : Fragment() {
+class ToDoFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var mView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +41,7 @@ class ListFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 //        Inflate the layout for this fragment
 //        container?.removeAllViews() - Maybe i don't need this???
-        val view = inflater.inflate(R.layout.fragment_list, container, false)
+        mView = inflater.inflate(R.layout.fragment_todo, container, false)
         val sdf = SimpleDateFormat("dd.MM.yyyy")
         val sdf2 = SimpleDateFormat("EEE, dd.MM.yyyy")
         val todo: MutableList<ToDoItemModel> = mutableListOf()
@@ -60,24 +62,24 @@ class ListFragment : Fragment() {
                                     todo.sortWith(CompareObjects)
                                     tododay.add(ToDoItemDayModel(title, todo))
                                 }
-                                initializeAdapter(view!!, tododay)
+                                initializeAdapter(mView, tododay)
                             }
                         }
                     }
                 } else {
-
+                    Log.d(TAG, "There was a problem")
                 }
             }
         }
-        view.btnAdd.setOnClickListener {
+        mView.btnAdd.setOnClickListener {
             activity!!.finish()
             startActivity(Intent(activity!!, AddActivity::class.java))
         }
-        return view
+        return mView
     }
 
     private fun initializeAdapter(view: View, todoofday: List<ToDoItemDayModel>) {
-        val recyclerViewAdapter = RecyclerViewAdapter(activity, todoofday)
+        val recyclerViewAdapter = ToDoViewAdapter(activity, todoofday)
         view.rvToDo.adapter = recyclerViewAdapter
         recyclerViewAdapter.setReturnCount(todoofday.size)
         val layoutManager = LinearLayoutManager(activity)
@@ -86,11 +88,11 @@ class ListFragment : Fragment() {
 
     companion object {
 
-        private const val TAG = "ListFragment"
+        private const val TAG = "ToDoFragment"
 
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                ListFragment().apply {
+                ToDoFragment().apply {
                     arguments = Bundle().apply {
                         putString(ARG_PARAM1, param1)
                         putString(ARG_PARAM2, param2)

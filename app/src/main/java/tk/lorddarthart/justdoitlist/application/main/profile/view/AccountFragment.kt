@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_account.view.*
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.application.main.todo.add.AddFragment
-import tk.lorddarthart.justdoitlist.application.signin.SignInActivity
+import tk.lorddarthart.justdoitlist.application.BaseActivity
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -43,7 +43,7 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.clUserLogOut.setOnClickListener{
             activity!!.finish()
-            val intent = Intent(activity!!, SignInActivity::class.java)
+            val intent = Intent(activity!!, BaseActivity::class.java)
             intent.putExtra("email", FirebaseAuth.getInstance().currentUser?.email)
             FirebaseAuth.getInstance().signOut()
             startActivity(intent)

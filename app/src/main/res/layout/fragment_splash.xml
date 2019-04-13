@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="tk.lorddarthart.justdoitlist.application.splash.view.SplashFragment">
+    tools:context="tk.lorddarthart.justdo.application.splash.view.SplashFragment">
 
     <ImageView
         android:id="@+id/imageView5"

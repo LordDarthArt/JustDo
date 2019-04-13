@@ -3,9 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
 
-
     <gradient
-        android:type="linear"
         android:angle="270"
         android:startColor="@color/colorButtonStart"
         android:endColor="@color/colorButtonEnd" />

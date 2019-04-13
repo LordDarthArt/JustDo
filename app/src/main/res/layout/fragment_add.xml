@@ -1,80 +1,318 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:fillViewport="true"
+    android:scrollbarSize="0dp"
+    android:scrollbarThumbHorizontal="@null"
+    android:scrollbarThumbVertical="@null"
+    android:scrollbars="none"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
     tools:context=".application.main.todo.add.AddFragment">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbarSize="0dp"
+            android:scrollbarThumbHorizontal="@null"
+            android:scrollbarThumbVertical="@null"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cardview_urgently_new_todo"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="23dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="3dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/ivTickNewPriorityNormal"
+                                android:layout_width="11dp"
+                                android:layout_height="7dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:src="@drawable/ic_tick"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toBottomOf="@+id/tvNewPriorityNormal"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/tvPriorityImportant"
+                                app:layout_constraintTop_toTopOf="@+id/tvNewPriorityNormal" />
+
+                            <TextView
+                                android:id="@+id/tvNewPriorityNormal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:text="@string/priority_urgently"
+                                android:textSize="17sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/ivNewPriorityNormal"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:contentDescription="@string/todo"
+                                android:src="@drawable/shape_circle"
+                                android:tint="@color/highPriorityMarkColor"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/tvPriorityUrgently"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cardview_important_new_todo"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="23dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="3dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/ivTickNewUrgency"
+                                android:layout_width="11dp"
+                                android:layout_height="7dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:src="@drawable/ic_tick"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toBottomOf="@+id/tvNewPriorityUrgently"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/tvPriorityUrgently"
+                                app:layout_constraintTop_toTopOf="@+id/tvNewPriorityUrgently" />
+
+                            <TextView
+                                android:id="@+id/tvNewPriorityUrgently"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:text="@string/priority_important"
+                                android:textSize="17sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/ivNewPriorityUrgently"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:contentDescription="@string/todo"
+                                android:src="@drawable/shape_circle"
+                                android:tint="@color/middlePriorityMarkColor"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/tvPriorityUrgently"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    app:layout_constraintStart_toEndOf="@+id/cardview_important_new_todo"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cardview_normal_new_todo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="23dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="3dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/ivTickNewPriorityImportant"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_marginEnd="8dp"
+                                android:src="@drawable/ic_tick"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toBottomOf="@+id/tvNewPriorityImportant"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/tvNewPriorityImportant" />
+
+                            <TextView
+                                android:id="@+id/tvNewPriorityImportant"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:text="Normal"
+                                android:textSize="17sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/ivTickNewPriorityImportant"
+                                app:layout_constraintStart_toEndOf="@+id/ivNewPriorityImportant"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.0" />
+
+                            <ImageView
+                                android:id="@+id/ivNewPriorityImportant"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:contentDescription="@string/todo"
+                                android:src="@drawable/shape_circle"
+                                android:tint="@color/lowPriorityMarkColor"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
+                </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/edittext_title_new_todo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="31dp"
                 android:layout_marginEnd="14dp"
                 android:ems="10"
-                android:hint="Title"
+                android:hint="@string/todo_add_title"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/edittext_description_new_todo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="31dp"
                 android:ems="10"
-                android:hint="Description"
+                android:hint="@string/todo_add_description"
                 android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="@+id/editText"
-                app:layout_constraintStart_toStartOf="@+id/editText"
-                app:layout_constraintTop_toBottomOf="@+id/editText" />
+                app:layout_constraintEnd_toEndOf="@+id/edittext_title_new_todo"
+                app:layout_constraintStart_toStartOf="@+id/edittext_title_new_todo"
+                app:layout_constraintTop_toBottomOf="@+id/edittext_title_new_todo" />
 
             <CalendarView
-                android:id="@+id/calendarView"
+                android:id="@+id/calendar_dayselect_new_todo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="39dp"
                 android:layout_marginEnd="28dp"
-                app:layout_constraintEnd_toEndOf="@+id/editText2"
-                app:layout_constraintStart_toStartOf="@+id/editText2"
-                app:layout_constraintTop_toBottomOf="@+id/editText2" />
+                app:layout_constraintEnd_toEndOf="@+id/edittext_description_new_todo"
+                app:layout_constraintStart_toStartOf="@+id/edittext_description_new_todo"
+                app:layout_constraintTop_toBottomOf="@+id/edittext_description_new_todo" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textview_timeselect_new_todo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="39dp"
                 android:text="00:00"
                 android:textColor="@color/txtColor"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/calendarView"
-                app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+                app:layout_constraintStart_toStartOf="@+id/calendar_dayselect_new_todo"
+                app:layout_constraintTop_toBottomOf="@+id/calendar_dayselect_new_todo" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintLayout6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="31dp"
-                app:layout_constraintEnd_toEndOf="@+id/calendarView"
-                app:layout_constraintStart_toStartOf="@+id/calendarView"
-                app:layout_constraintTop_toBottomOf="@+id/textView5">
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/calendar_dayselect_new_todo"
+                app:layout_constraintStart_toStartOf="@+id/calendar_dayselect_new_todo"
+                app:layout_constraintTop_toBottomOf="@+id/textview_timeselect_new_todo">
 
                 <LinearLayout
                     android:id="@+id/view2"
@@ -94,7 +332,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="22dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerInside"
                     android:src="@drawable/ic_okay"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -109,7 +347,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="22dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerInside"
                     android:src="@drawable/ic_cancel"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/view2"
@@ -120,275 +358,36 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="47dp"
-                app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
-                app:layout_constraintEnd_toEndOf="@+id/calendarView"
-                app:layout_constraintStart_toEndOf="@+id/textView5"
-                app:layout_constraintTop_toBottomOf="@+id/calendarView">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_timeselect_new_todo"
+                app:layout_constraintEnd_toEndOf="@+id/calendar_dayselect_new_todo"
+                app:layout_constraintStart_toEndOf="@+id/textview_timeselect_new_todo"
+                app:layout_constraintTop_toTopOf="@+id/textview_timeselect_new_todo">
 
                 <TextView
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Reminder:"
+                    android:text="@string/todo_add_reminder"
                     android:textColor="@color/txtColor"
-                    android:textSize="20sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinner"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/spinner" />
 
                 <Spinner
                     android:id="@+id/spinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
                     android:spinnerMode="dropdown"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView10"
                     app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
         </android.support.constraint.ConstraintLayout>
-    </ScrollView>
 
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" >
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/constraintLayout3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cvNewPriorityNormal"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="23dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="3dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/ivTickNewPriorityNormal"
-                            android:layout_width="11dp"
-                            android:layout_height="7dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:src="@drawable/ic_tick"
-                            android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="@+id/tvNewPriorityNormal"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/tvPriorityImportant"
-                            app:layout_constraintTop_toTopOf="@+id/tvNewPriorityNormal" />
-
-                        <TextView
-                            android:id="@+id/tvNewPriorityNormal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="@string/priority_urgently"
-                            android:textSize="17sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/ivNewPriorityNormal"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:contentDescription="@string/todo"
-                            android:src="@drawable/shape_circle"
-                            android:tint="@color/highPriorityMarkColor"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/tvPriorityUrgently"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/constraintLayout5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cvNewPriorityUrgently"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="23dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="3dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/ivTickNewUrgency"
-                            android:layout_width="11dp"
-                            android:layout_height="7dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:src="@drawable/ic_tick"
-                            android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="@+id/tvNewPriorityUrgently"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/tvPriorityUrgently"
-                            app:layout_constraintTop_toTopOf="@+id/tvNewPriorityUrgently" />
-
-                        <TextView
-                            android:id="@+id/tvNewPriorityUrgently"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="@string/priority_important"
-                            android:textSize="17sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/ivNewPriorityUrgently"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:contentDescription="@string/todo"
-                            android:src="@drawable/shape_circle"
-                            android:tint="@color/middlePriorityMarkColor"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/tvPriorityUrgently"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/constraintLayout4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                app:layout_constraintStart_toEndOf="@+id/constraintLayout5"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cvNewPriorityMiddle"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="23dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="3dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="15dp">
-
-                        <ImageView
-                            android:id="@+id/ivTickNewPriorityImportant"
-                            android:layout_width="11dp"
-                            android:layout_height="7dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:src="@drawable/ic_tick"
-                            android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="@+id/tvNewPriorityImportant"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/tvPriorityImportant"
-                            app:layout_constraintTop_toTopOf="@+id/tvNewPriorityImportant" />
-
-                        <TextView
-                            android:id="@+id/tvNewPriorityImportant"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="Normal"
-                            android:textSize="17sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/ivNewPriorityImportant"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:contentDescription="@string/todo"
-                            android:src="@drawable/shape_circle"
-                            android:tint="@color/lowPriorityMarkColor"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/tvPriorityUrgently"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
-            </android.support.constraint.ConstraintLayout>
-        </LinearLayout>
-    </HorizontalScrollView>
-
-</android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

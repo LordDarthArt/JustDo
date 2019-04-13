@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import tk.lorddarthart.justdoitlist.R
+import tk.lorddarthart.justdoitlist.application.main.todo.add.AddFragment
 import tk.lorddarthart.justdoitlist.application.signin.additionalInfo.AdditionalInfoFragment
 import tk.lorddarthart.justdoitlist.application.signin.passwordreset.view.ResetPasswordFragment
 import tk.lorddarthart.justdoitlist.application.splash.view.SplashFragment
@@ -25,7 +26,8 @@ class BaseActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         onBackPressedListener?.let {
-            if (supportFragmentManager.fragments[supportFragmentManager.fragments.lastIndex] is ResetPasswordFragment) {
+            if (supportFragmentManager.fragments[supportFragmentManager.fragments.lastIndex] is ResetPasswordFragment
+                    || supportFragmentManager.fragments[supportFragmentManager.fragments.lastIndex] is AddFragment) {
                 it.doBack()
                 onBackPressedListener = null
             }

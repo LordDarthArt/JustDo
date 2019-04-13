@@ -32,4 +32,7 @@
     <string name="disagreeai">Не согласен</string>
     <string name="todo_added_successfully">Новая задача успешно добавлена</string>
     <string name="todo_title">Список задач</string>
+    <string name="todo_add_title">Заголовок</string>
+    <string name="todo_add_description">Описание</string>
+    <string name="todo_add_reminder">Напомнить мне за:</string>
 </resources>

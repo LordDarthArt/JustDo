@@ -1,7 +1,7 @@
 package tk.lorddarthart.justdoitlist.application.main.todo.view
 
 import android.annotation.SuppressLint
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -14,10 +14,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_todo.view.*
 import tk.lorddarthart.justdoitlist.utils.CompareObjects
 import tk.lorddarthart.justdoitlist.R
+import tk.lorddarthart.justdoitlist.application.BaseActivity
 import tk.lorddarthart.justdoitlist.application.main.todo.controller.ToDoViewAdapter
 import tk.lorddarthart.justdoitlist.application.main.todo.model.ToDoItemModel
 import tk.lorddarthart.justdoitlist.application.main.todo.model.ToDoItemDayModel
-import tk.lorddarthart.justdoitlist.application.main.todo.add.AddActivity
+import tk.lorddarthart.justdoitlist.application.main.todo.add.AddFragment
 import java.text.SimpleDateFormat
 
 private const val ARG_PARAM1 = "param1"
@@ -27,6 +28,7 @@ class ToDoFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var mView: View
+    private lateinit var mActivity: BaseActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,11 @@ class ToDoFragment : Fragment() {
         }
     }
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        mActivity = context as BaseActivity
+    }
+
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -43,7 +50,7 @@ class ToDoFragment : Fragment() {
 //        container?.removeAllViews() - Maybe i don't need this???
         mView = inflater.inflate(R.layout.fragment_todo, container, false)
         val sdf = SimpleDateFormat("dd.MM.yyyy")
-        val sdf2 = SimpleDateFormat("EEE, dd.MM.yyyy")
+        val sdf2 = SimpleDateFormat("EEEE, dd.MM.yyyy")
         val todo: MutableList<ToDoItemModel> = mutableListOf()
         val tododay: MutableList<ToDoItemDayModel> = mutableListOf()
         if (FirebaseAuth.getInstance().currentUser!=null) {
@@ -54,7 +61,8 @@ class ToDoFragment : Fragment() {
                             if (!tasks2.isEmpty) {
                                 tododay.clear()
                                 todo.clear()
-                                val title: String? = sdf2.format(sdf.parse(docSnap.getString("day")))
+                                var title: String = sdf2.format(sdf.parse(docSnap.getString("day")))
+                                title = title.substring(0,1).toUpperCase() + title.substring(1)
                                 for (g in tasks.documents) {
                                     for (i in tasks2.documents) {
                                         todo.add(ToDoItemModel(i.getLong("priority"), i.getString("title"), i.getString("comment"), i.getLong("timestamp"), i.getLong("notify"), i.getBoolean("completed")))
@@ -72,8 +80,8 @@ class ToDoFragment : Fragment() {
             }
         }
         mView.btnAdd.setOnClickListener {
-            activity!!.finish()
-            startActivity(Intent(activity!!, AddActivity::class.java))
+            val fragment = AddFragment()
+            mActivity.supportFragmentManager.beginTransaction().add(R.id.fragment_main, fragment).addToBackStack(null).commit()
         }
         return mView
     }

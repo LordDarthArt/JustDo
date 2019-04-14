@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import tk.lorddarthart.justdo.R
 import tk.lorddarthart.justdo.application.main.todo.add.AddFragment
+import tk.lorddarthart.justdo.application.main.todo.model.ToDoItemDayModel
 import tk.lorddarthart.justdo.application.signin.additionalInfo.AdditionalInfoFragment
 import tk.lorddarthart.justdo.application.signin.passwordreset.view.ResetPasswordFragment
 import tk.lorddarthart.justdo.application.splash.view.SplashFragment
@@ -17,6 +18,7 @@ class BaseActivity : AppCompatActivity() {
 
     private var doubleBackToExitPressedOnce = false
     private var onBackPressedListener: OnBackPressedListener? = null
+    lateinit var mToDoDay: MutableList<ToDoItemDayModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

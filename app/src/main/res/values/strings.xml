@@ -57,7 +57,8 @@
 
     <!--DB errors-->
     <string name="error_loading_data">Sorry, can\'t retrieve data from server. Is your internet connection OK?</string>
+    <string name="error_loading_data_refresh">Refresh</string>
 
     <!--Password's template rules-->
-    <string name="passswords_rules">Password must follow this rules:\n\n\u0020\u0020\u0020- Not less than 8 characters\n\u0020\u0020\u0020- Password must contain no spaces and breaklines\n\u0020\u0020\u0020- Not less than 2 uppercase letters\n\u0020\u0020\u0020- Not less than 1 special symbol(!, @, etc)\n\u0020\u0020\u0020- Not less then 1 numeric symbol</string>
+    <string name="password_rules">Password must follow this rules:\n\n     - Not less than 8 characters\n     - Password must contain no spaces and breaklines     \n     - Not less than 2 uppercase letters     \n     - Not less than 1 special symbol(!, @, etc)     \n     - Not less then 1 numeric symbol</string>
 </resources>

@@ -48,4 +48,6 @@
     <string name="error_email_not_valid">не валидный формат почты</string>
     <string name="error_password_not_valid">невалидный формат пвароля</string>
     <string name="error_loading_data">Не удаётся получить данные с сервера. Проверьте своё подключение.</string>
+    <string name="error_loading_data_refresh">Обновить</string>
+    <string name="password_rules">Пароль должен соответствовать следующим требованиям:\n\n     - Не менее 8 символов\n     - Символы пробела и переноса строки должны отсутствовать  \n     - Не менее 2х заглавных букв   \n     - Не менее 1 специального символа(!, @, etc)     \n     - Не менее 1 числа</string>
 </resources>

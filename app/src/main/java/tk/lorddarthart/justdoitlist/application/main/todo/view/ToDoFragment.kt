@@ -16,7 +16,6 @@ import tk.lorddarthart.justdoitlist.application.main.todo.add.AddFragment
 import tk.lorddarthart.justdoitlist.application.main.todo.controller.ToDoViewAdapter
 import tk.lorddarthart.justdoitlist.application.main.todo.model.ToDoItemDayModel
 
-
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 

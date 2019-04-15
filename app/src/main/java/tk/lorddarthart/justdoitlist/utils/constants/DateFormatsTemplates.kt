@@ -9,6 +9,7 @@ object DateFormatsTemplates {
     const val mDayTime = "HH:mm"
     const val mYear = "yyyy"
     const val mMonth = "MM"
+    const val mDay = "dd"
     private lateinit var mFromTimestampToTitle: String
     private val locale = Locale("ru", "RU")
 

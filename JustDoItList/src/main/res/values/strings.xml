@@ -1,0 +1,63 @@
+<resources>
+    <!--Legal bullshit-->
+    <string name="terms_condition_txt">These terms and conditions («Terms», «Agreement») are an agreement between Mobile Application Developer («Mobile Application Developer», «us», «we» or «our») and you («User», «you» or «your»). This Agreement sets forth the general terms and conditions of your use of the Mentalstack mobile application and any of its products or services (collectively, «Mobile Application» or «Services»).  Accounts and membership  You must be at least 13 years of age to use this Mobile Application. By using this Mobile Application and by agreeing to this Agreement you warrant and represent that you are at least 13 years of age. If you create an account in the Mobile Application, you are responsible for maintaining the security of your account and you are fully responsible for all activities that occur under the account and any other actions taken in connection with it. Providing false contact information of any kind may result in the termination of your account. You must immediately notify us of any unauthorized uses of your account or any other breaches of security. We will not be liable for any acts or omissions by you, including any damages of any kind incurred as a result of such acts or omissions. We may suspend, disable, or delete your account (or any part thereof) if we determine that you have violated any provision of this Agreement or that your conduct or content would tend to damage our reputation and goodwill. If we delete your account for the foregoing reasons, you may not re-register for our Services. We may block your email address and Internet protocol address to prevent further registration.  User content  We do not own any data, information or material («Content») that you submit in the Mobile Application in the course of using the Service. You shall have sole responsibility for the accuracy, quality, integrity, legality, reliability, appropriateness, and intellectual property ownership or right to use of all submitted Content. We may, but have no obligation to, monitor Content in the Mobile Application submitted or created using our Services by you. Unless specifically permitted by you, your use of the Mobile Application does not grant us the license to use, reproduce, adapt, modify, publish or distribute the Content created by you or stored in your user account for commercial, marketing or any similar purpose. But you grant us permission to access, copy, distribute, store, transmit, reformat, display and perform the Content of your user account solely as required for the purpose of</string>
+    <string name="privacy_policy_txt">My Company (change this) («us», «we», or «our») operates http://www.mysite.com (change this) (the «Site»). This page informs you of our policies regarding the collection, use and disclosure of Personal Information we receive from users of the Site.  We use your Personal Information only for providing and improving the Site. By using the Site, you agree to the collection and use of information in accordance with this policy.  Information Collection And Use  While using our Site, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you. Personally identifiable information may include, but is not limited to your name («Personal Information»).  Log Data  Like many site operators, we collect information that your browser sends whenever you visit our Site («Log Data»).  This Log Data may include information such as your computer\'s Internet Protocol (IP) address, browser type, browser version, the pages of our Site that you visit, the time and date of your visit, the time spent on those pages and other statistics.  In addition, we may use third party services such as Google Analytics that collect, monitor and analyze this …  Communications  We may use your Personal Information to contact you with newsletters, marketing or promotional materials and other information that …</string>
+    <string name="agreement_areyousure">Are you sure?</string>
+    <string name="agreement_declinetext">By declining this agreement, you are confirming application\'s closing</string>
+    <string name="btn_exit">Exit</string>
+    <string name="btn_stay">Stay</string>
+    <string name="agree">By accessing your account, you agree to our</string>
+    <string name="tc">Terms and conditions</string>
+    <string name="and">and</string>
+    <string name="pp">Privacy Policy</string>
+
+    <!--Application strings-->
+    <string name="app_name">Just Do It List</string>
+    <string name="login">Log In</string>
+    <string name="signup">Sign Up</string>
+    <string name="email" translatable="false">E-mail</string>
+    <string name="password">Password</string>
+    <string name="confirmpw">Confirm password</string>
+    <string name="frgt">Forgot password?</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logo">Logo</string>
+    <string name="agreeai">Agree</string>
+    <string name="disagreeai">Disagree</string>
+    <string name="asking_for_reset">Please enter your email below to receive your password reset instructions</string>
+    <string name="send_request">send request</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="send_reset_completed" translatable="false">Reset code was sent to your Email. Please enter the code and create a new password</string>
+    <string name="code">Code</string>
+    <string name="change_password">Change password</string>
+    <string name="todo" translatable="false">TODO</string>
+    <string name="navaccount">Profile</string>
+    <string name="exit">Exit</string>
+    <string name="priority_urgently">Urgently</string>
+    <string name="priority_important">Important</string>
+    <string name="priority_normal">Normal</string>
+    <string name="priority_neutral">Neutral</string>
+    <string name="button_add_description">\"Add\" button</string>
+    <string name="navmain">Main</string>
+    <string name="double_press_exit">Please, press back again to exit</string>
+    <string name="todo_added_successfully">New TODO was successfully added</string>
+    <string name="todo_title">To Do List</string>
+    <string name="todo_add_title">Title</string>
+    <string name="todo_add_description">Description</string>
+    <string name="todo_add_reminder">Remind me before:</string>
+    <string name="no_tasks_currently">No tasks at this month</string>
+    <string name="no_tasks_create_one">Create first</string>
+
+    <!--Errors of sign-in screen-->
+    <string name="verification_problem">There was a problem with sending a verification email to you: </string>
+    <string name="reg_success">Registered successfully, please check your e-mail</string>
+    <string name="reg_fail">Registration failed, please try again later</string>
+    <string name="error_passwords_not_equal">passwords don\'t match</string>
+    <string name="error_email_not_valid">email is not valid</string>
+    <string name="error_password_not_valid">password is not valid</string>
+
+    <!--DB errors-->
+    <string name="error_loading_data">Sorry, can\'t retrieve data from server. Is your internet connection OK?</string>
+
+    <!--Password's template rules-->
+    <string name="passswords_rules">Password must follow this rules:\n\n\u0020\u0020\u0020- Not less than 8 characters\n\u0020\u0020\u0020- Password must contain no spaces and breaklines\n\u0020\u0020\u0020- Not less than 2 uppercase letters\n\u0020\u0020\u0020- Not less than 1 special symbol(!, @, etc)\n\u0020\u0020\u0020- Not less then 1 numeric symbol</string>
+</resources>

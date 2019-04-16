@@ -73,20 +73,21 @@ class LoadingFragment : Fragment() {
                                                 if (!days.isEmpty) {
                                                     tododay.clear()
                                                     todo.clear()
-                                                    for ((i, day) in days.documents.withIndex()) {
-                                                        day.reference.collection(mDays[i])
-                                                                .document().collection(CloudFirestoreToDoDay.field_todoofday_name)
-                                                                .get().addOnSuccessListener { tasks ->
+                                                    for (day in days.documents) {
+                                                        day.reference.collection(
+                                                                CloudFirestoreToDoDay.field_todoofday_name
+                                                        ).get().addOnSuccessListener { tasks ->
                                                                     val mFromTimestampToTitle = SimpleDateFormat(
                                                                             DateFormatsTemplates.getFromTimestampToTitle(
                                                                                     toCalendar(mFromDatabaseToTimestamp.parse(
-                                                                                            year.getString(CloudFirestoreToDoDay.field_day_name
+                                                                                               day.reference.parent.id + "." + month.reference.parent.id + "." + year.reference.parent.id
                                                                                             )
-                                                                                    )), mActivity)
+                                                                                    ), mActivity)
                                                                     )
-                                                                    val title: String = DayTitleConverter(mFromTimestampToTitle, mFromDatabaseToTimestamp.parse(year.getString(CloudFirestoreToDoDay.field_day_name))).convertToPreferred()
-                                                                    //for (newYear in years.documents) {
-                                                                    //for (newMonth in months.documents) {
+                                                                    val title: String = DayTitleConverter(
+                                                                            mFromTimestampToTitle,
+                                                                            mFromDatabaseToTimestamp.parse(day.reference.parent.id + "." + month.reference.parent.id + "." + year.reference.parent.id)
+                                                                    ).convertToPreferred()
                                                                     for (newDay in days.documents) {
                                                                         for (newTask in tasks.documents) {
                                                                             todo.add(
@@ -102,13 +103,13 @@ class LoadingFragment : Fragment() {
                                                                             tododay.add(ToDoItemDayModel(title, todo))
                                                                         }
                                                                     }
-                                                                    //}
-                                                                    //}
+                                                                    mActivity.mToDoDay = tododay
+                                                                    val fragment = ToDoFragment()
+                                                                    mActivity.supportFragmentManager.beginTransaction().replace(R.id.fragment_todo, fragment).commit()
+                                                                }.addOnFailureListener {
+                                                                    Log.e(TAG, "Problem", it)
                                                                 }
                                                     }
-                                                    mActivity.mToDoDay = tododay
-                                                    val fragment = ToDoFragment()
-                                                    mActivity.supportFragmentManager.beginTransaction().replace(R.id.fragment_todo, fragment).commit()
                                                 } else {
                                                     noTasks()
                                                 }

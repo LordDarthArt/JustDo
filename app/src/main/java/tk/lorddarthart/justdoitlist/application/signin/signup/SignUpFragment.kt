@@ -7,15 +7,15 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_sign_up.view.*
-import java.util.regex.Pattern
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_sign_up.*
-import org.apache.commons.validator.routines.EmailValidator
-import tk.lorddarthart.justdoitlist.utils.HidePass
+import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.application.BaseActivity
 import tk.lorddarthart.justdoitlist.application.signin.view.SignInFragment
+import tk.lorddarthart.justdoitlist.utils.HidePass
+import tk.lorddarthart.justdoitlist.utils.constants.IntentExtraConstNames
+import tk.lorddarthart.justdoitlist.utils.verificators.PasswordEmailValidator
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -52,23 +52,21 @@ class SignUpFragment : Fragment() {
         mView.ivSignUpHideConfirmPassword.setOnClickListener {
             HidePass().clickHidePass(mView.ivSignUpHideConfirmPassword, mView.tvSignUpConfirmPassword)
         }
-        return mView
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         mAuth = FirebaseAuth.getInstance()
-        if (arguments!=null && arguments!!.containsKey("email")) {
-            view.tvSignUpEmail.setText(arguments!!.getString("email"))
+        if (arguments!=null && arguments!!.containsKey(IntentExtraConstNames.mEmail)) {
+            mView.tvSignUpEmail.setText(arguments!!.getString(IntentExtraConstNames.mEmail))
         }
-        view.btnSignUp.setOnClickListener {
-            view.tilSignUpEmail.error = null
-            view.tvSignUpPassword.error = null
-            view.tilSignUpConfirmPassword.error = null
-            val email = view.tvSignUpEmail.text.toString()
-            val password = view.tvSignUpPassword.text.toString()
-            val confirmPassword = view.tvSignUpConfirmPassword.text.toString()
-            if (email!=""&&password!=""&&isValidEmailAddress(tvSignUpEmail.text.toString())&&isValidPassword(view.tvSignUpPassword.text.toString())&&password == confirmPassword) {
+        mView.btnSignUp.setOnClickListener {
+            mView.tilSignUpEmail.error = null
+            mView.tvSignUpPassword.error = null
+            mView.tilSignUpConfirmPassword.error = null
+            val email = mView.tvSignUpEmail.text.toString()
+            val password = mView.tvSignUpPassword.text.toString()
+            val confirmPassword = mView.tvSignUpConfirmPassword.text.toString()
+            if (email!=""&&password!=""
+                    &&PasswordEmailValidator.isValidEmailAddress(tvSignUpEmail.text.toString())
+                    &&PasswordEmailValidator.isValidPassword(mView.tvSignUpPassword.text.toString())
+                    &&password == confirmPassword) {
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(activity!!) { task ->
                             if (task.isSuccessful) {
@@ -82,10 +80,10 @@ class SignUpFragment : Fragment() {
                 if (password!=confirmPassword) {
                     mView.tilSignUpConfirmPassword.error = "passwords don't match"
                 }
-                if (!isValidEmailAddress(tvSignUpEmail.text.toString())) {
+                if (!PasswordEmailValidator.isValidEmailAddress(tvSignUpEmail.text.toString())) {
                     mView.tilSignUpEmail.error = "email is not valid"
                 }
-                if (!isValidPassword(tvSignUpPassword.text.toString())) {
+                if (!PasswordEmailValidator.isValidPassword(tvSignUpPassword.text.toString())) {
                     mView.tilSignUpPassword.error = "password is not valid"
                 }
                 if (email=="") {
@@ -99,6 +97,7 @@ class SignUpFragment : Fragment() {
                 }
             }
         }
+        return mView
     }
 
     private fun sendVerificationEmail() {
@@ -117,31 +116,6 @@ class SignUpFragment : Fragment() {
                         }
                     }
         }
-    }
-
-    fun isValidEmailAddress(email: String): Boolean {
-        return EmailValidator.getInstance().isValid(email)
-    }
-
-    fun isValidPassword(password: String): Boolean {
-        var result = false
-        var capitalletters = 0
-        if (password.length<8) { return result }
-        else if (password.contains(" ")||password.contains("\n")) { return result }
-        else {
-            val digit = Pattern.compile("[0-9]")
-            val special = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]")
-            for (i in 0 until password.length) {
-                if (password[i]==password[i].toUpperCase()) {
-                    capitalletters++
-                }
-            }
-            val hasCapitalLetters = capitalletters>=2
-            val hasDigit = digit.matcher(password)
-            val hasSpecial = special.matcher(password)
-            result = hasCapitalLetters && hasDigit.find() && hasSpecial.find()
-        }
-        return result
     }
 
     companion object {

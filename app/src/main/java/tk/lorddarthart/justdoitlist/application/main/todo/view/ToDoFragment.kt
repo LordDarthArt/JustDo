@@ -49,7 +49,7 @@ class ToDoFragment : Fragment() {
         initializeAdapter(mView, mActivity.mToDoDay)
         mButtonAdd.setOnClickListener {
             val fragment = AddFragment()
-            mActivity.supportFragmentManager.beginTransaction().add(R.id.fragment_main, fragment).addToBackStack(null).commit()
+            mActivity.supportFragmentManager.beginTransaction().add(R.id.fragment_todo, fragment).addToBackStack(null).commit()
         }
         return mView
     }

@@ -61,4 +61,6 @@
 
     <!--Password's template rules-->
     <string name="password_rules">Password must follow this rules:\n\n     - Not less than 8 characters\n     - Password must contain no spaces and breaklines     \n     - Not less than 2 uppercase letters     \n     - Not less than 1 special symbol(!, @, etc)     \n     - Not less then 1 numeric symbol</string>
+
+    <string name="progress_auth">Authorizing, please wait…</string>
 </resources>

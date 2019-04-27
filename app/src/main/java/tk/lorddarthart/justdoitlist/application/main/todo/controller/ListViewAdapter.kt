@@ -50,7 +50,7 @@ class ListViewAdapter(
         view.tvToDoComment?.text = toDoItem.comment
         view.tvToDoTime?.text = SimpleDateFormat("HH:mm").format(Date(toDoItem.timestamp!!))
         val icon: Drawable = context.getDrawable(R.drawable.shape_priority_circle)!!
-        icon.setTint(PriorityConverter.getColor(PriorityConverter.getPriority(toDoItem.priority), view)!!)
+        icon.setTint(PriorityConverter.getColor(PriorityConverter.getPriority(toDoItem.priority, view), view)!!)
         view.ivPriorityMarker.setImageDrawable(icon)
         if (toDoItem.completed!!) {
             view.chkToDo.isChecked = true

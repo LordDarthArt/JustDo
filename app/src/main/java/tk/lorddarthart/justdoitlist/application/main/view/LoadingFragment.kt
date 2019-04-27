@@ -66,10 +66,8 @@ class LoadingFragment : Fragment() {
                                         SimpleDateFormat(DateFormatsTemplates.mMonth).format(System.currentTimeMillis()).toString()
                                 ).get().addOnSuccessListener { months ->
                                     if (!months.isEmpty) {
-                                        for (month in months.documents) {
-                                            month.reference.collection(
-                                                    SimpleDateFormat(DateFormatsTemplates.mDay).format(System.currentTimeMillis()).toString()
-                                            ).get().addOnSuccessListener { days ->
+                                        for (i in 0 until 30) {
+                                            months.documents[0].reference.collection(mDays[i]).get().addOnSuccessListener { days ->
                                                 if (!days.isEmpty) {
                                                     tododay.clear()
                                                     todo.clear()
@@ -80,13 +78,13 @@ class LoadingFragment : Fragment() {
                                                             val mFromTimestampToTitle = SimpleDateFormat(
                                                                     DateFormatsTemplates.getFromTimestampToTitle(
                                                                             toCalendar(mFromDatabaseToTimestamp.parse(
-                                                                                    day.reference.parent.id + "." + month.reference.parent.id + "." + year.reference.parent.id
+                                                                                    day.reference.parent.id + "." + months.documents[0].reference.parent.id + "." + year.reference.parent.id
                                                                             )
                                                                             ), mActivity)
                                                             )
                                                             val title: String = DayTitleConverter(
                                                                     mFromTimestampToTitle,
-                                                                    mFromDatabaseToTimestamp.parse(day.reference.parent.id + "." + month.reference.parent.id + "." + year.reference.parent.id)
+                                                                    mFromDatabaseToTimestamp.parse(day.reference.parent.id + "." + months.documents[0].reference.parent.id + "." + year.reference.parent.id)
                                                             ).convertToPreferred()
                                                             for (newDay in days.documents) {
                                                                 for (newTask in tasks.documents) {
@@ -112,7 +110,8 @@ class LoadingFragment : Fragment() {
                                                             Log.e(TAG, "Problem: ", it)
                                                         }
                                                     }
-                                                } else {
+                                                }
+                                                if (tododay.size<=0) {
                                                     noTasks()
                                                 }
                                             }.addOnFailureListener {

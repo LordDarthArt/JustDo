@@ -50,7 +50,7 @@
 
                         <android.support.v7.widget.CardView
                             android:id="@+id/cardview_urgently_new_todo"
-                            android:layout_width="130dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
                             android:layout_marginTop="25dp"
@@ -68,16 +68,14 @@
                                 android:layout_height="match_parent">
 
                                 <ImageView
-                                    android:id="@+id/ivTickNewPriorityNormal"
-                                    android:layout_width="11dp"
-                                    android:layout_height="7dp"
-                                    android:layout_marginStart="8dp"
+                                    android:id="@+id/ivTickNewPriorityUrgently"
+                                    android:layout_width="12dp"
+                                    android:layout_height="12dp"
                                     android:layout_marginEnd="8dp"
                                     android:src="@drawable/ic_tick"
                                     android:visibility="gone"
                                     app:layout_constraintBottom_toBottomOf="@+id/tvNewPriorityNormal"
                                     app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toEndOf="@+id/tvPriorityImportant"
                                     app:layout_constraintTop_toTopOf="@+id/tvNewPriorityNormal" />
 
                                 <TextView
@@ -86,16 +84,17 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
                                     android:layout_marginTop="8dp"
+                                    android:layout_marginEnd="8dp"
                                     android:layout_marginBottom="8dp"
                                     android:text="@string/priority_urgently"
                                     android:textSize="17sp"
                                     app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/ivTickNewPriorityUrgently"
+                                    app:layout_constraintStart_toEndOf="@+id/ivNewPriorityUrgently"
                                     app:layout_constraintTop_toTopOf="parent" />
 
                                 <ImageView
-                                    android:id="@+id/ivNewPriorityNormal"
+                                    android:id="@+id/ivNewPriorityUrgently"
                                     android:layout_width="10dp"
                                     android:layout_height="10dp"
                                     android:layout_marginStart="8dp"
@@ -114,6 +113,7 @@
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_cardview_important_new_todo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="0dp"
@@ -121,7 +121,7 @@
 
                         <android.support.v7.widget.CardView
                             android:id="@+id/cardview_important_new_todo"
-                            android:layout_width="130dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="25dp"
@@ -139,16 +139,14 @@
                                 android:layout_height="match_parent">
 
                                 <ImageView
-                                    android:id="@+id/ivTickNewUrgency"
-                                    android:layout_width="11dp"
-                                    android:layout_height="7dp"
-                                    android:layout_marginStart="8dp"
+                                    android:id="@+id/ivTickNewPriorityImportant"
+                                    android:layout_width="12dp"
+                                    android:layout_height="12dp"
                                     android:layout_marginEnd="8dp"
                                     android:src="@drawable/ic_tick"
                                     android:visibility="gone"
                                     app:layout_constraintBottom_toBottomOf="@+id/tvNewPriorityUrgently"
                                     app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toEndOf="@+id/tvPriorityUrgently"
                                     app:layout_constraintTop_toTopOf="@+id/tvNewPriorityUrgently" />
 
                                 <TextView
@@ -157,16 +155,17 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
                                     android:layout_marginTop="8dp"
+                                    android:layout_marginEnd="8dp"
                                     android:layout_marginBottom="8dp"
                                     android:text="@string/priority_important"
                                     android:textSize="17sp"
                                     app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/ivTickNewPriorityImportant"
+                                    app:layout_constraintStart_toEndOf="@+id/ivNewPriorityImportant"
                                     app:layout_constraintTop_toTopOf="parent" />
 
                                 <ImageView
-                                    android:id="@+id/ivNewPriorityUrgently"
+                                    android:id="@+id/ivNewPriorityImportant"
                                     android:layout_width="10dp"
                                     android:layout_height="10dp"
                                     android:layout_marginStart="8dp"
@@ -212,7 +211,7 @@
                                 android:layout_height="match_parent">
 
                                 <ImageView
-                                    android:id="@+id/ivTickNewPriorityImportant"
+                                    android:id="@+id/ivTickNewPriorityNormal"
                                     android:layout_width="12dp"
                                     android:layout_height="12dp"
                                     android:layout_marginEnd="8dp"
@@ -230,16 +229,16 @@
                                     android:layout_marginTop="8dp"
                                     android:layout_marginEnd="8dp"
                                     android:layout_marginBottom="8dp"
-                                    android:text="Normal"
+                                    android:text="@string/priority_normal"
                                     android:textSize="17sp"
                                     app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toStartOf="@+id/ivTickNewPriorityImportant"
-                                    app:layout_constraintStart_toEndOf="@+id/ivNewPriorityImportant"
+                                    app:layout_constraintEnd_toStartOf="@+id/ivTickNewPriorityNormal"
+                                    app:layout_constraintStart_toEndOf="@+id/ivNewPriorityNormal"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintVertical_bias="0.0" />
 
                                 <ImageView
-                                    android:id="@+id/ivNewPriorityImportant"
+                                    android:id="@+id/ivNewPriorityNormal"
                                     android:layout_width="10dp"
                                     android:layout_height="10dp"
                                     android:layout_marginStart="8dp"

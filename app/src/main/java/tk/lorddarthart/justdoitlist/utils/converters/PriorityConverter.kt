@@ -3,64 +3,60 @@ package tk.lorddarthart.justdoitlist.utils.converters
 import android.view.View
 import tk.lorddarthart.justdoitlist.R
 
-class PriorityConverter {
-    companion object {
-        fun getPriority(priority: Long?): String {
-            when (priority) {
-                0L -> {
-                    return "Neutral"
-
-                }
-                1L -> {
-                    return "Normal"
-                }
-                2L -> {
-                    return "Important"
-
-                }
-                3L -> {
-                    return "Urgently"
-                }
-
-                else -> return "Error"
+object PriorityConverter {
+    fun getPriority(priority: Long?, view: View?): String? {
+       return  when (priority) {
+            0L -> {
+                view?.context?.resources?.getString(R.string.priority_neutral)
             }
+            1L -> {
+                view?.context?.resources?.getString(R.string.priority_normal)
+            }
+            2L -> {
+                view?.context?.resources?.getString(R.string.priority_important)
+            }
+            3L -> {
+                view?.context?.resources?.getString(R.string.priority_urgently)
+            }
+
+            else -> view?.context?.resources?.getString(R.string.priority_neutral)
         }
+    }
 
-        fun getColor(priority: String, view: View?): Int? {
-            when (priority) {
-                "Neutral" -> {
-                    return view?.context?.resources?.getColor(R.color.emptyPriorityMarkColor)
-                }
-                "Normal" -> {
-                    return view?.context?.resources?.getColor(R.color.lowPriorityMarkColor)
-                }
-                "Important" -> {
-                    return view?.context?.resources?.getColor(R.color.middlePriorityMarkColor)
-                }
-                "Urgently" -> {
-                    return view?.context?.resources?.getColor(R.color.highPriorityMarkColor)
-                }
+    fun getColor(priority: String?, view: View?): Int? {
+        return when (priority) {
+            view?.context?.resources?.getString(R.string.priority_neutral) -> {
+                view?.context?.resources?.getColor(R.color.emptyPriorityMarkColor)
             }
-            return null
+            view?.context?.resources?.getString(R.string.priority_normal) -> {
+                view?.context?.resources?.getColor(R.color.lowPriorityMarkColor)
+            }
+            view?.context?.resources?.getString(R.string.priority_important) -> {
+                view?.context?.resources?.getColor(R.color.middlePriorityMarkColor)
+            }
+            view?.context?.resources?.getString(R.string.priority_urgently) -> {
+                view?.context?.resources?.getColor(R.color.highPriorityMarkColor)
+            }
+            else -> view?.context?.resources?.getColor(R.color.emptyPriorityMarkColor)
         }
+    }
 
-        fun getNumber(priority: String): Long? {
-            when (priority) {
-                "Neutral" -> {
-                    return 0L
-                }
-                "Normal" -> {
-                    return 1L
-                }
-                "Important" -> {
-                    return 2L
-                }
-                "Urgently" -> {
-                    return 3L
-                }
-
-                else -> return null
+    fun setPriority(priority: String?, view: View?): Long? {
+        return when (priority) {
+            view?.context?.resources?.getString(R.string.priority_neutral) -> {
+                0L
             }
+            view?.context?.resources?.getString(R.string.priority_normal) -> {
+                1L
+            }
+            view?.context?.resources?.getString(R.string.priority_important) -> {
+                2L
+            }
+            view?.context?.resources?.getString(R.string.priority_urgently) -> {
+                3L
+            }
+
+            else -> 0L
         }
     }
 }

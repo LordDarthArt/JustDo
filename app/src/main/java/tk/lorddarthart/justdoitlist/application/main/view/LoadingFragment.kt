@@ -70,51 +70,53 @@ class LoadingFragment : Fragment() {
                                         for (i in 0 until 31) {
                                             months.documents[0].reference.collection(mDays[i]).get().addOnSuccessListener { days ->
                                                 if (!days.isEmpty) {
-                                                        tododay.clear()
-                                                        todo.clear()
-                                                        for (day in days.documents) {
-                                                            day.reference.collection(
-                                                                    CloudFirestoreToDoDay.field_todoofday_name
-                                                            ).get().addOnSuccessListener { tasks ->
-                                                                val mFromTimestampToTitle = SimpleDateFormat(
-                                                                        DateFormatsTemplates.getFromTimestampToTitle(
-                                                                                toCalendar(mFromDatabaseToTimestamp.parse(
-                                                                                        day.reference.parent.id + "." + months.documents[0].reference.parent.id + "." + year.reference.parent.id
-                                                                                )
-                                                                                ), mActivity)
-                                                                )
-                                                                val title: String = DayTitleConverter(
-                                                                        mFromTimestampToTitle,
-                                                                        mFromDatabaseToTimestamp.parse(day.reference.parent.id + "." + months.documents[0].reference.parent.id + "." + year.reference.parent.id)
-                                                                ).convertToPreferred()
-                                                                for (newDay in days.documents) {
-                                                                    for (newTask in tasks.documents) {
-                                                                        todo.add(
-                                                                                ToDoItemModel(newTask.getString(CloudFirestoreToDoDayItem.field_comment_name),
-                                                                                        newTask.getBoolean(CloudFirestoreToDoDayItem.field_completed_name),
-                                                                                        newTask.getLong(CloudFirestoreToDoDayItem.field_notify_name),
-                                                                                        newTask.getLong(CloudFirestoreToDoDayItem.field_priority_name),
-                                                                                        newTask.getLong(CloudFirestoreToDoDayItem.field_timestamp_name),
-                                                                                        newTask.getString(CloudFirestoreToDoDayItem.field_title_name)
-                                                                                )
-                                                                        )
-                                                                        todo.sortWith(CompareObjects)
-                                                                        tododay.add(ToDoItemDayModel(title, todo))
-                                                                    }
+                                                    tododay.clear()
+                                                    todo.clear()
+                                                    for (day in days.documents) {
+                                                        day.reference.collection(
+                                                                CloudFirestoreToDoDay.field_todoofday_name
+                                                        ).get().addOnSuccessListener { tasks ->
+                                                            val mFromTimestampToTitle = SimpleDateFormat(
+                                                                    DateFormatsTemplates.getFromTimestampToTitle(
+                                                                            toCalendar(mFromDatabaseToTimestamp.parse(
+                                                                                    day.reference.parent.id + "." + months.documents[0].reference.parent.id + "." + year.reference.parent.id
+                                                                            )
+                                                                            ), mActivity)
+                                                            )
+                                                            val title: String = DayTitleConverter(
+                                                                    mFromTimestampToTitle,
+                                                                    mFromDatabaseToTimestamp.parse(day.reference.parent.id + "." + months.documents[0].reference.parent.id + "." + year.reference.parent.id)
+                                                            ).convertToPreferred()
+                                                            for (newDay in days.documents) {
+                                                                for (newTask in tasks.documents) {
+                                                                    todo.add(
+                                                                            ToDoItemModel(newTask.getString(CloudFirestoreToDoDayItem.field_comment_name),
+                                                                                    newTask.getBoolean(CloudFirestoreToDoDayItem.field_completed_name),
+                                                                                    newTask.getLong(CloudFirestoreToDoDayItem.field_notify_name),
+                                                                                    newTask.getLong(CloudFirestoreToDoDayItem.field_priority_name),
+                                                                                    newTask.getLong(CloudFirestoreToDoDayItem.field_timestamp_name),
+                                                                                    newTask.getString(CloudFirestoreToDoDayItem.field_title_name)
+                                                                            )
+                                                                    )
+                                                                    todo.sortWith(CompareObjects)
+                                                                    tododay.add(ToDoItemDayModel(title, todo))
                                                                 }
-                                                                mActivity.mToDoDay = tododay
-                                                                mToDoMonth.add(tododay)
-                                                                if (this@LoadingFragment.isVisible) {
-                                                                    val fragment = ToDoFragment()
-                                                                    mActivity.supportFragmentManager.beginTransaction().replace(R.id.fragment_todo, fragment).commit()
-                                                                }
-                                                            }.addOnFailureListener {
-                                                                Log.e(TAG, "Problem: ", it)
                                                             }
+                                                            mActivity.mToDoDay = tododay
+                                                            mToDoMonth.add(tododay)
+                                                            if (this@LoadingFragment.isVisible) {
+                                                                val fragment = ToDoFragment()
+                                                                mActivity.supportFragmentManager.beginTransaction().replace(R.id.fragment_todo, fragment).commit()
+                                                            }
+                                                        }.addOnFailureListener {
+                                                            Log.e(TAG, "Problem: ", it)
                                                         }
-                                                    } else {
+                                                    }
+                                                } else {
+                                                    if (i == 31 && mToDoMonth.size <= 0) {
                                                         noTasks()
                                                     }
+                                                }
                                             }.addOnFailureListener {
                                                 onFailure(it)
                                             }

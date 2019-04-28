@@ -42,7 +42,9 @@ class NoToDosFragment : Fragment() {
 
         mView.button_no_tasks_create_one.setOnClickListener {
             val fragment = AddFragment()
-            mActivity.supportFragmentManager.beginTransaction().replace(R.id.fragment_main, fragment).commit()
+            mActivity.supportFragmentManager.beginTransaction()
+                    .add(R.id.fragment_todo, fragment).addToBackStack(null)
+                    .commit()
         }
 
         return mView

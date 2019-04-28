@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "tk.lorddarthart.justdo"
+        applicationId "tk.lorddarthart.justdoitlist"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -34,10 +34,10 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
 
     // Firebase
-    implementation 'com.google.firebase:firebase-core:16.0.7'
-    implementation 'com.google.firebase:firebase-auth:16.1.0'
-    implementation 'com.google.firebase:firebase-dynamic-links:16.1.5'
-    implementation 'com.google.firebase:firebase-firestore:18.0.0'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.google.firebase:firebase-auth:16.2.1'
+    implementation 'com.google.firebase:firebase-dynamic-links:16.1.8'
+    implementation 'com.google.firebase:firebase-firestore:18.2.0'
 
     // Email Validator
     implementation 'commons-validator:commons-validator:1.6'

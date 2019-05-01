@@ -9,14 +9,14 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.single_item_todo_listview.view.*
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.utils.converters.PriorityConverter
 import tk.lorddarthart.justdoitlist.application.main.todo.model.ToDoItemModel
+import tk.lorddarthart.justdoitlist.utils.converters.PriorityConverter
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ListViewAdapter(
         internal var context: Context,
-        private var resource: Int,
+        resource: Int,
         objects: List<ToDoItemModel>
 ) : ArrayAdapter<ToDoItemModel>(context, resource, objects) {
     private var mObjects: List<ToDoItemModel> = objects
@@ -52,8 +52,10 @@ class ListViewAdapter(
         val icon: Drawable = context.getDrawable(R.drawable.shape_priority_circle)!!
         icon.setTint(PriorityConverter.getColor(PriorityConverter.getPriority(toDoItem.priority, view), view)!!)
         view.ivPriorityMarker.setImageDrawable(icon)
-        if (toDoItem.completed!!) {
-            view.chkToDo.isChecked = true
+        toDoItem.completed?.let {
+            view.chkToDo.isChecked = it
+        } ?: apply {
+            view.chkToDo.isChecked = false
         }
 
         return view

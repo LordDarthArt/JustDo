@@ -2,6 +2,8 @@ package tk.lorddarthart.justdoitlist.utils.constants
 
 import android.content.Context
 import android.os.Build
+import tk.lorddarthart.justdoitlist.utils.Locale.getLocale
+import tk.lorddarthart.justdoitlist.utils.Locale.isRussianLocalization
 import java.util.*
 
 object DateFormatsTemplates {
@@ -9,26 +11,18 @@ object DateFormatsTemplates {
     const val mDayTime = "HH:mm"
     const val mYear = "yyyy"
     const val mMonth = "MM"
+    const val mMonthWord = "MMMM"
     const val mDay = "dd"
     private lateinit var mFromTimestampToTitle: String
-    private val locale = Locale("ru", "RU")
 
     fun getFromTimestampToTitle(currentCalDate: Calendar, mContext: Context): String{
-        mFromTimestampToTitle = if (getLocale(mContext) != locale) {
+        mFromTimestampToTitle = if (!isRussianLocalization(mContext)) {
             val dayNumberSuffix = getDayNumberSuffix(currentCalDate.get(Calendar.DAY_OF_MONTH))
             "MMMM dd'$dayNumberSuffix', EEEE"
         } else {
             "EEEE, dd MMMM"
         }
         return mFromTimestampToTitle
-    }
-
-    private fun getLocale(context: Context): Locale {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-            context.resources.configuration.locales.get(0)
-        } else{
-            context.resources.configuration.locale
-        }
     }
 
     private fun getDayNumberSuffix(day: Int): String {

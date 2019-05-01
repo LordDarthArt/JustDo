@@ -5,7 +5,9 @@ import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -15,15 +17,11 @@ import tk.lorddarthart.justdoitlist.application.BaseActivity
 import tk.lorddarthart.justdoitlist.utils.converters.PriorityConverter
 import tk.lorddarthart.justdoitlist.utils.listeners.BaseBackPressedListener
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class AddFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
-
     private lateinit var mView: View
     private lateinit var mActivity: BaseActivity
+
+    private val TAG = javaClass.name.toString()
 
     private var mPriority: Long = 0L
 
@@ -32,31 +30,38 @@ class AddFragment : Fragment() {
         mActivity = context as BaseActivity
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         mActivity.setOnBackPressedListener(BaseBackPressedListener(mActivity))
         mView = inflater.inflate(R.layout.fragment_add, container, false)
 
-        //mPriority = PriorityConverter.setPriority(mActivity.resources.getString(R.string.priority_neutral), mView)
+        mActivity.setActionBarTitle(getString(R.string.todo_add_bar_title))
 
-        mView.cl_cardview_urgently_new_todo.setOnClickListener {
-            onTick(it as ConstraintLayout, mView.tvNewPriorityUrgently)
+        PriorityConverter.setPriority(mActivity.resources.getString(R.string.priority_neutral), mView)?.let {
+            mPriority = it
+            Log.d(TAG, "Priority was set to neutral")
         }
 
-        mView.cl_cardview_important_new_todo.setOnClickListener {
-            onTick(it as ConstraintLayout, mView.tvNewPriorityImportant)
-        }
-
-        mView.cl_cardview_normal_new_todo .setOnClickListener {
-            onTick(it as ConstraintLayout, mView.tvNewPriorityNormal)
+        with(mView) {
+            cl_cardview_urgently_new_todo.setOnClickListener {
+                onTick(it as ConstraintLayout, mView.tvNewPriorityUrgently)
+                Log.d(TAG, "Priority was set to urgently")
+            }
+            cl_cardview_important_new_todo.setOnClickListener {
+                onTick(it as ConstraintLayout, mView.tvNewPriorityImportant)
+                Log.d(TAG, "Priority was set to important")
+            }
+            cl_cardview_normal_new_todo .setOnClickListener {
+                onTick(it as ConstraintLayout, mView.tvNewPriorityNormal)
+                Log.d(TAG, "Priority was set to normal")
+            }
+            edittext_description_new_todo.setOnTouchListener { view, event ->
+                view.parent.requestDisallowInterceptTouchEvent(true)
+                if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+                    view.parent.requestDisallowInterceptTouchEvent(false)
+                }
+                return@setOnTouchListener false
+            }
         }
 
         return mView
@@ -67,41 +72,49 @@ class AddFragment : Fragment() {
         super.onDestroyView()
     }
 
-    fun onTick(cl: ConstraintLayout, tv: TextView) {
+    private fun onTick(cl: ConstraintLayout, tv: TextView) {
         if (PriorityConverter.setPriority(tv.text.toString(), mView)!=mPriority) {
-            if (cl.id == mView.cl_cardview_urgently_new_todo.id) {
-                mView.ivTickNewPriorityUrgently.visibility = View.VISIBLE
-                mView.ivTickNewPriorityImportant.visibility = View.GONE
-                mView.ivTickNewPriorityNormal.visibility = View.GONE
-            } else if (cl.id == mView.cl_cardview_important_new_todo.id) {
-                mView.ivTickNewPriorityUrgently.visibility = View.GONE
-                mView.ivTickNewPriorityImportant.visibility = View.VISIBLE
-                mView.ivTickNewPriorityNormal.visibility = View.GONE
-            } else if (cl.id == mView.cl_cardview_normal_new_todo.id) {
-                mView.ivTickNewPriorityUrgently.visibility = View.GONE
-                mView.ivTickNewPriorityImportant.visibility = View.GONE
-                mView.ivTickNewPriorityNormal.visibility = View.VISIBLE
+            when {
+                cl.id == mView.cl_cardview_urgently_new_todo.id -> {
+                    with(mView) {
+                        ivTickNewPriorityUrgently.visibility = View.VISIBLE
+                        ivTickNewPriorityImportant.visibility = View.GONE
+                        ivTickNewPriorityNormal.visibility = View.GONE
+                    }
+                }
+                cl.id == mView.cl_cardview_important_new_todo.id -> {
+                    with(mView) {
+                        ivTickNewPriorityUrgently.visibility = View.GONE
+                        ivTickNewPriorityImportant.visibility = View.VISIBLE
+                        ivTickNewPriorityNormal.visibility = View.GONE
+                    }
+                }
+                cl.id == mView.cl_cardview_normal_new_todo.id -> {
+                    with(mView) {
+                        ivTickNewPriorityUrgently.visibility = View.GONE
+                        ivTickNewPriorityImportant.visibility = View.GONE
+                        ivTickNewPriorityNormal.visibility = View.VISIBLE
+                    }
+                }
             }
-            mPriority = PriorityConverter.setPriority(tv.text.toString(), mView)!!
+            PriorityConverter.setPriority(tv.text.toString(), mView)?.let {
+                mPriority = it
+            }
         } else {
-            mView.ivTickNewPriorityUrgently.visibility = View.GONE
-            mView.ivTickNewPriorityImportant.visibility = View.GONE
-            mView.ivTickNewPriorityNormal.visibility = View.GONE
-            mPriority = PriorityConverter.setPriority(mView.context.resources.getString(R.string.priority_neutral), mView)!!
+            with(mView) {
+                ivTickNewPriorityUrgently.visibility = View.GONE
+                ivTickNewPriorityImportant.visibility = View.GONE
+                ivTickNewPriorityNormal.visibility = View.GONE
+            }
+            PriorityConverter.setPriority(mView.context.resources.getString(R.string.priority_neutral), mView)?.let {
+                mPriority = it
+            }
         }
     }
 
     companion object {
 
-        private const val TAG = "AddFragment"
-
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                AddFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
+        fun newInstance() = AddFragment()
     }
 }

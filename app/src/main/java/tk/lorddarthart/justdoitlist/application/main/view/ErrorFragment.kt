@@ -19,6 +19,8 @@ class ErrorFragment : Fragment() {
     private lateinit var mView: View
     private lateinit var mActivity: BaseActivity
 
+    private val TAG = javaClass.name.toString()
+
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         mActivity = context as BaseActivity
@@ -46,8 +48,6 @@ class ErrorFragment : Fragment() {
 
 
     companion object {
-
-        private const val TAG = "ErrorFragment"
 
         @JvmStatic
         fun newInstance(param1: String, param2: String) =

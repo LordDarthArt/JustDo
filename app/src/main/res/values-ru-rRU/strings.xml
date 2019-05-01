@@ -51,4 +51,6 @@
     <string name="error_loading_data_refresh">Обновить</string>
     <string name="password_rules">Пароль должен соответствовать следующим требованиям:\n\n     - Не менее 8 символов\n     - Символы пробела и переноса строки должны отсутствовать  \n     - Не менее 2х заглавных букв   \n     - Не менее 1 специального символа(!, @, etc)     \n     - Не менее 1 числа</string>
     <string name="progress_auth">Идёт авторизация, пожалуйста, подождите…</string>
+    <string name="todo_add_btn">Добавить</string>
+    <string name="todo_add_bar_title">Добавление задачи</string>
 </resources>

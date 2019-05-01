@@ -4,10 +4,16 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AlertDialog
 import tk.lorddarthart.justdoitlist.R
+import tk.lorddarthart.justdoitlist.application.BaseActivity
 
 class BaseBackPressedListener(private val activity: FragmentActivity) : OnBackPressedListener {
 
     override fun doBack() {
+        (activity as BaseActivity).supportActionBar?.let { actionBar ->
+            activity.getMainTitle()?.let { title ->
+                actionBar.title = title
+            }
+        }
         activity.supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 

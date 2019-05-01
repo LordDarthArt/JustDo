@@ -76,15 +76,17 @@ class ToDoViewAdapter(private var mContext: Context?, private var objects: List<
     }
 
     private fun initializeListView(list: ListView, lists: List<ToDoItemModel>) {
-        val adapter = ListViewAdapter(mContext!!, R.layout.single_item_todo_listview, lists)
-        adapter.notifyDataSetChanged()
-        list.adapter = adapter
-        val height = Utility.setListViewHeightBasedOnChildren(list, mContext!!)
-        height?.let {
-            expand(list, 1000, it)
+        mContext?.let { context ->
+            val adapter = ListViewAdapter(context, R.layout.single_item_todo_listview, lists)
+            adapter.notifyDataSetChanged()
+            list.adapter = adapter
+            val height = Utility.setListViewHeightBasedOnChildren(list, context)
+            height?.let { heightValue ->
+                expand(list, 1000, heightValue)
+            }
+            list.divider = null
+            list.dividerHeight = 0
         }
-        list.divider = null
-        list.dividerHeight = 0
     }
 
     private fun expand(v: View, duration: Int, targetHeight: Int) {
@@ -116,6 +118,9 @@ class ToDoViewAdapter(private var mContext: Context?, private var objects: List<
         valueAnimator.addUpdateListener { animation ->
             v.layoutParams.height = animation.animatedValue as Int
             v.requestLayout()
+            if (v.layoutParams.height<=0) {
+                Handler().postDelayed({v.visibility = View.GONE}, 0)
+            }
         }
         valueAnimator.interpolator = DecelerateInterpolator()
         valueAnimator.duration = duration.toLong()

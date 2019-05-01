@@ -26,6 +26,8 @@ class ToDoFragment : Fragment() {
     private lateinit var mActivity: BaseActivity
     private lateinit var mButtonAdd: ConstraintLayout
 
+    private val TAG = javaClass.name.toString()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -42,7 +44,6 @@ class ToDoFragment : Fragment() {
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-//        Inflate the layout for this fragment
 //        container?.removeAllViews() - Maybe i don't need this???
         mView = inflater.inflate(R.layout.fragment_todo, container, false)
         mButtonAdd = mView.findViewById(R.id.btnAdd)
@@ -63,8 +64,6 @@ class ToDoFragment : Fragment() {
     }
 
     companion object {
-
-        private const val TAG = "ToDoFragment"
 
         @JvmStatic
         fun newInstance() = ToDoFragment()

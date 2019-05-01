@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DialogTitle
 import android.widget.Toast
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.application.main.todo.add.AddFragment
@@ -18,6 +19,7 @@ class BaseActivity : AppCompatActivity() {
 
     private var doubleBackToExitPressedOnce = false
     private var onBackPressedListener: OnBackPressedListener? = null
+    private lateinit var mMainTitle: String
     lateinit var mToDoDay: MutableList<ToDoItemDayModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +51,25 @@ class BaseActivity : AppCompatActivity() {
         }
     }
 
+    fun setMainTitle(mainTitle: String) {
+        mMainTitle = mainTitle
+    }
+
+    fun getMainTitle(): String? {
+        return if (::mMainTitle.isInitialized) {
+            mMainTitle
+        } else {
+            null
+        }
+    }
+
     fun setOnBackPressedListener(onBackPressedListener: OnBackPressedListener?) {
         this.onBackPressedListener = onBackPressedListener
+    }
+
+    fun setActionBarTitle(title: String) {
+        supportActionBar?.let {
+            it.title = title
+        }
     }
 }

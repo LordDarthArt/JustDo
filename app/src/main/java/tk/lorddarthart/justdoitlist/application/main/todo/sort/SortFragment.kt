@@ -16,6 +16,8 @@ class SortFragment : Fragment() {
     private var param2: String? = null
     private lateinit var mView: View
 
+    private val TAG = javaClass.name.toString()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,8 +36,6 @@ class SortFragment : Fragment() {
     }
 
     companion object {
-
-        private const val TAG = "SortFragment"
 
         @JvmStatic
         fun newInstance(param1: String, param2: String) =

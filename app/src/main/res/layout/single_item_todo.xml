@@ -19,7 +19,7 @@
             android:layout_marginStart="27dp"
             android:layout_marginTop="27dp"
             android:text=""
-            android:textColor="@color/txtColor"
+            android:textColor="@color/txtToDoTitleColor"
             android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"

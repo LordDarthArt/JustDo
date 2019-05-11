@@ -5,8 +5,8 @@
 
     <gradient
         android:angle="270"
-        android:startColor="#7D85C3"
-        android:endColor="#ADB4EF" />
+        android:startColor="@color/colorButtonStart"
+        android:endColor="@color/colorButtonEnd" />
 
     <size
         android:width="120dp"

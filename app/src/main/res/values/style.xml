@@ -9,6 +9,7 @@
         <item name="android:colorBackground">@android:color/white</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>
     </style>
 
     <style name="BottomNavigationTheme" parent="Theme.AppCompat.Light">
@@ -17,5 +18,13 @@
 
     <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/txtColor</item>
+    </style>
+
+    <style name="MyTheme.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
+    </style>
+
+    <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/txtToDoTitleColor</item>
     </style>
 </resources>

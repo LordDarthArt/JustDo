@@ -1,6 +1,5 @@
 package tk.lorddarthart.justdoitlist.utils.comparators
 
-import tk.lorddarthart.justdoitlist.application.main.todo.model.ToDoItemDayModel
 import tk.lorddarthart.justdoitlist.application.main.todo.model.ToDoItemModel
 
 class CompareObjectsToDoItemModel {

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Планировщик</string>
-    <string name="login">Войти</string>
-    <string name="signup">Регистрация</string>
+    <string name="sign_in">Войти</string>
+    <string name="sign_up">Регистрация</string>
     <string name="password">Пароль</string>
-    <string name="confirmpw">Подтвердите пароль</string>
+    <string name="confirm_password">Подтвердите пароль</string>
     <string name="frgt">Забыли пароль?</string>
     <string name="hello_blank_fragment">Нахуй мне переводить этот текст?</string>
-    <string name="tc">Условиями и положениями</string>
+    <string name="terms_and_conditions">Условиями и положениями</string>
     <string name="agree">"Выполняя вход в приложение, Вы соглашаетесь с "</string>
-    <string name="and">и</string>
-    <string name="pp">Политикой конфиденциальности</string>
+    <string name="terms_and_conditions_and_privacy_policy">%1$s и %2$s</string>
+    <string name="privacy_policy">Политикой конфиденциальности</string>
     <string name="logo">Логотип</string>
     <string name="agreeai">Согласен</string>
     <string name="asking_for_reset">Пожалуйста введите свой адрес электронной почты чтобы получить инструкции по восстановлению пароля</string>

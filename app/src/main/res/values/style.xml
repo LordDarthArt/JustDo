@@ -13,11 +13,11 @@
     </style>
 
     <style name="BottomNavigationTheme" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">@color/txtColor</item>
+        <item name="colorPrimary">@color/textColor</item>
     </style>
 
     <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/txtColor</item>
+        <item name="colorAccent">@color/textColor</item>
     </style>
 
     <style name="MyTheme.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
@@ -25,6 +25,6 @@
     </style>
 
     <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/txtToDoTitleColor</item>
+        <item name="android:textColor">@color/toDoTitleColor</item>
     </style>
 </resources>

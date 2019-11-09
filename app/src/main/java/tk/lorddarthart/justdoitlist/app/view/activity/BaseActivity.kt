@@ -1,9 +1,15 @@
 package tk.lorddarthart.justdoitlist.app.view.activity
 
 import android.os.Bundle
+import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import tk.lorddarthart.justdoitlist.R
+import tk.lorddarthart.justdoitlist.app.App
 import tk.lorddarthart.justdoitlist.app.presenter.activity.BaseActivityPresenter
 import tk.lorddarthart.justdoitlist.app.view.fragment.splash.SplashFragment
 import tk.lorddarthart.justdoitlist.util.IOnBackPressedListener
@@ -27,9 +33,20 @@ class BaseActivity : MvpAppCompatActivity(), BaseActivityView {
 
     override fun onBackPressed() {
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_main)
+        if (doubleBackToExitPressedOnce) {
+            finishAffinity()
+        }
         when {
             fragment is IOnBackPressedListener -> {
                 fragment.onBackPressed()
+            }
+            supportFragmentManager.backStackEntryCount == 0 -> {
+                doubleBackToExitPressedOnce = true
+                Toast.makeText(App.instance, "Press \"BACK\" again to exit", Toast.LENGTH_LONG).show()
+                GlobalScope.launch(Dispatchers.IO) {
+                    delay(2000L)
+                    doubleBackToExitPressedOnce = false
+                }
             }
             else -> {
                 super.onBackPressed()

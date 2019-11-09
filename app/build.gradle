@@ -83,13 +83,6 @@ dependencies {
     implementation "org.jetbrains.anko:anko:$rootProject.anko_version"
     implementation "org.jetbrains.anko:anko-design:$rootProject.anko_version"
 
-    // PullToRefresh
-    implementation "com.baoyz.pullrefreshlayout:library:$rootProject.p2r_version"
-
-    // RxJava2 & RxAndroid2
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rx_java_version"
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rx_android_version"
-
     // Retrofit2 + Converter_GSON + Adapter_RxJava2
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit_version"

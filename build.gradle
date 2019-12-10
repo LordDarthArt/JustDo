@@ -59,31 +59,31 @@ buildscript {
         version_number = versionNumber
 
         // Gradle
-        gradle_version = '4.0.0-alpha02'
+        gradle_version = '4.0.0-alpha06'
 
         // Google Play Services
-        google_play_services_version = "4.3.2"
+        google_play_services_version = "4.3.3"
 
-        // AppCompat Version
+        // Base
         appcompat_version = "1.1.0"
+        legacy_support_version = "1.0.0"
 
         // Testing
-        testing_legacy_support_version = "1.0.0"
         testing_junit_version = "4.12"
         testing_androidx_junit_version = "1.1.1"
         testing_espresso_version = "3.2.0"
 
         // Design
         design_constraint_layout_version = "1.1.3"
-        design_recycler_view_version = "1.0.0"
+        design_recycler_view_version = "1.1.0"
         design_card_view_version = "1.0.0"
-        design_material_version = '1.2.0-alpha01'
+        design_material_version = '1.2.0-alpha02'
 
         // CircleImageView
         circle_image_view_version = "3.0.1"
 
         // Kotlin
-        kotlin_version = "1.3.60-eap-25"
+        kotlin_version = "1.3.61"
 
         // Coroutines
         coroutines_version = "1.3.2"
@@ -91,14 +91,7 @@ buildscript {
         // Anko
         anko_version = "0.10.8"
 
-        // PullToRefresh
-        p2r_version = "1.2.0"
-
-        // RxJava2 + RxAndroid
-        rx_java_version = "2.2.13"
-        rx_android_version = "2.1.1"
-
-        // Retrofit2 + Converter_GSON + Adapter_RxJava2
+        // Retrofit2
         retrofit_version = "2.6.2"
 
         // OkHTTP3
@@ -120,10 +113,17 @@ buildscript {
         moxy_x_version = "1.7.0"
 
         // Room
-        room_version = '2.2.1'
+        room_version = '2.2.2'
 
         // Cicerone
-        cicerone_version = "5.0.0"
+        cicerone_version = '5.0.0'
+
+        // Firebase
+        firebase_auth_version = '19.2.0'
+        firebase_firestore_version = '21.3.1'
+
+        // Navigation Component
+        navigation_component_version = '2.1.0'
     }
     repositories {
         google()
@@ -131,9 +131,9 @@ buildscript {
         maven {  url "http://dl.bintray.com/kotlin/kotlin-eap" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.0-alpha02'
+        classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:4.3.2'
+        classpath "com.google.gms:google-services:$google_play_services_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

@@ -10,7 +10,14 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.presenter.fragment.auth.sign_in.SignInPresenter
 import tk.lorddarthart.justdoitlist.app.view.fragment.auth.base.BaseAuthFragment
+import tk.lorddarthart.justdoitlist.app.view.fragment.auth.reset_password.ResetPasswordFragment
+import tk.lorddarthart.justdoitlist.app.view.fragment.main.MainFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentSignInBinding
+import tk.lorddarthart.justdoitlist.util.constants.ArgumentsKeysConstant
+import tk.lorddarthart.justdoitlist.util.helper.clickHidePass
+import tk.lorddarthart.justdoitlist.util.helper.logError
+import tk.lorddarthart.justdoitlist.util.helper.shortSnackbar
+import tk.lorddarthart.justdoitlist.util.verificators.PasswordEmailValidator
 
 class SignInFragment : BaseAuthFragment(), SignInFragmentView {
     private lateinit var loadingDialog: ProgressDialog
@@ -57,16 +64,14 @@ class SignInFragment : BaseAuthFragment(), SignInFragmentView {
                                         activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_base, mFragment).commit()
                                         loadingDialog.cancel()
                                     } else {
-                                        Snackbar.make(activity.findViewById<View>(android.R.id.content), "User's email hasn't been verified. Please check your email",
-                                                Snackbar.LENGTH_SHORT).show()
+                                        androidMainWindow.shortSnackbar { "User's email hasn't been verified. Please check your email" }
                                         activity.baseActivityPresenter.auth.signOut()
                                         loadingDialog.cancel()
                                     }
                                 } else {
-                                    Log.d(TAG, "Sign-in failed, the reason is: ", task.exception)
+                                    logError(task.exception) { "Sign-in failed, the reason is: " }
 
-                                    Snackbar.make(activity.findViewById<View>(android.R.id.content), "Authentication failed.",
-                                            Snackbar.LENGTH_SHORT).show()
+                                    androidMainWindow.shortSnackbar { "Authentication failed." }
                                     loadingDialog.cancel()
                                 }
                             }

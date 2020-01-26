@@ -3,38 +3,57 @@ package tk.lorddarthart.justdoitlist.app.view.fragment.main
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.app.presenter.fragment.main.MainFragmentPresenter
-import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
-import tk.lorddarthart.justdoitlist.app.view.fragment.main.additional_view.loading.LoadingFragment
-import tk.lorddarthart.justdoitlist.app.view.fragment.main.profile.ProfileFragment
+import tk.lorddarthart.justdoitlist.app.presenter.fragment.main.MainPresenter
+import tk.lorddarthart.justdoitlist.app.view.fragment.main.base.BaseMainFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentMainBinding
 import tk.lorddarthart.justdoitlist.util.constants.DateArrays.getRussianMonthName
 import tk.lorddarthart.justdoitlist.util.constants.DateFormatsTemplates
-import tk.lorddarthart.justdoitlist.util.helper.Locale.isRussianLocalization
+import tk.lorddarthart.justdoitlist.util.helper.LocaleHelper.isRussianLocalization
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.moveToProfile
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.moveToToDoList
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.showLoading
 import java.text.SimpleDateFormat
 
-class MainFragment : BaseFragment(), MainFragmentView, BottomNavigationView.OnNavigationItemSelectedListener {
+class MainFragment : BaseMainFragment(), MainFragmentView {
+
     private lateinit var mainFragmentBinding: FragmentMainBinding
 
     @InjectPresenter
-    lateinit var mainFragmentPresenter: MainFragmentPresenter
+    lateinit var mainPresenter: MainPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mainFragmentBinding = FragmentMainBinding.inflate(inflater, container, false)
-        initializeFragment(LoadingFragment())
-        initializeActionBar()
-        with(mainFragmentBinding.bottomNavigationView) {
-            setOnNavigationItemSelectedListener(this@MainFragment)
-            selectedItemId = R.id.navigation_main
-        }
+
+        initialization()
+
         return mainFragmentBinding.root
+    }
+
+
+    override fun initListeners() {
+        mainFragmentBinding.fragmentMainBottomNavigationView.setOnNavigationItemSelectedListener{ item ->
+            when (item.itemId) {
+                R.id.navigation_main -> {
+                    moveToToDoList()
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.navigation_account -> {
+                    moveToProfile()
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else -> return@setOnNavigationItemSelectedListener false
+            }
+        }
+    }
+
+    override fun start() {
+        showLoading()
+        initializeActionBar()
+        mainFragmentBinding.fragmentMainBottomNavigationView.selectedItemId = R.id.navigation_main
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -51,26 +70,5 @@ class MainFragment : BaseFragment(), MainFragmentView, BottomNavigationView.OnNa
         activity.supportActionBar?.let {
             it.title = activity.getMainTitle()
         }
-    }
-
-    private fun initializeFragment(fr: Fragment) {
-        // Initializing desired fragment
-        activity.supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_todo, fr)
-                .commit()
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.navigation_main -> {
-                initializeFragment(LoadingFragment())
-                return true
-            }
-            R.id.navigation_account -> {
-                initializeFragment(ProfileFragment())
-                return true
-            }
-        }
-        return false
     }
 }

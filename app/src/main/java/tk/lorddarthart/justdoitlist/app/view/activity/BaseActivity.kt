@@ -1,7 +1,7 @@
 package tk.lorddarthart.justdoitlist.app.view.activity
 
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import kotlinx.coroutines.Dispatchers
@@ -11,15 +11,21 @@ import kotlinx.coroutines.launch
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.App
 import tk.lorddarthart.justdoitlist.app.presenter.activity.BaseActivityPresenter
-import tk.lorddarthart.justdoitlist.app.view.fragment.splash.SplashFragment
 import tk.lorddarthart.justdoitlist.util.IOnBackPressedListener
-import tk.lorddarthart.justdoitlist.util.listeners.OnBackPressedListener
+import tk.lorddarthart.justdoitlist.util.helper.longSnackbar
+import tk.lorddarthart.justdoitlist.util.navigation.CustomNavigator
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.baseNavigator
 
-
+/**
+ * Base & Single [MvpAppCompatActivity] for JustDoItList application. Implements
+ * [IOnBackPressedListener].
+ *
+ * @author Artyom Tarasov
+ */
 class BaseActivity : MvpAppCompatActivity(), BaseActivityView {
 
     private var doubleBackToExitPressedOnce = false
-    private var onBackPressedListener: OnBackPressedListener? = null
     private lateinit var mainTitle: String
 
     @InjectPresenter
@@ -27,22 +33,36 @@ class BaseActivity : MvpAppCompatActivity(), BaseActivityView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setup()
+
         setContentView(R.layout.activity_base)
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_main, SplashFragment()).commit()
+    }
+
+    private fun setup() {
+        setupNavigation()
+    }
+
+    /** Configuring navigation for application to navigate correctly. */
+    private fun setupNavigation() {
+        with (NavUtils) {
+            baseNavigator = CustomNavigator()
+            fragmentManager = supportFragmentManager
+            openSplash()
+        }
     }
 
     override fun onBackPressed() {
-        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_main)
         if (doubleBackToExitPressedOnce) {
             finishAffinity()
         }
         when {
-            fragment is IOnBackPressedListener -> {
-                fragment.onBackPressed()
+            baseActivityPresenter.currentFragment is IOnBackPressedListener -> {
+                (baseActivityPresenter.currentFragment as IOnBackPressedListener).onBackPressed()
             }
             supportFragmentManager.backStackEntryCount == 0 -> {
                 doubleBackToExitPressedOnce = true
-                Toast.makeText(App.instance, "Press \"BACK\" again to exit", Toast.LENGTH_LONG).show()
+                findViewById<View>(android.R.id.content).longSnackbar { App.instance.getString(R.string.press_back_twice) }
                 GlobalScope.launch(Dispatchers.IO) {
                     delay(2000L)
                     doubleBackToExitPressedOnce = false
@@ -64,10 +84,6 @@ class BaseActivity : MvpAppCompatActivity(), BaseActivityView {
         } else {
             null
         }
-    }
-
-    fun setOnBackPressedListener(onBackPressedListener: OnBackPressedListener?) {
-        this.onBackPressedListener = onBackPressedListener
     }
 
     fun setActionBarTitle(title: String) {

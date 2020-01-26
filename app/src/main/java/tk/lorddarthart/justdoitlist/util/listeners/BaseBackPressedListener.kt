@@ -19,8 +19,8 @@ class BaseBackPressedListener(private val activity: FragmentActivity) : OnBackPr
 
     override fun doBackFromAgreements() {
         with(AlertDialog.Builder(activity)) {
-            setTitle(activity.resources.getString(R.string.agreement_areyousure))
-            setMessage(activity.resources.getString(R.string.agreement_declinetext))
+            setTitle(activity.resources.getString(R.string.agreement_are_you_sure_text))
+            setMessage(activity.resources.getString(R.string.agreement_decline_text))
             setPositiveButton(activity.resources.getString(R.string.btn_exit)) { _, _ ->
                 activity.finishAffinity()
             }

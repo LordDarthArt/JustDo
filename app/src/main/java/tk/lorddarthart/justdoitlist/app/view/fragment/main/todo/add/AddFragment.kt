@@ -1,105 +1,71 @@
 package tk.lorddarthart.justdoitlist.app.view.fragment.main.todo.add
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.arellomobile.mvp.presenter.InjectPresenter
-import kotlinx.android.synthetic.main.fragment_add.view.*
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.app.presenter.fragment.main.todo.add.AddFragmentPresenter
-import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
+import tk.lorddarthart.justdoitlist.app.presenter.fragment.main.todo.add.AddPresenter
+import tk.lorddarthart.justdoitlist.app.view.fragment.main.base.BaseMainFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentAddBinding
-import tk.lorddarthart.justdoitlist.util.converters.PriorityConverter
+import tk.lorddarthart.justdoitlist.util.constants.StringConstant.PRIORITY_IMPORTANT
+import tk.lorddarthart.justdoitlist.util.constants.StringConstant.PRIORITY_NORMAL
+import tk.lorddarthart.justdoitlist.util.constants.StringConstant.PRIORITY_URGENTLY
+import tk.lorddarthart.justdoitlist.util.converters.PriorityConverter.getPriorityCode
+import tk.lorddarthart.justdoitlist.util.helper.logDebug
+import tk.lorddarthart.justdoitlist.util.helper.setVisibility
 
-class AddFragment : BaseFragment(), AddFragmentView {
-    private lateinit var addFragmentBinding: FragmentAddBinding
-
+class AddFragment : BaseMainFragment(), AddFragmentView {
     @InjectPresenter
-    lateinit var addFragmentPresenter: AddFragmentPresenter
+    lateinit var addPresenter: AddPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        addFragmentBinding = FragmentAddBinding.inflate(inflater, container, false)
+        fragmentBinding = FragmentAddBinding.inflate(inflater, container, false)
 
-        activity.setActionBarTitle(getString(R.string.todo_add_bar_title))
+        initialization()
 
-        PriorityConverter.setPriority(activity.resources.getString(R.string.priority_neutral))?.let {
-            addFragmentPresenter.priority = it
-            Log.d(TAG, "Priority was set to neutral")
-        }
+        return fragmentBinding.root
+    }
 
-        with(addFragmentBinding) {
+
+    override fun initListeners() {
+        with(fragmentBinding as FragmentAddBinding) {
             cardViewUrgentlyNewTodoLayout.setOnClickListener {
-                onTick(it as ConstraintLayout, priorityUrgentlyText)
-                Log.d(TAG, "Priority was set to urgently")
+                addPresenter.onTick(PRIORITY_URGENTLY)
             }
             cardViewImportantNewTodoLayout.setOnClickListener {
-                onTick(it as ConstraintLayout, priorityImportantText)
-                Log.d(TAG, "Priority was set to important")
+                addPresenter.onTick(PRIORITY_IMPORTANT)
             }
             cardViewNormalNewToDoLayout.setOnClickListener {
-                onTick(it as ConstraintLayout, priorityNormalText)
-                Log.d(TAG, "Priority was set to normal")
+                addPresenter.onTick(PRIORITY_NORMAL)
             }
-            newTodoDescriptionInput.setOnTouchListener { view, event ->
-                view.parent.requestDisallowInterceptTouchEvent(true)
-                if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
-                    view.parent.requestDisallowInterceptTouchEvent(false)
-                }
-                return@setOnTouchListener false
-            }
+//            TODO: MAKE SURE OF WHAT THAT IS
+//            newTodoDescriptionInput.setOnTouchListener { view, event ->
+//                view.parent.requestDisallowInterceptTouchEvent(true)
+//                if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+//                    view.parent.requestDisallowInterceptTouchEvent(false)
+//                }
+//                return@setOnTouchListener false
+//            }
         }
-
-        return addFragmentBinding.root
     }
 
-    override fun onDestroyView() {
-        activity.setOnBackPressedListener(null)
-        super.onDestroyView()
+    override fun start() {
+        activity.setActionBarTitle(getString(R.string.todo_add_bar_title))
+
+        getPriorityCode(activity.resources.getString(R.string.priority_neutral))?.let { priority ->
+            addPresenter.priority = priority
+            logDebug { "Priority was set to neutral" }
+        }
     }
 
-    private fun onTick(constraintLayout: ConstraintLayout, textView: TextView) {
-        if (PriorityConverter.setPriority(textView.text.toString()) != addFragmentPresenter.priority) {
-            when (constraintLayout.id) {
-                addFragmentBinding.cardViewUrgentlyNewTodoLayout.id -> {
-                    with(addFragmentBinding) {
-                        priorityUrgentlySelectedIndicator.visibility = View.VISIBLE
-                        priorityImportantSelectedIndicator.visibility = View.GONE
-                        priorityNormalSelectedIndicator.visibility = View.GONE
-                    }
-                }
-                addFragmentBinding.cardViewImportantNewTodoLayout.id -> {
-                    with(addFragmentBinding) {
-                        priorityUrgentlySelectedIndicator.visibility = View.GONE
-                        priorityImportantSelectedIndicator.visibility = View.VISIBLE
-                        priorityNormalSelectedIndicator.visibility = View.GONE
-                    }
-                }
-                addFragmentBinding.cardViewNormalNewToDoLayout.id -> {
-                    with(addFragmentBinding) {
-                        priorityUrgentlySelectedIndicator.visibility = View.GONE
-                        priorityImportantSelectedIndicator.visibility = View.GONE
-                        priorityNormalSelectedIndicator.visibility = View.VISIBLE
-                    }
-                }
-            }
-            PriorityConverter.setPriority(textView.text.toString())?.let {
-                addFragmentPresenter.priority = it
-            }
-        } else {
-            with(addFragmentBinding) {
-                priorityUrgentlySelectedIndicator.visibility = View.GONE
-                priorityImportantSelectedIndicator.visibility = View.GONE
-                priorityNormalSelectedIndicator.visibility = View.GONE
-            }
-            PriorityConverter.setPriority(getString(R.string.priority_neutral))?.let {
-                addFragmentPresenter.priority = it
-            }
+    override fun replacePriority(priorityTag: String) {
+        with(fragmentBinding as FragmentAddBinding) {
+            priorityUrgentlySelectedIndicator.setVisibility(priorityTag == PRIORITY_URGENTLY)
+            priorityImportantSelectedIndicator.setVisibility(priorityTag == PRIORITY_URGENTLY)
+            priorityNormalSelectedIndicator.setVisibility(priorityTag == PRIORITY_NORMAL)
         }
     }
 }

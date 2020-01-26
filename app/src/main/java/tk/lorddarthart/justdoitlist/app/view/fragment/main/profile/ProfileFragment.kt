@@ -2,46 +2,44 @@ package tk.lorddarthart.justdoitlist.app.view.fragment.main.profile
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.fragment_account.view.*
-import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.app.view.fragment.main.todo.add.AddFragment
+import tk.lorddarthart.justdoitlist.app.presenter.fragment.main.profile.ProfilePresenter
 import tk.lorddarthart.justdoitlist.app.view.activity.BaseActivity
-import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
+import tk.lorddarthart.justdoitlist.app.view.fragment.main.base.BaseMainTabFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentAccountBinding
 
-class ProfileFragment : BaseFragment() {
-    private lateinit var profileFragmentBinding: FragmentAccountBinding
+class ProfileFragment : BaseMainTabFragment(), ProfileFragmentView {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        profileFragmentBinding = FragmentAccountBinding.inflate(inflater, container, false)
+    @InjectPresenter
+    lateinit var profilePresenter: ProfilePresenter
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        fragmentBinding = FragmentAccountBinding.inflate(inflater, container, false)
 
         initialization()
 
-        return profileFragmentBinding.root
+        return fragmentBinding.root
     }
 
-    private fun initialization() {
-        start()
-        initListeners()
+    override fun start() {
+        with (fragmentBinding as FragmentAccountBinding) {
+            tvUserLogIn.text = FirebaseAuth.getInstance().currentUser?.email
+        }
     }
 
-    private fun start() {
-        profileFragmentBinding.tvUserLogIn.text = FirebaseAuth.getInstance().currentUser!!.email
-    }
-
-    private fun initListeners() {
-        profileFragmentBinding.clUserLogOut.setOnClickListener {
-            activity.finish()
-            val intent = Intent(activity, BaseActivity::class.java)
-            intent.putExtra("email", FirebaseAuth.getInstance().currentUser?.email)
-            FirebaseAuth.getInstance().signOut()
-            startActivity(intent)
+    override fun initListeners() {
+        with (fragmentBinding as FragmentAccountBinding) {
+            clUserLogOut.setOnClickListener {
+                activity.finish()
+                val intent = Intent(activity, BaseActivity::class.java)
+                intent.putExtra("email", FirebaseAuth.getInstance().currentUser?.email)
+                FirebaseAuth.getInstance().signOut()
+                startActivity(intent)
+            }
         }
     }
 }

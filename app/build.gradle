@@ -117,9 +117,6 @@ dependencies {
     implementation "androidx.room:room-rxjava2:$rootProject.room_version"
     kapt "androidx.room:room-compiler:$rootProject.room_version"
 
-    // Cicerone
-    implementation "ru.terrakok.cicerone:cicerone:$rootProject.cicerone_version"
-
     // Firebase
     implementation "com.google.firebase:firebase-auth:$rootProject.firebase_auth_version"
     implementation "com.google.firebase:firebase-firestore:$rootProject.firebase_firestore_version"

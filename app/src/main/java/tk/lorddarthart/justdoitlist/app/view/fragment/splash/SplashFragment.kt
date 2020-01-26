@@ -1,49 +1,51 @@
 package tk.lorddarthart.justdoitlist.app.view.fragment.splash
 
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.google.firebase.auth.FirebaseAuth
-import org.jetbrains.anko.support.v4.act
-import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.app.presenter.fragment.splash.SplashFragmentPresenter
-import tk.lorddarthart.justdoitlist.app.view.activity.BaseActivity
-import tk.lorddarthart.justdoitlist.app.view.fragment.auth.AuthFragment
-import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
-import tk.lorddarthart.justdoitlist.app.view.fragment.main.MainFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+import tk.lorddarthart.justdoitlist.app.presenter.fragment.splash.SplashPresenter
+import tk.lorddarthart.justdoitlist.app.view.fragment.splash.base.BaseSplashFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentSplashBinding
+import tk.lorddarthart.justdoitlist.util.constants.TimeConstant.ONE_SECOND
+import tk.lorddarthart.justdoitlist.util.helper.logError
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.moveNextAfterSplash
 
-class SplashFragment : BaseFragment(), SplashFragmentView {
-    private lateinit var splashFragmentBinding: FragmentSplashBinding
-
+class SplashFragment : BaseSplashFragment(), SplashFragmentView {
     @InjectPresenter
-    lateinit var splashFragmentPresenter: SplashFragmentPresenter
+    lateinit var splashPresenter: SplashPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        splashFragmentBinding = FragmentSplashBinding.inflate(inflater, container, false)
+        fragmentBinding = FragmentSplashBinding.inflate(inflater, container, false)
 
+        initialization()
+
+        return fragmentBinding.root
+    }
+
+    override fun initListeners() {
+        // do something
+    }
+
+    override fun start() {
         try {
-            activity.supportActionBar?.hide()
-            Handler().postDelayed({
-                val auth = FirebaseAuth.getInstance()
-                val currentUser = auth.currentUser
-                if (currentUser == null) {
-                    activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_main, AuthFragment()).commit()
-                } else {
-                    activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_main, MainFragment()).commit()
+            actionBar?.hide()
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(ONE_SECOND * 2)
+                moveNextAfterSplash()
+                with(actionBar) {
+                    this?.show()
+                    this?.elevation = 0f
                 }
-                activity.supportActionBar?.show()
-                activity.supportActionBar?.elevation = 0f
-            }, 2000)
-        } catch (e: Exception) {
-            Log.d(TAG, "got exception: ", e)
+            }
+        } catch (exception: Exception) {
+            logError(exception) { "got exception: " }
         }
-
-        return splashFragmentBinding.root
     }
 }

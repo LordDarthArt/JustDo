@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.app.model.model.ToDoItemDayModel
-import tk.lorddarthart.justdoitlist.app.model.model.ToDoItemModel
+import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemDayModel
+import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemModel
 import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
 import tk.lorddarthart.justdoitlist.app.view.fragment.main.additional_view.no_to_do.NoToDoFragment
 import tk.lorddarthart.justdoitlist.app.view.fragment.main.additional_view.error.ErrorFragment
@@ -23,12 +23,18 @@ import tk.lorddarthart.justdoitlist.util.constants.cloudfirestorestructure.Cloud
 import tk.lorddarthart.justdoitlist.util.constants.cloudfirestorestructure.todo.year.month.day.list.CloudFirestoreToDoYearMonthDay
 import tk.lorddarthart.justdoitlist.util.constants.cloudfirestorestructure.todo.year.month.day.list.todoofday.CloudFirestoreToDoDayItem
 import tk.lorddarthart.justdoitlist.util.converters.DayTitleConverter
+import tk.lorddarthart.justdoitlist.util.helper.logDebug
+import tk.lorddarthart.justdoitlist.util.helper.logError
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.mainNavigator
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.moveToError
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.moveToNoToDos
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.moveToToDoList
 import java.text.SimpleDateFormat
 import java.util.*
 
 class LoadingFragment : BaseFragment(), LoadingFragmentView {
     private lateinit var loadingFragmentBinding: FragmentLoadingBinding
-    private val mToDoMonth: MutableList<MutableList<ToDoItemDayModel>> = mutableListOf()
+    private val toDoMonth: MutableList<MutableList<ToDoItemDayModel>> = mutableListOf()
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -80,9 +86,11 @@ class LoadingFragment : BaseFragment(), LoadingFragmentView {
                                                 tododay.add(ToDoItemDayModel(title, todo))
                                                 tododay.sortWith(CompareObjectsToDoItemDayModel)
                                                 if (z == month.documents.lastIndex) {
-                                                    activity.baseActivityPresenter.toDoList.clear()
-                                                    activity.baseActivityPresenter.toDoList.addAll(tododay)
-                                                    callToDoList()
+                                                    with(activity.baseActivityPresenter.toDoList) {
+                                                        clear()
+                                                        addAll(tododay)
+                                                    }
+                                                    moveToToDoList()
                                                 }
                                             }.addOnFailureListener {
                                                 Log.e(TAG, "Problem: ", it)
@@ -112,27 +120,26 @@ class LoadingFragment : BaseFragment(), LoadingFragmentView {
     }
 
     private fun noTasks() {
-        Log.d(TAG, "Currently no tasks")
+        logDebug { "Currently no tasks" }
 
-        val fragment = NoToDoFragment()
         if (this@LoadingFragment.isVisible) {
-            activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_todo, fragment).commit()
+            moveToNoToDos()
         }
-    }
-
-    fun callToDoList() {
-        val fragment = ToDoFragment()
-        activity.supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_todo, fragment)
-                .commit()
     }
 
     private fun onFailure(e: Exception) {
-        Log.d(TAG, "data request to Firebase failed. You know why? Oh, this is simple: ", e)
+        logError(e) { "data request to Firebase failed. You know why? Oh, this is simple: " }
 
-        val fragment = ErrorFragment()
         if (this@LoadingFragment.isVisible) {
-            activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_todo, fragment).commit()
+            moveToError()
         }
+    }
+
+    override fun initListeners() {
+
+    }
+
+    override fun start() {
+
     }
 }

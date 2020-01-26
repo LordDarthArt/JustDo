@@ -7,33 +7,28 @@ import android.view.ViewGroup
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
 import tk.lorddarthart.justdoitlist.app.view.fragment.main.additional_view.loading.LoadingFragment
+import tk.lorddarthart.justdoitlist.app.view.fragment.main.base.BaseMainTabFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentErrorBinding
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.showLoading
 
-class ErrorFragment : BaseFragment() {
-    private lateinit var errorFragmentBinding: FragmentErrorBinding
+class ErrorFragment : BaseMainTabFragment(), ErrorFragmentView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        errorFragmentBinding = FragmentErrorBinding.inflate(inflater, container, false)
+        fragmentBinding = FragmentErrorBinding.inflate(inflater, container, false)
 
         initialization()
 
-        return errorFragmentBinding.root
+        return fragmentBinding.root
     }
 
-    private fun initialization() {
-        start()
-        initListeners()
-    }
-
-    private fun initListeners() {
-        errorFragmentBinding.buttonRefreshError.setOnClickListener {
-            val fragment = LoadingFragment()
-            activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_todo, fragment).commit()
+    override fun initListeners() {
+        with (fragmentBinding as FragmentErrorBinding) {
+            buttonRefreshError.setOnClickListener { showLoading() }
         }
     }
 
-    private fun start() {
+    override fun start() {
 
     }
 }

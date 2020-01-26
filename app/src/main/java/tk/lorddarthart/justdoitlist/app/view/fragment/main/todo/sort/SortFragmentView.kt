@@ -1,6 +1,6 @@
 package tk.lorddarthart.justdoitlist.app.view.fragment.main.todo.sort
 
-import com.arellomobile.mvp.MvpView
+import tk.lorddarthart.justdoitlist.app.view.fragment.main.base.BaseMainView
+import tk.lorddarthart.justdoitlist.util.app_section.Tab
 
-interface SortFragmentView: MvpView {
-}
+interface SortFragmentView : BaseMainView, Tab

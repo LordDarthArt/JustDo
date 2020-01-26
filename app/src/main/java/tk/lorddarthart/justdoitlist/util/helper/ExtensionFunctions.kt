@@ -1,12 +1,14 @@
 package tk.lorddarthart.justdoitlist.util.helper
 
 import android.text.InputType
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.App
+import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
 
 fun Button.setTextDisabled() {
     this.setTextColor(ContextCompat.getColor(App.instance, R.color.textDisabledColor))
@@ -28,3 +30,14 @@ fun ImageView.clickHidePass(editText: EditText) {
     }
     editText.setSelection(editText.text.length)
 }
+
+fun View.setVisibility(visible: Boolean) {
+    visibility = if (visible) {
+        View.VISIBLE
+    } else {
+        View.GONE
+    }
+}
+
+inline val <reified T: BaseFragment> T.fragmentTag: String
+    get() = T::class.java.simpleName

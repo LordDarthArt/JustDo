@@ -1,6 +1,6 @@
 package tk.lorddarthart.justdoitlist.app.view.fragment.auth.reset_password
 
-import com.arellomobile.mvp.MvpView
+import tk.lorddarthart.justdoitlist.app.view.fragment.auth.base.BaseAuthFragmentView
 
-interface ResetPasswordFragmentView: MvpView {
+interface ResetPasswordFragmentView : BaseAuthFragmentView {
 }

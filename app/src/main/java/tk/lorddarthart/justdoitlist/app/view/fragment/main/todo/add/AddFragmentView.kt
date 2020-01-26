@@ -1,6 +1,8 @@
 package tk.lorddarthart.justdoitlist.app.view.fragment.main.todo.add
 
-import com.arellomobile.mvp.MvpView
+import tk.lorddarthart.justdoitlist.app.view.fragment.main.base.BaseMainView
+import tk.lorddarthart.justdoitlist.util.app_section.Tab
 
-interface AddFragmentView: MvpView {
+interface AddFragmentView : BaseMainView, Tab {
+    fun replacePriority(priorityTag: String)
 }

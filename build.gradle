@@ -59,7 +59,7 @@ buildscript {
         version_number = versionNumber
 
         // Gradle
-        gradle_version = '4.0.0-alpha06'
+        gradle_version = '3.5.3'
 
         // Google Play Services
         google_play_services_version = "4.3.3"
@@ -114,9 +114,6 @@ buildscript {
 
         // Room
         room_version = '2.2.2'
-
-        // Cicerone
-        cicerone_version = '5.0.0'
 
         // Firebase
         firebase_auth_version = '19.2.0'

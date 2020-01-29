@@ -5,6 +5,7 @@ import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
 import tk.lorddarthart.justdoitlist.util.helper.fragmentTag
 import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.fragmentManager
+import tk.lorddarthart.justdoitlist.util.navigation.navigatable.Destination
 import tk.lorddarthart.justdoitlist.util.navigation.types.NavigationActionType
 import tk.lorddarthart.justdoitlist.util.navigation.types.NavigationAnimType
 
@@ -16,11 +17,12 @@ class CustomNavigator(private val containerId: Int = R.id.fragment_base): INavig
         }
 
     override fun navigate(
-            targetFragment: BaseFragment,
+            targetDestination: Destination,
             actionType: NavigationActionType,
             animType: NavigationAnimType,
             arguments: Bundle?
     ) {
+        val targetFragment = targetDestination.destinationFragment
         arguments?.let { args ->
             targetFragment.arguments = args
         }
@@ -33,8 +35,9 @@ class CustomNavigator(private val containerId: Int = R.id.fragment_base): INavig
             }
             when (actionType) {
                 NavigationActionType.ReplaceAction -> { replace(containerId, targetFragment) }
-                NavigationActionType.AddToBackStackAction -> { add(containerId, targetFragment).addToBackStack(currentFragment!!.fragmentTag) }
-                NavigationActionType.ShowAction -> { show(targetFragment).hide(currentFragment!!) }
+                NavigationActionType.AddToBackStackAction -> { add(containerId, targetFragment).addToBackStack(currentFragment?.fragmentTag) }
+                NavigationActionType.ShowAction -> { show(targetFragment).apply { currentFragment?.let { hide(it) } } }
+                NavigationActionType.JustAddAction -> { add(containerId, targetFragment).apply { currentFragment?.let { hide(it) } } }
             }
         }.commit()
     }

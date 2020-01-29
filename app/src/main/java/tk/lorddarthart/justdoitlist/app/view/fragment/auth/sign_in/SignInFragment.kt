@@ -17,6 +17,7 @@ import tk.lorddarthart.justdoitlist.util.constants.ArgumentsKeysConstant
 import tk.lorddarthart.justdoitlist.util.helper.clickHidePass
 import tk.lorddarthart.justdoitlist.util.helper.logError
 import tk.lorddarthart.justdoitlist.util.helper.shortSnackbar
+import tk.lorddarthart.justdoitlist.util.singleton.UserData
 import tk.lorddarthart.justdoitlist.util.verificators.PasswordEmailValidator
 
 class SignInFragment : BaseAuthFragment(), SignInFragmentView {
@@ -99,14 +100,9 @@ class SignInFragment : BaseAuthFragment(), SignInFragmentView {
 
     override fun start() {
         with(fragmentBinding as FragmentSignInBinding) {
-            if (arguments != null && arguments!!.containsKey("email")) {
-                signInEmailInput.setText(arguments!!.getString("email"))
-            }
-            if (activity.intent.hasExtra("email")) {
-                signInEmailInput.setText(activity.intent.getStringExtra("email"))
-            }
-            if (activity.intent.hasExtra(ArgumentsKeysConstant.EMAIL)) {
-                signInEmailInput.setText(activity.intent.getStringExtra(ArgumentsKeysConstant.EMAIL))
+            UserData.USER_EMAIL?.let { emailString ->
+                signInEmailInput.setText(emailString)
+                UserData.USER_EMAIL = null
             }
             signInPasswordHideIcon.tag = R.drawable.ic_eye_unvisible
         }

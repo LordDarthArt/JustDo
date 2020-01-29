@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentManager
 import com.google.firebase.auth.FirebaseAuth
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.view.fragment.auth.AuthFragment
+import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
 import tk.lorddarthart.justdoitlist.app.view.fragment.main.MainFragment
 import tk.lorddarthart.justdoitlist.app.view.fragment.main.additional_view.error.ErrorFragment
 import tk.lorddarthart.justdoitlist.app.view.fragment.main.additional_view.loading.LoadingFragment
@@ -25,35 +26,5 @@ object NavUtils {
 
     lateinit var fragmentManager: FragmentManager
 
-    fun moveNextAfterSplash() {
-        if (FirebaseAuth.getInstance().currentUser == null) {
-            baseNavigator.navigate(AuthFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.SlideAnim)
-        } else {
-            baseNavigator.navigate(MainFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.SlideAnim)
-        }
-    }
-
-    fun showLoading() {
-        mainNavigator.navigate(LoadingFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
-    }
-
-    fun moveToToDoList() {
-        mainNavigator.navigate(ToDoFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
-    }
-
-    fun moveToProfile() {
-        mainNavigator.navigate(ProfileFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
-    }
-
-    fun moveToError() {
-        mainNavigator.navigate(ErrorFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
-    }
-
-    fun moveToNoToDos() {
-        mainNavigator.navigate(NoToDoFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
-    }
-
-    fun openSplash() {
-        baseNavigator.navigate(SplashFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.NoAnim)
-    }
+    var currentFragment: BaseFragment? = null
 }

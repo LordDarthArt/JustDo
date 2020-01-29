@@ -5,17 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 import tk.lorddarthart.justdoitlist.app.presenter.fragment.splash.SplashPresenter
+import tk.lorddarthart.justdoitlist.app.view.fragment.auth.AuthFragment
+import tk.lorddarthart.justdoitlist.app.view.fragment.main.MainFragment
 import tk.lorddarthart.justdoitlist.app.view.fragment.splash.base.BaseSplashFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentSplashBinding
 import tk.lorddarthart.justdoitlist.util.constants.TimeConstant.ONE_SECOND
 import tk.lorddarthart.justdoitlist.util.helper.logError
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils
 import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.moveNextAfterSplash
+import tk.lorddarthart.justdoitlist.util.navigation.types.NavigationActionType
+import tk.lorddarthart.justdoitlist.util.navigation.types.NavigationAnimType
 
 class SplashFragment : BaseSplashFragment(), SplashFragmentView {
     @InjectPresenter
@@ -38,7 +44,7 @@ class SplashFragment : BaseSplashFragment(), SplashFragmentView {
             actionBar?.hide()
             CoroutineScope(Dispatchers.Main).launch {
                 delay(ONE_SECOND * 2)
-                moveNextAfterSplash()
+                splashPresenter.proceedNext()
                 with(actionBar) {
                     this?.show()
                     this?.elevation = 0f

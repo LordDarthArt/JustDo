@@ -13,7 +13,7 @@ import tk.lorddarthart.justdoitlist.app.view.fragment.auth.sign_up.SignUpFragmen
 import tk.lorddarthart.justdoitlist.util.constants.ArgumentsKeysConstant.ACTIVITY
 import tk.lorddarthart.justdoitlist.util.constants.DefaultValuesConstant.PRIVACY_POLICY
 import tk.lorddarthart.justdoitlist.util.constants.DefaultValuesConstant.TERMS_AND_CONDITIONS
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.authNavigator
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.AuthNavigator
 import tk.lorddarthart.justdoitlist.util.navigation.types.NavigationActionType
 import tk.lorddarthart.justdoitlist.util.navigation.types.NavigationAnimType
 
@@ -28,11 +28,11 @@ class AuthPresenter : BaseAuthPresenter<AuthFragmentView>() {
 
     /** Function which shows [SignUpFragment] inside [AuthFragment].  */
     fun moveToSignIn() {
-        authNavigator.navigate(SignInFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
+        AuthNavigator.navigate(SignInFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
     }
 
     /** Function which shows [SignUpFragment] inside [AuthFragment].  */
     fun moveToSignUp() {
-        authNavigator.navigate(SignUpFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
+        AuthNavigator.navigate(SignUpFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
     }
 }

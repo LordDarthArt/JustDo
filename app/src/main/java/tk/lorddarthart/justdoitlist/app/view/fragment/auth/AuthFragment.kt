@@ -16,7 +16,7 @@ import tk.lorddarthart.justdoitlist.util.custom_objects.CustomSpannableString
 import tk.lorddarthart.justdoitlist.util.helper.setTextDisabled
 import tk.lorddarthart.justdoitlist.util.helper.setTextEnabled
 import tk.lorddarthart.justdoitlist.util.navigation.CustomNavigator
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.authNavigator
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.AuthNavigator
 
 class AuthFragment : BaseAuthFragment(), AuthFragmentView {
     @InjectPresenter
@@ -24,7 +24,7 @@ class AuthFragment : BaseAuthFragment(), AuthFragmentView {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        authNavigator = CustomNavigator(R.id.fragment_enter)
+        AuthNavigator = CustomNavigator(R.id.fragment_enter)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -39,14 +39,14 @@ class AuthFragment : BaseAuthFragment(), AuthFragmentView {
     override fun initListeners() {
         with(fragmentBinding as FragmentAuthBinding) {
             buttonSignIn.setOnClickListener {
-                if (authNavigator.currentFragment !is SignInFragment) {
+                if (AuthNavigator.currentFragment !is SignInFragment) {
                     authPresenter.moveToSignIn()
                     buttonSignUp.setTextDisabled()
                     buttonSignIn.setTextEnabled()
                 }
             }
             buttonSignUp.setOnClickListener {
-                if (authNavigator.currentFragment !is SignUpFragment) {
+                if (AuthNavigator.currentFragment !is SignUpFragment) {
                     authPresenter.moveToSignUp()
                     buttonSignUp.setTextEnabled()
                     buttonSignIn.setTextDisabled()

@@ -7,10 +7,7 @@ import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemDayModel
 import tk.lorddarthart.justdoitlist.app.presenter.base.BasePresenter
 import tk.lorddarthart.justdoitlist.app.view.activity.BaseActivity
 import tk.lorddarthart.justdoitlist.app.view.activity.BaseActivityView
-import tk.lorddarthart.justdoitlist.app.view.fragment.splash.SplashFragment
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.baseNavigator
-import tk.lorddarthart.justdoitlist.util.navigation.types.NavigationActionType
-import tk.lorddarthart.justdoitlist.util.navigation.types.NavigationAnimType
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.BaseNavigator
 
 /**
  * [BasePresenter] for [BaseActivity] which holds all values and business logic.
@@ -20,7 +17,7 @@ import tk.lorddarthart.justdoitlist.util.navigation.types.NavigationAnimType
 @InjectViewState
 class BaseActivityPresenter : BasePresenter<BaseActivityView>() {
     val currentFragment
-        get() = baseNavigator.currentFragment
+        get() = BaseNavigator.currentFragment
 
     val auth: FirebaseAuth by lazy {
         FirebaseAuth.getInstance()

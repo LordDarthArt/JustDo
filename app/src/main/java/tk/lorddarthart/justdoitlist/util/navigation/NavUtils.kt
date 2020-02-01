@@ -18,13 +18,13 @@ import tk.lorddarthart.justdoitlist.util.navigation.types.NavigationAnimType
 /** Singleton object containing all the tools you need to work with navigation. */
 object NavUtils {
     /** Base application's navigator for navigating between fragments in [R.id.fragment_base] */
-    lateinit var baseNavigator: CustomNavigator
+    lateinit var BaseNavigator: CustomNavigator
     /** Aapplication's navigator for navigating between fragments in [R.id.fragment_main_container] */
-    lateinit var mainNavigator: CustomNavigator
+    lateinit var MainNavigator: CustomNavigator
     /** Aapplication's navigator for navigating between fragments in [R.id.fragment_enter] */
-    lateinit var authNavigator: CustomNavigator
+    lateinit var AuthNavigator: CustomNavigator
 
-    lateinit var fragmentManager: FragmentManager
+    lateinit var NavigationFragmentManager: FragmentManager
 
     var currentFragment: BaseFragment? = null
 }

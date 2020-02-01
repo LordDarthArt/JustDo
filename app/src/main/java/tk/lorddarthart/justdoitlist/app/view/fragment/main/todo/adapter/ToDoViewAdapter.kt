@@ -22,9 +22,10 @@ import kotlinx.coroutines.launch
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemDayModel
 import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemModel
+import tk.lorddarthart.justdoitlist.util.constants.DigitalConstant
 import tk.lorddarthart.justdoitlist.util.constants.TimeConstant.ONE_HUNDRED_MILLIS
 import tk.lorddarthart.justdoitlist.util.constants.TimeConstant.ONE_SECOND
-import tk.lorddarthart.justdoitlist.util.constants.Utility
+import tk.lorddarthart.justdoitlist.util.helper.UsefulTools
 import java.text.SimpleDateFormat
 
 
@@ -49,7 +50,7 @@ class ToDoViewAdapter(
         holder.toDoDateText.text = objects.titleDay
         holder.toDoDate.setOnClickListener {
             if (holder.listToDo.visibility == View.VISIBLE) {
-                collapse(holder.listToDo, ONE_SECOND.toInt(), 0)
+                collapse(holder.listToDo)
                 holder.toDoArrow.startAnimation(AnimationUtils.loadAnimation(context,R.anim.arrow_down))
             } else if (holder.listToDo.visibility == View.GONE) {
                 initializeListView(holder.listToDo, objects.listToDoModel!!)
@@ -87,7 +88,7 @@ class ToDoViewAdapter(
             val adapter = ListViewAdapter(R.layout.single_item_todo_listview, lists)
             adapter.notifyDataSetChanged()
             list.adapter = adapter
-            val height = Utility.setListViewHeightBasedOnChildren(list, context)
+            val height = UsefulTools.setListViewHeightBasedOnChildren(list, context)
             height?.let { heightValue ->
                 expand(list, 1000, heightValue)
             }
@@ -119,24 +120,24 @@ class ToDoViewAdapter(
         valueAnimator.start()
     }
 
-    private fun collapse(v: View, duration: Int, targetHeight: Int) {
-        val prevHeight = v.height
-        val valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight)
+    private fun collapse(view: View) {
+        val prevHeight = view.height
+        val valueAnimator = ValueAnimator.ofInt(prevHeight, DigitalConstant.COLLAPSE_TARGET_HEIGHT)
         valueAnimator.interpolator = DecelerateInterpolator()
         valueAnimator.addUpdateListener { animation ->
-            v.layoutParams.height = animation.animatedValue as Int
-            v.requestLayout()
-            if (v.layoutParams.height<=0) {
+            view.layoutParams.height = animation.animatedValue as Int
+            view.requestLayout()
+            if (view.layoutParams.height<=0) {
                 CoroutineScope(Dispatchers.Main).launch {
-                    v.visibility = View.GONE
+                    view.visibility = View.GONE
                 }
             }
         }
         valueAnimator.interpolator = DecelerateInterpolator()
-        valueAnimator.duration = duration.toLong()
+        valueAnimator.duration = DigitalConstant.СOLLAPSE_DURATION
         val listener = object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator?) {
-                v.visibility = View.GONE
+                view.visibility = View.GONE
             }
         }
         valueAnimator.addListener(listener)

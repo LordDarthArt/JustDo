@@ -11,11 +11,12 @@ import kotlinx.coroutines.launch
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.App
 import tk.lorddarthart.justdoitlist.app.presenter.activity.BaseActivityPresenter
-import tk.lorddarthart.justdoitlist.util.IOnBackPressedListener
+import tk.lorddarthart.justdoitlist.app.view.fragment.splash.SplashFragment
+import tk.lorddarthart.justdoitlist.util.helper.IOnBackPressedListener
 import tk.lorddarthart.justdoitlist.util.helper.longSnackbar
 import tk.lorddarthart.justdoitlist.util.navigation.CustomNavigator
+import tk.lorddarthart.justdoitlist.util.navigation.NavAction.OpenNavAction.openInBase
 import tk.lorddarthart.justdoitlist.util.navigation.NavUtils
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.baseNavigator
 
 /**
  * Base & Single [MvpAppCompatActivity] for JustDoItList application. Implements
@@ -46,9 +47,9 @@ class BaseActivity : MvpAppCompatActivity(), BaseActivityView {
     /** Configuring navigation for application to navigate correctly. */
     private fun setupNavigation() {
         with (NavUtils) {
-            baseNavigator = CustomNavigator()
-            fragmentManager = supportFragmentManager
-            openSplash()
+            BaseNavigator = CustomNavigator()
+            NavigationFragmentManager = supportFragmentManager
+            openInBase(fragment = SplashFragment())
         }
     }
 

@@ -1,6 +1,5 @@
 package tk.lorddarthart.justdoitlist.util.custom_objects
 
-import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
@@ -13,7 +12,7 @@ import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.App
 import tk.lorddarthart.justdoitlist.app.model.pojo.auth.Link
 import tk.lorddarthart.justdoitlist.app.view.fragment.auth.additional_info.AdditionalInfoFragment
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.baseNavigator
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.BaseNavigator
 import tk.lorddarthart.justdoitlist.util.navigation.types.NavigationActionType
 import tk.lorddarthart.justdoitlist.util.navigation.types.NavigationAnimType
 import java.util.regex.Pattern
@@ -30,7 +29,7 @@ class CustomSpannableString(
 
             val linkClickableSpan = object : ClickableSpan() {
                 override fun onClick(widget: View) {
-                    baseNavigator.navigate(AdditionalInfoFragment(), NavigationActionType.AddToBackStackAction, NavigationAnimType.FadeAnim, link.fragmentBundle)
+                    BaseNavigator.navigate(AdditionalInfoFragment(), NavigationActionType.AddToBackStackAction, NavigationAnimType.FadeAnim, link.fragmentBundle)
                 }
 
                 override fun updateDrawState(ds: TextPaint) {

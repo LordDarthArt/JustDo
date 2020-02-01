@@ -8,13 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemDayModel
 import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemModel
 import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
-import tk.lorddarthart.justdoitlist.app.view.fragment.main.additional_view.no_to_do.NoToDoFragment
 import tk.lorddarthart.justdoitlist.app.view.fragment.main.additional_view.error.ErrorFragment
-import tk.lorddarthart.justdoitlist.app.view.fragment.main.todo.ToDoFragment
+import tk.lorddarthart.justdoitlist.app.view.fragment.main.additional_view.no_to_do.NoToDoFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentLoadingBinding
 import tk.lorddarthart.justdoitlist.util.comparators.CompareObjectsToDoItemDayModel
 import tk.lorddarthart.justdoitlist.util.comparators.CompareObjectsToDoItemModel
@@ -25,10 +23,7 @@ import tk.lorddarthart.justdoitlist.util.constants.cloudfirestorestructure.todo.
 import tk.lorddarthart.justdoitlist.util.converters.DayTitleConverter
 import tk.lorddarthart.justdoitlist.util.helper.logDebug
 import tk.lorddarthart.justdoitlist.util.helper.logError
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.mainNavigator
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.moveToError
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.moveToNoToDos
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.moveToToDoList
+import tk.lorddarthart.justdoitlist.util.navigation.NavAction
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -90,7 +85,7 @@ class LoadingFragment : BaseFragment(), LoadingFragmentView {
                                                         clear()
                                                         addAll(tododay)
                                                     }
-                                                    moveToToDoList()
+                                                    NavAction.OpenNavAction.openInBase(fragment = ErrorFragment())
                                                 }
                                             }.addOnFailureListener {
                                                 Log.e(TAG, "Problem: ", it)
@@ -123,7 +118,7 @@ class LoadingFragment : BaseFragment(), LoadingFragmentView {
         logDebug { "Currently no tasks" }
 
         if (this@LoadingFragment.isVisible) {
-            moveToNoToDos()
+            NavAction.OpenNavAction.openInBase(fragment = NoToDoFragment())
         }
     }
 
@@ -131,7 +126,7 @@ class LoadingFragment : BaseFragment(), LoadingFragmentView {
         logError(e) { "data request to Firebase failed. You know why? Oh, this is simple: " }
 
         if (this@LoadingFragment.isVisible) {
-            moveToError()
+            NavAction.OpenNavAction.openInBase(fragment = ErrorFragment())
         }
     }
 

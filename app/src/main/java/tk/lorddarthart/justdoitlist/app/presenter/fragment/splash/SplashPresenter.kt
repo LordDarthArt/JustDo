@@ -16,9 +16,9 @@ import tk.lorddarthart.justdoitlist.util.navigation.types.NavigationAnimType
 class SplashPresenter: BaseFragmentPresenter<SplashFragmentView>() {
     fun proceedNext() {
         if (FirebaseAuth.getInstance().currentUser == null) {
-            NavAction.OpenNavDestinations
+            NavAction.OpenNavAction
         } else {
-            NavUtils.baseNavigator.navigate(MainFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.SlideAnim)
+            NavUtils.BaseNavigator.navigate(MainFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.SlideAnim)
         }
     }
 

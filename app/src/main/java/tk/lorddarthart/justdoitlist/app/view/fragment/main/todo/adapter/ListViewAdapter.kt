@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.single_item_todo_listview.view.*
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.App
 import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemModel
+import tk.lorddarthart.justdoitlist.databinding.SingleItemTodoListviewBinding
 import tk.lorddarthart.justdoitlist.util.converters.PriorityConverter.getColor
 import tk.lorddarthart.justdoitlist.util.converters.PriorityConverter.getPriorityName
 import java.text.SimpleDateFormat
@@ -42,37 +43,40 @@ class ListViewAdapter(
 
     @SuppressLint("SimpleDateFormat", "ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = LayoutInflater.from(App.instance).inflate(R.layout.single_item_todo_listview, parent, false)
+        val viewBinding = SingleItemTodoListviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val toDoItem = getToDoItem(position)
 
-        view.setTitle(toDoItem.title)
-        view.setComment(toDoItem.comment)
-        view.setTimeText(toDoItem.timestamp.toString())
-        view.setIcon(toDoItem, getPriorityName(toDoItem.priority))
-        toDoItem.completed?.let {
-            view.chkToDo.isChecked = it
+        with (viewBinding) {
+            setTitle(toDoItem.title)
+            setComment(toDoItem.comment)
+            setTimeText(toDoItem.timestamp.toString())
+            setIcon(toDoItem, getPriorityName(toDoItem.priority))
+            toDoItem.completed?.let {
+                chkToDo.isChecked = it
+            }
         }
 
-        return view
+        return viewBinding.root
     }
 }
 
-private fun View.setIcon(toDoItem: ToDoItemModel, priorityName: String?) {
-    val icon: Drawable = context.getDrawable(R.drawable.shape_priority_circle)!!
-    getColor(toDoItem.title)?.let {
+private fun SingleItemTodoListviewBinding.setIcon(toDoItem: ToDoItemModel, priorityName: String?) {
+    val icon: Drawable = root.context.getDrawable(R.drawable.shape_priority_circle)!!
+    getColor(toDoItem.priority)?.let {
         icon.setTint(it)
     }
     ivPriorityMarker.setImageDrawable(icon)
 }
 
-private fun View.setTimeText(time: String) {
-    tvToDoTime.text = SimpleDateFormat("HH:mm").format(Date(time))
+@SuppressLint("SimpleDateFormat")
+private fun SingleItemTodoListviewBinding.setTimeText(time: String) {
+    tvToDoTime.text = SimpleDateFormat("HH:mm").format(Date(time.toLong()))
 }
 
-private fun View.setComment(comment: String?) {
+private fun SingleItemTodoListviewBinding.setComment(comment: String?) {
     tvToDoComment.text = comment
 }
 
-private fun View.setTitle(title: String?) {
+private fun SingleItemTodoListviewBinding.setTitle(title: String?) {
     tvToDoTitle.text = title
 }

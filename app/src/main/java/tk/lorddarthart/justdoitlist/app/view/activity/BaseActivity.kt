@@ -47,6 +47,7 @@ class BaseActivity : MvpAppCompatActivity(), BaseActivityView {
     private fun setupNavigation() {
         with (NavUtils) {
             baseNavigator = CustomNavigator()
+            mainNavigator = CustomNavigator(R.id.fragment_main_container)
             fragmentManager = supportFragmentManager
             openSplash()
         }

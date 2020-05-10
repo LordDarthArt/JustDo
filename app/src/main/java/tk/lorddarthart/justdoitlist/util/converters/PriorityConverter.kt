@@ -25,13 +25,13 @@ object PriorityConverter {
         }
     }
 
-    fun getColor(priority: String?): Int? {
+    fun getColor(priority: Long?): Int {
         with(App.instance) {
             return when (priority) {
-                getString(R.string.priority_neutral) -> { ContextCompat.getColor(this, R.color.emptyPriorityMarkColor) }
-                getString(R.string.priority_normal) -> { ContextCompat.getColor(this, R.color.lowPriorityMarkColor) }
-                getString(R.string.priority_important) -> { ContextCompat.getColor(this, R.color.middlePriorityMarkColor) }
-                getString(R.string.priority_urgently) -> { ContextCompat.getColor(this, R.color.highPriorityMarkColor) }
+                0L -> { ContextCompat.getColor(this, R.color.emptyPriorityMarkColor) }
+                1L -> { ContextCompat.getColor(this, R.color.lowPriorityMarkColor) }
+                2L -> { ContextCompat.getColor(this, R.color.middlePriorityMarkColor) }
+                3L -> { ContextCompat.getColor(this, R.color.highPriorityMarkColor) }
                 else -> ContextCompat.getColor(this, R.color.emptyPriorityMarkColor)
             }
         }

@@ -1,1 +1,2 @@
+include ':smartnavigation'
 include ':app'

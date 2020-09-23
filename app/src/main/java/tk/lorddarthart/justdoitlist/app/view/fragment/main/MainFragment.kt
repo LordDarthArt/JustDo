@@ -13,17 +13,17 @@ import tk.lorddarthart.justdoitlist.databinding.FragmentMainBinding
 import tk.lorddarthart.justdoitlist.util.constants.DateArrays.getRussianMonthName
 import tk.lorddarthart.justdoitlist.util.constants.DateFormatsTemplates
 import tk.lorddarthart.justdoitlist.util.helper.LocaleHelper.isRussianLocalization
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.moveToProfile
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.moveToToDoList
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.showLoading
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils
 import java.text.SimpleDateFormat
+import javax.inject.Inject
 
 class MainFragment : BaseMainFragment(), MainFragmentView {
-
     private lateinit var mainFragmentBinding: FragmentMainBinding
 
     @InjectPresenter
     lateinit var mainPresenter: MainPresenter
+
+    @Inject lateinit var navUtils: NavUtils
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mainFragmentBinding = FragmentMainBinding.inflate(inflater, container, false)
@@ -38,11 +38,11 @@ class MainFragment : BaseMainFragment(), MainFragmentView {
         mainFragmentBinding.fragmentMainBottomNavigationView.setOnNavigationItemSelectedListener{ item ->
             when (item.itemId) {
                 R.id.navigation_main -> {
-                    moveToToDoList()
+                    navUtils.moveToToDoList()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.navigation_account -> {
-                    moveToProfile()
+                    navUtils.moveToProfile()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
@@ -51,7 +51,7 @@ class MainFragment : BaseMainFragment(), MainFragmentView {
     }
 
     override fun start() {
-        showLoading()
+        navUtils.showLoading()
         initializeActionBar()
         mainFragmentBinding.fragmentMainBottomNavigationView.selectedItemId = R.id.navigation_main
     }

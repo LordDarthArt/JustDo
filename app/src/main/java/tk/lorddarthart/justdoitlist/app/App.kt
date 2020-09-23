@@ -1,19 +1,17 @@
 package tk.lorddarthart.justdoitlist.app
 
 import android.app.Application
-import android.content.Context
-import tk.lorddarthart.justdoitlist.util.navigation.CustomNavigator
+import tk.lorddarthart.justdoitlist.util.navigation.NavigationComponent
 
 class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
+        INSTANCE = this
     }
 
     companion object {
-        lateinit var activityContext: Context
-        lateinit var instance: Application
-        lateinit var navigator: CustomNavigator
+        lateinit var INSTANCE: Application
+        lateinit var NAV_COMPONENT: NavigationComponent
     }
 }

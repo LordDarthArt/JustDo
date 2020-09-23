@@ -1,6 +1,5 @@
 package tk.lorddarthart.justdoitlist.util.custom_objects
 
-import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
@@ -13,16 +12,19 @@ import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.App
 import tk.lorddarthart.justdoitlist.app.model.pojo.auth.Link
 import tk.lorddarthart.justdoitlist.app.view.fragment.auth.additional_info.AdditionalInfoFragment
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.baseNavigator
-import tk.lorddarthart.justdoitlist.util.navigation.types.NavigationActionType
-import tk.lorddarthart.justdoitlist.util.navigation.types.NavigationAnimType
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils
+import tk.lorddarthart.smartnavigation.types.NavigationActionType
+import tk.lorddarthart.smartnavigation.types.NavigationAnimType
 import java.util.regex.Pattern
+import javax.inject.Inject
 
 class CustomSpannableString(
         spannableText: String,
         private val links: List<Link>,
         private val spannableHolderView: TextView
 ): SpannableString(spannableText) {
+    @Inject lateinit var navUtils: NavUtils
+
     fun createForAuthScreen() {
         for (link in links) {
             val linkPattern = Pattern.compile(link.needToHighlightString)
@@ -30,12 +32,12 @@ class CustomSpannableString(
 
             val linkClickableSpan = object : ClickableSpan() {
                 override fun onClick(widget: View) {
-                    baseNavigator.navigate(AdditionalInfoFragment(), NavigationActionType.AddToBackStackAction, NavigationAnimType.FadeAnim, link.fragmentBundle)
+                    navUtils.baseNavigator?.navigate(AdditionalInfoFragment(), NavigationActionType.AddToBackStackAction, NavigationAnimType.FadeAnim, link.fragmentBundle)
                 }
 
                 override fun updateDrawState(ds: TextPaint) {
                     super.updateDrawState(ds)
-                    ds.color = ContextCompat.getColor(App.instance, R.color.textColor)
+                    ds.color = ContextCompat.getColor(App.INSTANCE, R.color.textColor)
                 }
             }
 

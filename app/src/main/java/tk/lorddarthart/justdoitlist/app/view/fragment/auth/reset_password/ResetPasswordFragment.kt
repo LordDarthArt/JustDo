@@ -42,13 +42,13 @@ class ResetPasswordFragment : BaseAuthFragment(), ResetPasswordFragmentView {
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 activity.supportFragmentManager.popBackStack()
-                                androidMainWindow.shortSnackbar { "Password reset instructions have been sent. Please check your email" }
+                                fragmentBinding.root.shortSnackbar { "Password reset instructions have been sent. Please check your email" }
                             } else {
                                 logError(task.exception) { "Can't send password reset, the problem is: " }
                             }
                         }
             } else {
-                androidMainWindow.shortSnackbar { "email is not valid" }
+                fragmentBinding.root.shortSnackbar { "email is not valid" }
             }
         }
     }

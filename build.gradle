@@ -4,6 +4,7 @@ import java.util.regex.Pattern
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    apply from: './dependencies.gradle'
     def versionPatchAndNumber = 0
 
     ext.getCurrentFlavor = { ->
@@ -45,92 +46,26 @@ buildscript {
 
     versionProps.store(versionPropsFile.newWriter(), null)
 
-    ext {
-        // SDK
-        compile_sdk_version = 29
-        min_sdk_version = 21
-        build_tools_version = "29.0.2"
+    repositories {
+        google()
+        jcenter()
+        maven {  url "http://dl.bintray.com/kotlin/kotlin-eap" }
+    }
 
+    ext {
         // App Version
         version_major = versionMajor
         version_minor = versionMinor
         version_patch = versionPatch
         version_build = versionBuild
         version_number = versionNumber
-
-        // Gradle
-        gradle_version = '3.6.3'
-
-        // Google Play Services
-        google_play_services_version = "4.3.3"
-
-        // Base
-        appcompat_version = "1.1.0"
-        legacy_support_version = "1.0.0"
-
-        // Testing
-        testing_junit_version = "4.13"
-        testing_androidx_junit_version = "1.1.1"
-        testing_espresso_version = "3.2.0"
-
-        // Design
-        design_constraint_layout_version = "1.1.3"
-        design_recycler_view_version = "1.1.0"
-        design_card_view_version = "1.0.0"
-        design_material_version = '1.2.0-alpha06'
-
-        // CircleImageView
-        circle_image_view_version = "3.1.0"
-
-        // Kotlin
-        kotlin_version = "1.3.72"
-
-        // Coroutines
-        coroutines_version = "1.3.6"
-
-        // Anko
-        anko_version = "0.10.8"
-
-        // Retrofit2
-        retrofit_version = "2.8.1"
-
-        // OkHTTP3
-        ok_http_version = "4.6.0"
-
-        // Jetpack
-        androidx_preference_version = "1.1.1"
-
-        // Glide
-        glide_version = "4.11.0"
-
-        // Lifecycle Extensions
-        lifecycle_extensions_version = "2.2.0"
-
-        // Dagger2
-        dagger_version = '2.27'
-
-        // Moxy-X
-        moxy_x_version = "1.7.0"
-
-        // Room
-        room_version = '2.2.5'
-
-        // Firebase
-        firebase_auth_version = '19.3.1'
-        firebase_firestore_version = '21.4.3'
-
-        // Navigation Component
-        navigation_component_version = '2.2.2'
     }
-    repositories {
-        google()
-        jcenter()
-        maven {  url "http://dl.bintray.com/kotlin/kotlin-eap" }
-    }
+
     dependencies {
-        classpath "com.android.tools.build:gradle:$gradle_version"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.google.gms:google-services:$google_play_services_version"
+
+        classpath "com.android.tools.build:gradle:${gradleBuild.version}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin.version}"
+        classpath "com.google.gms:google-services:${google_play_services.version}"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

@@ -2,19 +2,14 @@ package tk.lorddarthart.justdoitlist.app.view.fragment.main.additional_view.load
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemDayModel
 import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemModel
 import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
-import tk.lorddarthart.justdoitlist.app.view.fragment.main.additional_view.no_to_do.NoToDoFragment
-import tk.lorddarthart.justdoitlist.app.view.fragment.main.additional_view.error.ErrorFragment
-import tk.lorddarthart.justdoitlist.app.view.fragment.main.todo.ToDoFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentLoadingBinding
 import tk.lorddarthart.justdoitlist.util.comparators.CompareObjectsToDoItemDayModel
 import tk.lorddarthart.justdoitlist.util.comparators.CompareObjectsToDoItemModel
@@ -25,16 +20,16 @@ import tk.lorddarthart.justdoitlist.util.constants.cloudfirestorestructure.todo.
 import tk.lorddarthart.justdoitlist.util.converters.DayTitleConverter
 import tk.lorddarthart.justdoitlist.util.helper.logDebug
 import tk.lorddarthart.justdoitlist.util.helper.logError
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.mainNavigator
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.moveToError
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.moveToNoToDos
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.moveToToDoList
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 class LoadingFragment : BaseFragment(), LoadingFragmentView {
     private lateinit var loadingFragmentBinding: FragmentLoadingBinding
     private val toDoMonth: MutableList<MutableList<ToDoItemDayModel>> = mutableListOf()
+
+    @Inject lateinit var navUtils: NavUtils
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +51,7 @@ class LoadingFragment : BaseFragment(), LoadingFragmentView {
                                     if (!month.isEmpty) {
                                         tododay.clear()
                                         for ((z, day) in month.documents.withIndex()) {
-                                            val mFromTimestampToTitle = SimpleDateFormat(
+                                            val fromTimestampToTitle = SimpleDateFormat(
                                                     DateFormatsTemplates.getFromTimestampToTitle(
                                                             toCalendar(fromDatabaseToTimestamp.parse(
                                                                     day.reference.id + "." + month.documents[0].reference.parent.id + "." + year.reference.parent.id
@@ -64,7 +59,7 @@ class LoadingFragment : BaseFragment(), LoadingFragmentView {
                                                             ), activity)
                                             )
                                             val title: String = DayTitleConverter.convertToPreferred(
-                                                    mFromTimestampToTitle,
+                                                    fromTimestampToTitle,
                                                     fromDatabaseToTimestamp.parse(day.reference.id + "." + month.documents[0].reference.parent.id + "." + year.reference.parent.id)
                                             )
                                             day.reference.collection(
@@ -90,10 +85,10 @@ class LoadingFragment : BaseFragment(), LoadingFragmentView {
                                                         clear()
                                                         addAll(tododay)
                                                     }
-                                                    moveToToDoList()
+                                                    navUtils.moveToToDoList()
                                                 }
                                             }.addOnFailureListener {
-                                                Log.e(TAG, "Problem: ", it)
+                                                logError(it) { "Problem: ${it.message}" }
                                             }
                                         }
                                     } else {
@@ -123,7 +118,7 @@ class LoadingFragment : BaseFragment(), LoadingFragmentView {
         logDebug { "Currently no tasks" }
 
         if (this@LoadingFragment.isVisible) {
-            moveToNoToDos()
+            navUtils.moveToNoToDos()
         }
     }
 
@@ -131,7 +126,7 @@ class LoadingFragment : BaseFragment(), LoadingFragmentView {
         logError(e) { "data request to Firebase failed. You know why? Oh, this is simple: " }
 
         if (this@LoadingFragment.isVisible) {
-            moveToError()
+            navUtils.moveToError()
         }
     }
 

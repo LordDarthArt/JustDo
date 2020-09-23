@@ -5,13 +5,13 @@ apply plugin: "kotlin-kapt"
 apply plugin: "com.google.gms.google-services"
 
 android {
-    compileSdkVersion rootProject.compile_sdk_version
-    buildToolsVersion rootProject.build_tools_version
+    compileSdkVersion sdk.compile_version
+    buildToolsVersion sdk.build_tools_version
 
     defaultConfig {
         applicationId "tk.lorddarthart.justdoitlist"
-        minSdkVersion rootProject.min_sdk_version
-        targetSdkVersion rootProject.compile_sdk_version
+        minSdkVersion sdk.min_version
+        targetSdkVersion sdk.compile_version
         versionCode rootProject.version_build
         versionName "${rootProject.version_major}" +
                 ".${rootProject.version_minor}" +
@@ -39,8 +39,8 @@ android {
             }
         }
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -52,78 +52,77 @@ android {
 }
 
 dependencies {
+    implementation project(':smartnavigation')
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    apply from: '../dependencies.gradle'
 
     // Base
-    implementation "androidx.appcompat:appcompat:$rootProject.appcompat_version"
-    implementation "androidx.legacy:legacy-support-v4:$rootProject.legacy_support_version"
+    implementation "androidx.appcompat:appcompat:${base.appcompat_version}"
+    implementation "androidx.legacy:legacy-support-v4:${base.legacy_support_version}"
 
     // Testing
-    testImplementation "junit:junit:$rootProject.testing_junit_version"
-    androidTestImplementation "androidx.test.ext:junit:$rootProject.testing_androidx_junit_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.testing_espresso_version"
+    testImplementation "junit:junit:${testing.junit_version}"
+    androidTestImplementation "androidx.test.ext:junit:${testing.androidx_junit_version}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${testing.espresso_version}"
 
     // Design
-    implementation "androidx.constraintlayout:constraintlayout:$rootProject.design_constraint_layout_version"
-    implementation "androidx.recyclerview:recyclerview:$rootProject.design_recycler_view_version"
-    implementation "androidx.cardview:cardview:$rootProject.design_card_view_version"
-    implementation "com.google.android.material:material:$rootProject.design_material_version"
+    implementation "androidx.constraintlayout:constraintlayout:${design.constraint_layout_version}"
+    implementation "androidx.recyclerview:recyclerview:${design.recycler_view_version}"
+    implementation "androidx.cardview:cardview:${design.card_view_version}"
+    implementation "com.google.android.material:material:${design.material_version}"
 
     // CircleImageView
-    implementation "de.hdodenhof:circleimageview:$rootProject.circle_image_view_version"
+    implementation "de.hdodenhof:circleimageview:${circle_image_view.version}"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlin.version}"
 
     // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutines.version}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutines.version}"
 
     // Anko
-    implementation "org.jetbrains.anko:anko:$rootProject.anko_version"
-    implementation "org.jetbrains.anko:anko-design:$rootProject.anko_version"
+    implementation "org.jetbrains.anko:anko:${anko.version}"
+    implementation "org.jetbrains.anko:anko-design:${anko.version}"
 
     // Retrofit2
-    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit_version"
+    implementation "com.squareup.retrofit2:retrofit:${retrofit.version}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofit.version}"
 
     // OkHTTP3
-    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.ok_http_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:${ok_http.version}"
 
     // Jetpack
-    implementation "androidx.preference:preference:$rootProject.androidx_preference_version"
+    implementation "androidx.preference:preference:${jetpack_compose.preference_version}"
 
     // Glide
-    implementation "com.github.bumptech.glide:glide:$rootProject.glide_version"
-    kapt "com.github.bumptech.glide:compiler:$rootProject.glide_version"
+    implementation "com.github.bumptech.glide:glide:${glide.version}"
+    kapt "com.github.bumptech.glide:compiler:${glide.version}"
 
     // Lifecycle
-    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle_extensions_version"
-    kapt "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycle_extensions_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:${lifecycle_extensions.version}"
+    kapt "androidx.lifecycle:lifecycle-common-java8:${lifecycle_extensions.version}"
 
     // Dagger2
-    implementation "com.google.dagger:dagger-android:$rootProject.dagger_version"
-    implementation "com.google.dagger:dagger-android-support:$rootProject.dagger_version"
-    kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger_version"
+    implementation "com.google.dagger:dagger-android:${dagger.version}"
+    implementation "com.google.dagger:dagger-android-support:${dagger.version}"
+    kapt "com.google.dagger:dagger-android-processor:${dagger.version}"
+    kapt "com.google.dagger:dagger-compiler:${dagger.version}"
 
     // Moxy
-    implementation "tech.schoolhelper:moxy-x:$rootProject.moxy_x_version"
-    implementation "tech.schoolhelper:moxy-x-android:$rootProject.moxy_x_version"
-    implementation "tech.schoolhelper:moxy-x-androidx:$rootProject.moxy_x_version"
-    kapt "tech.schoolhelper:moxy-x-compiler:$rootProject.moxy_x_version"
+    implementation "tech.schoolhelper:moxy-x:${moxy_x.version}"
+    implementation "tech.schoolhelper:moxy-x-android:${moxy_x.version}"
+    implementation "tech.schoolhelper:moxy-x-androidx:${moxy_x.version}"
+    kapt "tech.schoolhelper:moxy-x-compiler:${moxy_x.version}"
 
     // Room
-    implementation "androidx.room:room-runtime:$rootProject.room_version"
-    implementation "androidx.room:room-rxjava2:$rootProject.room_version"
-    kapt "androidx.room:room-compiler:$rootProject.room_version"
+    implementation "androidx.room:room-runtime:${room.version}"
+    implementation "androidx.room:room-rxjava2:${room.version}"
+    kapt "androidx.room:room-compiler:${room.version}"
 
     // Firebase
-    implementation "com.google.firebase:firebase-auth:$rootProject.firebase_auth_version"
-    implementation "com.google.firebase:firebase-firestore:$rootProject.firebase_firestore_version"
-
-    // Navigation Component
-    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigation_component_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigation_component_version"
+    implementation "com.google.firebase:firebase-auth:${firebase.auth_version}"
+    implementation "com.google.firebase:firebase-firestore:${firebase.firestore_version}"
 }
 repositories {
     mavenCentral()

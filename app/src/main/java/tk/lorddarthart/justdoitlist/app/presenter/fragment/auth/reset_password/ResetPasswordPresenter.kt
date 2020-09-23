@@ -11,7 +11,7 @@ class ResetPasswordPresenter: BaseFragmentPresenter<ResetPasswordFragmentView>()
     val actionCodeSettings: ActionCodeSettings by lazy {
         ActionCodeSettings.newBuilder()
                 .setUrl("https://tk-lorddarthart-justdo.firebaseapp.com")
-                .setAndroidPackageName(App.instance.packageName, false, null)
+                .setAndroidPackageName(App.INSTANCE.packageName, false, null)
                 .build()
     }
 }

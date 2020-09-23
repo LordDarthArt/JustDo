@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import kotlinx.android.synthetic.main.single_item_todo_listview.view.*
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.App
 import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemModel
@@ -19,7 +18,7 @@ import java.util.*
 class ListViewAdapter(
         private val resource: Int,
         private val toDoItemModels: List<ToDoItemModel>
-) : ArrayAdapter<ToDoItemModel>(App.instance, resource, toDoItemModels) {
+) : ArrayAdapter<ToDoItemModel>(App.INSTANCE, resource, toDoItemModels) {
 
     // items count
     override fun getCount(): Int {

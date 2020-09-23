@@ -15,16 +15,19 @@ import tk.lorddarthart.justdoitlist.databinding.FragmentAuthBinding
 import tk.lorddarthart.justdoitlist.util.custom_objects.CustomSpannableString
 import tk.lorddarthart.justdoitlist.util.helper.setTextDisabled
 import tk.lorddarthart.justdoitlist.util.helper.setTextEnabled
-import tk.lorddarthart.justdoitlist.util.navigation.CustomNavigator
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils.authNavigator
+import tk.lorddarthart.justdoitlist.util.navigation.NavUtils
+import tk.lorddarthart.smartnavigation.SmartNavigator
+import javax.inject.Inject
 
 class AuthFragment : BaseAuthFragment(), AuthFragmentView {
     @InjectPresenter
     lateinit var authPresenter: AuthPresenter
 
+    @Inject lateinit var navUtils: NavUtils
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        authNavigator = CustomNavigator(R.id.fragment_enter)
+        navUtils.authNavigator = SmartNavigator(activity.supportFragmentManager, R.id.fragment_enter)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -39,14 +42,14 @@ class AuthFragment : BaseAuthFragment(), AuthFragmentView {
     override fun initListeners() {
         with(fragmentBinding as FragmentAuthBinding) {
             buttonSignIn.setOnClickListener {
-                if (authNavigator.currentFragment !is SignInFragment) {
+                if (navUtils.authNavigator?.backStack?.last() != SignInFragment::class.java.simpleName) {
                     authPresenter.moveToSignIn()
                     buttonSignUp.setTextDisabled()
                     buttonSignIn.setTextEnabled()
                 }
             }
             buttonSignUp.setOnClickListener {
-                if (authNavigator.currentFragment !is SignUpFragment) {
+                if (navUtils.authNavigator?.backStack?.last() != SignUpFragment::class.java.simpleName) {
                     authPresenter.moveToSignUp()
                     buttonSignUp.setTextEnabled()
                     buttonSignIn.setTextDisabled()

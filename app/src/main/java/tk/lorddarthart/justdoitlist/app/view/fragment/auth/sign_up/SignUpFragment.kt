@@ -105,7 +105,7 @@ class SignUpFragment : BaseAuthFragment(), SignUpFragmentView {
                         if (task.isSuccessful) {
                             FirebaseAuth.getInstance().signOut()
                             val fragment = AuthFragment()
-                            activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_base, fragment).commit()
+                            activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_base_container, fragment).commit()
                             Snackbar.make(activity.findViewById<View>(android.R.id.content), activity.resources.getString(R.string.reg_success), Snackbar.LENGTH_SHORT).show()
                         } else {
                             Snackbar.make(activity.findViewById<View>(android.R.id.content), activity.resources.getString(R.string.verification_problem) + " " +task.exception.toString(), Snackbar.LENGTH_SHORT).show()

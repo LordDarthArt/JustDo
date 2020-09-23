@@ -14,7 +14,7 @@ import tk.lorddarthart.justdoitlist.util.constants.StringConstant.PRIORITY_URGEN
 
 object PriorityConverter {
     fun getPriorityName(priority: Long?): String? {
-        with (App.instance) {
+        with (App.INSTANCE) {
             return when (priority) {
                 PRIORITY_NEUTRAL_CODE -> { getString(R.string.priority_neutral) }
                 PRIORITY_NORMAL_CODE-> { getString(R.string.priority_normal) }
@@ -26,7 +26,7 @@ object PriorityConverter {
     }
 
     fun getColor(priority: Long?): Int {
-        with(App.instance) {
+        with(App.INSTANCE) {
             return when (priority) {
                 0L -> { ContextCompat.getColor(this, R.color.emptyPriorityMarkColor) }
                 1L -> { ContextCompat.getColor(this, R.color.lowPriorityMarkColor) }

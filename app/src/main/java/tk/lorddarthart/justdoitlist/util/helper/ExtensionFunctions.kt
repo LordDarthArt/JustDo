@@ -11,11 +11,11 @@ import tk.lorddarthart.justdoitlist.app.App
 import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
 
 fun Button.setTextDisabled() {
-    this.setTextColor(ContextCompat.getColor(App.instance, R.color.textDisabledColor))
+    this.setTextColor(ContextCompat.getColor(App.INSTANCE, R.color.textDisabledColor))
 }
 
 fun Button.setTextEnabled() {
-    this.setTextColor(ContextCompat.getColor(App.instance, R.color.textColor))
+    this.setTextColor(ContextCompat.getColor(App.INSTANCE, R.color.textColor))
 }
 
 fun ImageView.clickHidePass(editText: EditText) {

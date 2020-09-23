@@ -61,17 +61,17 @@ class SignInFragment : BaseAuthFragment(), SignInFragmentView {
                                 if (task.isSuccessful) {
                                     if (activity.baseActivityPresenter.auth.currentUser!!.isEmailVerified) {
                                         val mFragment = MainFragment()
-                                        activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_base, mFragment).commit()
+                                        activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_base_container, mFragment).commit()
                                         loadingDialog.cancel()
                                     } else {
-                                        androidMainWindow.shortSnackbar { "User's email hasn't been verified. Please check your email" }
+                                        fragmentBinding.root.shortSnackbar { "User's email hasn't been verified. Please check your email" }
                                         activity.baseActivityPresenter.auth.signOut()
                                         loadingDialog.cancel()
                                     }
                                 } else {
                                     logError(task.exception) { "Sign-in failed, the reason is: " }
 
-                                    androidMainWindow.shortSnackbar { "Authentication failed." }
+                                    fragmentBinding.root.shortSnackbar { "Authentication failed." }
                                     loadingDialog.cancel()
                                 }
                             }
@@ -89,7 +89,7 @@ class SignInFragment : BaseAuthFragment(), SignInFragmentView {
                     bundle.putString(ArgumentsKeysConstant.EMAIL, signInEmailInput.toString())
                 }
                 fragment.arguments = bundle
-                activity.supportFragmentManager.beginTransaction().add(R.id.fragment_base, fragment).addToBackStack(null).commit()
+                activity.supportFragmentManager.beginTransaction().add(R.id.fragment_base_container, fragment).addToBackStack(null).commit()
             }
             signInPasswordHideIcon.setOnClickListener {
                 signInPasswordHideIcon.clickHidePass(signInPasswordInput)
@@ -99,8 +99,8 @@ class SignInFragment : BaseAuthFragment(), SignInFragmentView {
 
     override fun start() {
         with(fragmentBinding as FragmentSignInBinding) {
-            if (arguments != null && arguments!!.containsKey("email")) {
-                signInEmailInput.setText(arguments!!.getString("email"))
+            if (arguments != null && (arguments?.containsKey("email") == true)) {
+                signInEmailInput.setText(arguments?.getString("email"))
             }
             if (activity.intent.hasExtra("email")) {
                 signInEmailInput.setText(activity.intent.getStringExtra("email"))

@@ -12,6 +12,6 @@ class App: Application() {
 
     companion object {
         lateinit var INSTANCE: Application
-        lateinit var NAV_COMPONENT: NavigationComponent
+        var NavComponent: NavigationComponent? = null
     }
 }

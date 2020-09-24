@@ -1,5 +1,6 @@
-package tk.lorddarthart.justdoitlist.util.custom_objects
+package tk.lorddarthart.justdoitlist.util.customobjects
 
+import android.content.Context
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
@@ -11,6 +12,7 @@ import androidx.core.content.ContextCompat
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.App
 import tk.lorddarthart.justdoitlist.app.model.pojo.auth.Link
+import tk.lorddarthart.justdoitlist.app.view.fragment.auth.AuthFragment
 import tk.lorddarthart.justdoitlist.app.view.fragment.auth.additional_info.AdditionalInfoFragment
 import tk.lorddarthart.justdoitlist.util.navigation.NavUtils
 import tk.lorddarthart.smartnavigation.types.NavigationActionType
@@ -25,19 +27,19 @@ class CustomSpannableString(
 ): SpannableString(spannableText) {
     @Inject lateinit var navUtils: NavUtils
 
-    fun createForAuthScreen() {
+    fun createForAuthScreen(context: Context, authFragment: AuthFragment) {
         for (link in links) {
             val linkPattern = Pattern.compile(link.needToHighlightString)
             val linkMatcher = linkPattern.matcher(this)
 
             val linkClickableSpan = object : ClickableSpan() {
                 override fun onClick(widget: View) {
-                    navUtils.baseNavigator?.navigate(AdditionalInfoFragment(), NavigationActionType.AddToBackStackAction, NavigationAnimType.FadeAnim, link.fragmentBundle)
+                    authFragment.openAgreements(link.fragmentBundle)
                 }
 
                 override fun updateDrawState(ds: TextPaint) {
                     super.updateDrawState(ds)
-                    ds.color = ContextCompat.getColor(App.INSTANCE, R.color.textColor)
+                    ds.color = ContextCompat.getColor(context, R.color.textColor)
                 }
             }
 

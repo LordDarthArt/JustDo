@@ -15,40 +15,40 @@ import tk.lorddarthart.justdoitlist.util.helper.shortSnackbar
 import tk.lorddarthart.justdoitlist.util.verificators.PasswordEmailValidator.isValidEmailAddress
 
 class ResetPasswordFragment : BaseAuthFragment(), ResetPasswordFragmentView {
-    private lateinit var resetPasswordFragmentBinding: FragmentResetPasswordBinding
-
     @InjectPresenter
     lateinit var resetPasswordPresenter: ResetPasswordPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        resetPasswordFragmentBinding = FragmentResetPasswordBinding.inflate(inflater, container, false)
+        fragmentBinding = FragmentResetPasswordBinding.inflate(inflater, container, false)
 
         initialization()
 
-        return resetPasswordFragmentBinding.root
+        return fragmentBinding.root
     }
 
     override fun start() {
         if (activity.intent.hasExtra(IntentExtraConstNames.EMAIL)) {
-            resetPasswordFragmentBinding.passwordResetEmailInput.setText(activity.intent.getStringExtra(IntentExtraConstNames.EMAIL))
+            (fragmentBinding as FragmentResetPasswordBinding).passwordResetEmailInput.setText(activity.intent.getStringExtra(IntentExtraConstNames.EMAIL))
         }
     }
 
     override fun initListeners() {
-        resetPasswordFragmentBinding.resetPasswordSendRequestButton.setOnClickListener {
-            if (isValidEmailAddress(resetPasswordFragmentBinding.passwordResetEmailInput.text.toString())) {
-                FirebaseAuth.getInstance().sendPasswordResetEmail(resetPasswordFragmentBinding.passwordResetEmailInput.text.toString(), resetPasswordPresenter.actionCodeSettings)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                activity.supportFragmentManager.popBackStack()
-                                fragmentBinding.root.shortSnackbar { "Password reset instructions have been sent. Please check your email" }
-                            } else {
-                                logError(task.exception) { "Can't send password reset, the problem is: " }
+        with (fragmentBinding as FragmentResetPasswordBinding) {
+            resetPasswordSendRequestButton.setOnClickListener {
+                if (isValidEmailAddress(passwordResetEmailInput.text.toString())) {
+                    FirebaseAuth.getInstance().sendPasswordResetEmail(passwordResetEmailInput.text.toString(), resetPasswordPresenter.actionCodeSettings)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    activity.supportFragmentManager.popBackStack()
+                                    fragmentBinding.root.shortSnackbar { "Password reset instructions have been sent. Please check your email" }
+                                } else {
+                                    logError(task.exception) { "Can't send password reset, the problem is: " }
+                                }
                             }
-                        }
-            } else {
-                fragmentBinding.root.shortSnackbar { "email is not valid" }
+                } else {
+                    fragmentBinding.root.shortSnackbar { "email is not valid" }
+                }
             }
         }
     }

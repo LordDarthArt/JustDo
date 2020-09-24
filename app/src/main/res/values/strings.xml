@@ -13,6 +13,7 @@
 
     <!--Application strings-->
     <string name="app_name">Just Do It List</string>
+    <string name="authentication">Authentication</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="email" translatable="false">E-mail</string>

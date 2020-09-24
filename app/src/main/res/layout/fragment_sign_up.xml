@@ -67,37 +67,19 @@
                 app:layout_constraintEnd_toEndOf="@+id/sign_up_email_layout"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/sign_up_email_layout"
-                app:layout_constraintTop_toBottomOf="@+id/sign_up_email_layout">
+                app:layout_constraintTop_toBottomOf="@+id/sign_up_email_layout"
+                app:passwordToggleEnabled="true">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sign_up_password_input"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/sign_up_password_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="@string/password"
-                        android:importantForAutofill="no"
-                        android:inputType="textPassword"
-                        android:textColorHint="@color/textDisabledColor"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:targetApi="o" />
-
-                    <ImageView
-                        android:id="@+id/sign_up_hide_password_icon"
-                        android:layout_width="30dp"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_eye_unvisible"
-                        app:layout_constraintBottom_toBottomOf="@+id/sign_up_password_input"
-                        app:layout_constraintEnd_toEndOf="@+id/sign_up_password_input" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/password"
+                    android:importantForAutofill="no"
+                    android:inputType="textPassword"
+                    android:textColorHint="@color/textDisabledColor"
+                    tools:targetApi="o" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,37 +91,20 @@
                 app:layout_constraintEnd_toEndOf="@+id/sign_up_email_layout"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/sign_up_email_layout"
-                app:layout_constraintTop_toBottomOf="@+id/sign_up_password_layout">
+                app:layout_constraintTop_toBottomOf="@+id/sign_up_password_layout"
+                app:passwordToggleEnabled="true">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sign_up_confirm_password_input"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/confirm_password"
+                    android:importantForAutofill="no"
+                    android:inputType="textPassword"
+                    android:textColorHint="@color/textDisabledColor"
+                    tools:targetApi="o" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/sign_up_confirm_password_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="@string/confirm_password"
-                        android:importantForAutofill="no"
-                        android:inputType="textPassword"
-                        android:textColorHint="@color/textDisabledColor"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:targetApi="o" />
-
-                    <ImageView
-                        android:id="@+id/sign_up_hide_confirm_password_icon"
-                        android:layout_width="30dp"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_eye_unvisible"
-                        app:layout_constraintBottom_toBottomOf="@+id/sign_up_confirm_password_input"
-                        app:layout_constraintEnd_toEndOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

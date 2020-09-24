@@ -11,10 +11,13 @@ import tk.lorddarthart.justdoitlist.app.view.fragment.main.todo.adapter.ToDoView
 import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemDayModel
 import tk.lorddarthart.justdoitlist.app.presenter.fragment.main.todo.ToDoPresenter
 import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
+import tk.lorddarthart.justdoitlist.app.view.fragment.main.profile.ProfileFragment
+import tk.lorddarthart.justdoitlist.app.view.fragment.main.todo.add.AddFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentToDoBinding
+import tk.lorddarthart.smartnavigation.types.NavigationActionType
+import tk.lorddarthart.smartnavigation.types.NavigationAnimType
 
 class ToDoFragment : BaseFragment(), ToDoFragmentView {
-
     @InjectPresenter
     lateinit var toDoPresenter: ToDoPresenter
 
@@ -31,7 +34,7 @@ class ToDoFragment : BaseFragment(), ToDoFragmentView {
     override fun initListeners() {
         with (fragmentBinding as FragmentToDoBinding) {
             addToDoButton.setOnClickListener {
-                toDoPresenter.openAddToDo()
+                navUtils.baseNavigator.navigate(AddFragment(), NavigationActionType.AddToBackStackAction, NavigationAnimType.FadeAnim)
             }
         }
     }
@@ -51,5 +54,9 @@ class ToDoFragment : BaseFragment(), ToDoFragmentView {
                 adapter = recyclerViewAdapter
             }
         }
+    }
+
+    companion object {
+        var INSTANCE: ToDoFragment? = null
     }
 }

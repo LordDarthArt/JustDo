@@ -1,4 +1,4 @@
-package tk.lorddarthart.justdoitlist.util.custom_objects
+package tk.lorddarthart.justdoitlist.util.customobjects
 
 import android.text.Editable
 import android.text.TextWatcher

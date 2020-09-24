@@ -1,6 +1,9 @@
 package tk.lorddarthart.smartnavigation
 
+import android.app.Activity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import tk.lorddarthart.smartnavigation.types.NavigationActionType
 import tk.lorddarthart.smartnavigation.types.NavigationAnimType
 
@@ -22,14 +25,16 @@ interface INavigator {
         arguments: Bundle? = null
     )
 
+    fun init(fragmentManager: FragmentManager)
+
     /**
      * Function for performing the removing of [NavigatableFragment] in classes that realizes the [INavigator].
      *
      * @param fragmentToRemove Fragment to remove from current fragment manager;
      */
-    fun remove(
-        fragmentToRemove: NavigatableFragment
-    )
+    fun remove(fragmentToRemove: NavigatableFragment)
+
+    fun removeFromBackStack(backStackKey: String)
 
     /** Custom backstack of classes that realizes the [INavigator]. */
     val backStack: MutableList<String>

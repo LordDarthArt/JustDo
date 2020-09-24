@@ -29,8 +29,6 @@ class LoadingFragment : BaseFragment(), LoadingFragmentView {
     private lateinit var loadingFragmentBinding: FragmentLoadingBinding
     private val toDoMonth: MutableList<MutableList<ToDoItemDayModel>> = mutableListOf()
 
-    @Inject lateinit var navUtils: NavUtils
-
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

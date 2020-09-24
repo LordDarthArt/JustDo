@@ -1,10 +1,12 @@
 package tk.lorddarthart.justdoitlist.app.view.fragment.splash
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
+import io.reactivex.Completable
 import kotlinx.coroutines.*
 import tk.lorddarthart.justdoitlist.app.App
 
@@ -13,14 +15,12 @@ import tk.lorddarthart.justdoitlist.app.view.fragment.splash.base.BaseSplashFrag
 import tk.lorddarthart.justdoitlist.databinding.FragmentSplashBinding
 import tk.lorddarthart.justdoitlist.util.constants.TimeConstant.ONE_SECOND
 import tk.lorddarthart.justdoitlist.util.helper.logError
+import tk.lorddarthart.justdoitlist.util.navigation.DaggerNavigationComponent
 import tk.lorddarthart.justdoitlist.util.navigation.NavUtils
 import javax.inject.Inject
 
 class SplashFragment : BaseSplashFragment(), SplashFragmentView {
-    @Inject lateinit var navUtils: NavUtils
-
-    @InjectPresenter
-    lateinit var splashPresenter: SplashPresenter
+    @InjectPresenter lateinit var splashPresenter: SplashPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         fragmentBinding = FragmentSplashBinding.inflate(inflater, container, false)
@@ -35,21 +35,13 @@ class SplashFragment : BaseSplashFragment(), SplashFragmentView {
     }
 
     override fun start() {
-        App.NAV_COMPONENT.inject(this)
-
         try {
             activity.supportActionBar?.hide()
-            CoroutineScope(Dispatchers.Main).launch {
-                delay(ONE_SECOND * 2)
+            Handler().postDelayed({
                 navUtils.moveNextAfterSplash()
-                activity.supportActionBar?.let {
-                    it.show()
-                    it.elevation = 0f
-                }
-                this.cancel()
-            }
+            }, 2000)
         } catch (exception: Exception) {
-            logError(exception) { "got exception: " }
+            logError(exception) { "got exception: ${exception.message}" }
         }
     }
 }

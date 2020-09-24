@@ -16,26 +16,21 @@ import tk.lorddarthart.justdoitlist.util.helper.LocaleHelper.isRussianLocalizati
 import tk.lorddarthart.justdoitlist.util.navigation.NavUtils
 import java.text.SimpleDateFormat
 import javax.inject.Inject
-
 class MainFragment : BaseMainFragment(), MainFragmentView {
-    private lateinit var mainFragmentBinding: FragmentMainBinding
-
     @InjectPresenter
     lateinit var mainPresenter: MainPresenter
 
-    @Inject lateinit var navUtils: NavUtils
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mainFragmentBinding = FragmentMainBinding.inflate(inflater, container, false)
+        fragmentBinding = FragmentMainBinding.inflate(inflater, container, false)
 
         initialization()
 
-        return mainFragmentBinding.root
+        return fragmentBinding.root
     }
 
 
     override fun initListeners() {
-        mainFragmentBinding.fragmentMainBottomNavigationView.setOnNavigationItemSelectedListener{ item ->
+        (fragmentBinding as FragmentMainBinding).fragmentMainBottomNavigationView.setOnNavigationItemSelectedListener{ item ->
             when (item.itemId) {
                 R.id.navigation_main -> {
                     navUtils.moveToToDoList()
@@ -53,7 +48,7 @@ class MainFragment : BaseMainFragment(), MainFragmentView {
     override fun start() {
         navUtils.showLoading()
         initializeActionBar()
-        mainFragmentBinding.fragmentMainBottomNavigationView.selectedItemId = R.id.navigation_main
+        (fragmentBinding as FragmentMainBinding).fragmentMainBottomNavigationView.selectedItemId = R.id.navigation_main
     }
 
     @SuppressLint("SimpleDateFormat")

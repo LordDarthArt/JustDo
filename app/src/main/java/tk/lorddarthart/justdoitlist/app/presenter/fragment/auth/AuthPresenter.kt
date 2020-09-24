@@ -30,11 +30,11 @@ class AuthPresenter : BaseAuthPresenter<AuthFragmentView>() {
 
     /** Function which shows [SignUpFragment] inside [AuthFragment].  */
     fun moveToSignIn() {
-        navUtils.authNavigator?.navigate(SignInFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
+        viewState.showSignIn()
     }
 
     /** Function which shows [SignUpFragment] inside [AuthFragment].  */
     fun moveToSignUp() {
-        navUtils.authNavigator?.navigate(SignUpFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
+        viewState.showSignUp()
     }
 }

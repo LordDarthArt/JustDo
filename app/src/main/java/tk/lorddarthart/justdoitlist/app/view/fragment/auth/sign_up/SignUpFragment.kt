@@ -14,7 +14,7 @@ import tk.lorddarthart.justdoitlist.app.view.fragment.auth.AuthFragment
 import tk.lorddarthart.justdoitlist.app.view.fragment.auth.base.BaseAuthFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentSignUpBinding
 import tk.lorddarthart.justdoitlist.util.constants.IntentExtraConstNames
-import tk.lorddarthart.justdoitlist.util.custom_objects.SimpleTextWatcher
+import tk.lorddarthart.justdoitlist.util.customobjects.SimpleTextWatcher
 import tk.lorddarthart.justdoitlist.util.helper.clickHidePass
 import tk.lorddarthart.justdoitlist.util.verificators.PasswordEmailValidator
 
@@ -33,8 +33,6 @@ class SignUpFragment : BaseAuthFragment(), SignUpFragmentView {
 
     override fun start() {
         with (fragmentBinding as FragmentSignUpBinding) {
-            signUpHidePasswordIcon.tag = R.drawable.ic_eye_unvisible
-            signUpHideConfirmPasswordIcon.tag = R.drawable.ic_eye_unvisible
             arguments?.let { arguments ->
                 if (arguments.containsKey(IntentExtraConstNames.EMAIL)) {
                     signUpEmailInput.setText(arguments.getString(IntentExtraConstNames.EMAIL))
@@ -45,12 +43,6 @@ class SignUpFragment : BaseAuthFragment(), SignUpFragmentView {
 
     override fun initListeners() {
         with (fragmentBinding as FragmentSignUpBinding) {
-            signUpHidePasswordIcon.setOnClickListener {
-                signUpHidePasswordIcon.clickHidePass(signUpPasswordInput)
-            }
-            signUpHideConfirmPasswordIcon.setOnClickListener {
-                signUpHideConfirmPasswordIcon.clickHidePass(signUpConfirmPasswordInput)
-            }
             signUpEmailInput.addTextChangedListener(SimpleTextWatcher { text, _, _, _ ->
                 signUpPresenter.emailString = text.toString()
             })

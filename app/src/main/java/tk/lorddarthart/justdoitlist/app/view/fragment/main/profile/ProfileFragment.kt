@@ -42,4 +42,8 @@ class ProfileFragment : BaseMainTabFragment(), ProfileFragmentView {
             }
         }
     }
+
+    companion object {
+        var INSTANCE: ProfileFragment? = null
+    }
 }

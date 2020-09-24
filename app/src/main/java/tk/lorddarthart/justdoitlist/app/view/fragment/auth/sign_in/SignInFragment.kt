@@ -91,9 +91,6 @@ class SignInFragment : BaseAuthFragment(), SignInFragmentView {
                 fragment.arguments = bundle
                 activity.supportFragmentManager.beginTransaction().add(R.id.fragment_base_container, fragment).addToBackStack(null).commit()
             }
-            signInPasswordHideIcon.setOnClickListener {
-                signInPasswordHideIcon.clickHidePass(signInPasswordInput)
-            }
         }
     }
 
@@ -108,7 +105,6 @@ class SignInFragment : BaseAuthFragment(), SignInFragmentView {
             if (activity.intent.hasExtra(ArgumentsKeysConstant.EMAIL)) {
                 signInEmailInput.setText(activity.intent.getStringExtra(ArgumentsKeysConstant.EMAIL))
             }
-            signInPasswordHideIcon.tag = R.drawable.ic_eye_unvisible
         }
     }
 }

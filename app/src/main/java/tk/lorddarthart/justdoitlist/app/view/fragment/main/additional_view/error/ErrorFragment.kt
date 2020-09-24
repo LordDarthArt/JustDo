@@ -13,7 +13,6 @@ import tk.lorddarthart.justdoitlist.util.navigation.NavUtils
 import javax.inject.Inject
 
 class ErrorFragment : BaseMainTabFragment(), ErrorFragmentView {
-    @Inject lateinit var navUtils: NavUtils
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

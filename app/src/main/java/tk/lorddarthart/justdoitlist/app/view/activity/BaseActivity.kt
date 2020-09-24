@@ -42,17 +42,20 @@ class BaseActivity : MvpAppCompatActivity(), BaseActivityView {
     }
 
     private fun setup() {
-        App.NAV_COMPONENT = DaggerNavigationComponent.create()
-        App.NAV_COMPONENT.inject(this)
+        App.NavComponent = DaggerNavigationComponent.create()
+        App.NavComponent?.inject(this)
 
         setupNavigation()
     }
 
     /** Configuring navigation for application to navigate correctly. */
     private fun setupNavigation() {
-        navUtils.baseNavigator = SmartNavigator(supportFragmentManager, R.id.fragment_base_container)
-        navUtils.mainNavigator = SmartNavigator(supportFragmentManager, R.id.fragment_main_container)
-        navUtils.openSplash()
+        with (navUtils) {
+            baseNavigator.init(supportFragmentManager)
+            mainNavigator.init(supportFragmentManager)
+            authNavigator.init(supportFragmentManager)
+            openSplash()
+        }
     }
 
     override fun onBackPressed() {
@@ -71,9 +74,7 @@ class BaseActivity : MvpAppCompatActivity(), BaseActivityView {
 //                    doubleBackToExitPressedOnce = false
 //                }
 //            }
-            else -> {
-                super.onBackPressed()
-            }
+            else -> { super.onBackPressed() }
         }
     }
 
@@ -82,11 +83,7 @@ class BaseActivity : MvpAppCompatActivity(), BaseActivityView {
     }
 
     fun getMainTitle(): String? {
-        return if (::mainTitle.isInitialized) {
-            mainTitle
-        } else {
-            null
-        }
+        return if (::mainTitle.isInitialized) { mainTitle } else { null }
     }
 
     fun setActionBarTitle(title: String) {

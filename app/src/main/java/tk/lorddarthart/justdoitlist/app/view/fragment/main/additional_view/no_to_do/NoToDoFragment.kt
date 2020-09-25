@@ -30,11 +30,12 @@ class NoToDoFragment : BaseFragment(), NoToDoFragmentView {
     override fun start() {
         with (fragmentBinding as FragmentNoToDoBinding) {
             buttonNoTasksCreateOne.setOnClickListener {
-                val fragment = AddFragment()
-                activity.supportFragmentManager.beginTransaction()
-                        .add(R.id.fragment_main_container, fragment).addToBackStack(null)
-                        .commit()
+                navUtils.openAddFragment()
             }
         }
+    }
+
+    companion object {
+        var INSTANCE: NoToDoFragment? = null
     }
 }

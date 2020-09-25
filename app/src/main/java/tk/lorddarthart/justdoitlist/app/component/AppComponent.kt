@@ -1,15 +1,15 @@
-package tk.lorddarthart.justdoitlist.util.navigation
+package tk.lorddarthart.justdoitlist.app.component
 
 import dagger.Component
-import tk.lorddarthart.justdoitlist.app.module.NavigationModule
+import tk.lorddarthart.justdoitlist.app.module.AppModule
+import tk.lorddarthart.justdoitlist.app.module.DataModule
 import tk.lorddarthart.justdoitlist.app.view.activity.BaseActivity
 import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
-import tk.lorddarthart.justdoitlist.app.view.fragment.splash.SplashFragment
 import javax.inject.Singleton
 
+@Component(modules = [AppModule::class, DataModule::class])
 @Singleton
-@Component(modules = [NavigationModule::class])
-interface NavigationComponent {
+interface AppComponent {
     fun inject(activity: BaseActivity)
     fun inject(baseFragment: BaseFragment)
 }

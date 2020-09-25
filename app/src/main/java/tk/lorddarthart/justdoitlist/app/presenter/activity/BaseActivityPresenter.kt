@@ -19,6 +19,4 @@ class BaseActivityPresenter : BasePresenter<BaseActivityView>() {
     val auth: FirebaseAuth by lazy {
         FirebaseAuth.getInstance()
     }
-
-    var toDoList = mutableListOf<ToDoItemDayModel>()
 }

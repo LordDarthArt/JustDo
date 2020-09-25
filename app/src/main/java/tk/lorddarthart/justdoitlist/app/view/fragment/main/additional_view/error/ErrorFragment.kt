@@ -32,4 +32,8 @@ class ErrorFragment : BaseMainTabFragment(), ErrorFragmentView {
     override fun start() {
 
     }
+
+    companion object {
+        var INSTANCE: ErrorFragment? = null
+    }
 }

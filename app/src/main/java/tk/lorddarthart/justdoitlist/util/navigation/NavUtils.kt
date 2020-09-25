@@ -10,6 +10,7 @@ import tk.lorddarthart.justdoitlist.app.view.fragment.main.additional_view.loadi
 import tk.lorddarthart.justdoitlist.app.view.fragment.main.additional_view.no_to_do.NoToDoFragment
 import tk.lorddarthart.justdoitlist.app.view.fragment.main.profile.ProfileFragment
 import tk.lorddarthart.justdoitlist.app.view.fragment.main.todo.ToDoFragment
+import tk.lorddarthart.justdoitlist.app.view.fragment.main.todo.add.AddFragment
 import tk.lorddarthart.justdoitlist.app.view.fragment.splash.SplashFragment
 import tk.lorddarthart.smartnavigation.SmartNavigator
 import tk.lorddarthart.smartnavigation.types.NavigationActionType
@@ -21,9 +22,9 @@ import javax.inject.Singleton
 class NavUtils(
         /** Base application's navigator for navigating between fragments in [R.id.fragment_base_container] */
         var baseNavigator: SmartNavigator,
-        /** Aapplication's navigator for navigating between fragments in [R.id.fragment_main_container] */
+        /** Application's navigator for navigating between fragments in [R.id.fragment_main_container] */
         var mainNavigator: SmartNavigator,
-        /** Aapplication's navigator for navigating between fragments in [R.id.fragment_enter] */
+        /** Application's navigator for navigating between fragments in [R.id.fragment_enter] */
         var authNavigator: SmartNavigator
 ) {
     fun moveNextAfterSplash() {
@@ -35,23 +36,42 @@ class NavUtils(
     }
 
     fun showLoading() {
-        mainNavigator.navigate(LoadingFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
+        if (LoadingFragment.INSTANCE == null) {
+            LoadingFragment.INSTANCE = LoadingFragment()
+        }
+        mainNavigator.navigate(LoadingFragment.INSTANCE!!, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
     }
 
     fun moveToToDoList() {
-        mainNavigator.navigate(ToDoFragment.INSTANCE ?: ToDoFragment(), NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
+        if (ToDoFragment.INSTANCE == null) {
+            ToDoFragment.INSTANCE = ToDoFragment()
+        }
+        mainNavigator.navigate(ToDoFragment.INSTANCE!!, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
     }
 
     fun moveToProfile() {
-        mainNavigator.navigate(ProfileFragment.INSTANCE ?: ProfileFragment(), NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
+        if (ProfileFragment.INSTANCE == null) {
+            ProfileFragment.INSTANCE = ProfileFragment()
+        }
+        mainNavigator.navigate(ProfileFragment.INSTANCE!!, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
     }
 
     fun moveToError() {
-        mainNavigator.navigate(ErrorFragment(), NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
+        if (ErrorFragment.INSTANCE == null) {
+            ErrorFragment.INSTANCE = ErrorFragment()
+        }
+        mainNavigator.navigate(ErrorFragment.INSTANCE!!, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
     }
 
     fun moveToNoToDos() {
-        mainNavigator.navigate(NoToDoFragment(), NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
+        if (NoToDoFragment.INSTANCE == null) {
+            NoToDoFragment.INSTANCE = NoToDoFragment()
+        }
+        mainNavigator.navigate(NoToDoFragment.INSTANCE!!, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
+    }
+
+    fun openAddFragment() {
+        mainNavigator.navigate(AddFragment(), NavigationActionType.AddToBackStackAction, NavigationAnimType.SlideAnim)
     }
 
     fun openSplash() {

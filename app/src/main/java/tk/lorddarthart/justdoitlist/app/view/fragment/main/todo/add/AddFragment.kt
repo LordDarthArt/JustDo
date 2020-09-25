@@ -64,7 +64,7 @@ class AddFragment : BaseMainFragment(), AddFragmentView {
     override fun replacePriority(priorityTag: String) {
         with(fragmentBinding as FragmentAddBinding) {
             priorityUrgentlySelectedIndicator.setVisibility(priorityTag == PRIORITY_URGENTLY)
-            priorityImportantSelectedIndicator.setVisibility(priorityTag == PRIORITY_URGENTLY)
+            priorityImportantSelectedIndicator.setVisibility(priorityTag == PRIORITY_IMPORTANT)
             priorityNormalSelectedIndicator.setVisibility(priorityTag == PRIORITY_NORMAL)
         }
     }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import tk.lorddarthart.justdoitlist.app.model.holder.ToDoListHolder
 import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemDayModel
 import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemModel
 import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
@@ -23,8 +24,10 @@ import tk.lorddarthart.justdoitlist.util.helper.logDebug
 import tk.lorddarthart.justdoitlist.util.helper.logError
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 class LoadingFragment : BaseMainTabFragment(), LoadingFragmentView {
+
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         fragmentBinding = FragmentLoadingBinding.inflate(inflater, container, false)
@@ -80,8 +83,7 @@ class LoadingFragment : BaseMainTabFragment(), LoadingFragmentView {
                                                     DateFormatsTemplates.getFromTimestampToTitle(
                                                             toCalendar(fromDatabaseToTimestamp.parse(
                                                                     day.reference.id + "." + month.documents[0].reference.parent.id + "." + year.reference.parent.id
-                                                            )
-                                                            ), activity)
+                                                            )), activity)
                                             )
                                             val title: String = DayTitleConverter.convertToPreferred(
                                                     fromTimestampToTitle,
@@ -106,7 +108,7 @@ class LoadingFragment : BaseMainTabFragment(), LoadingFragmentView {
                                                 tododay.add(ToDoItemDayModel(title, todo))
                                                 tododay.sortWith(CompareObjectsToDoItemDayModel)
                                                 if (z == month.documents.lastIndex) {
-                                                    with(activity.baseActivityPresenter.toDoList) {
+                                                    with(toDoListHolder.toDoList) {
                                                         clear()
                                                         addAll(tododay)
                                                     }
@@ -130,5 +132,9 @@ class LoadingFragment : BaseMainTabFragment(), LoadingFragmentView {
                         onFailure(it)
                     }
         }
+    }
+
+    companion object {
+        var INSTANCE: LoadingFragment? = null
     }
 }

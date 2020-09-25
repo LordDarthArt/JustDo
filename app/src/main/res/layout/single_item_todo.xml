@@ -1,55 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clToDoDate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvToDoDate"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clToDoDate"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="27dp"
-            android:layout_marginTop="27dp"
-            android:text=""
-            android:textColor="@color/toDoTitleColor"
-            android:textSize="17sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/ivToDoArrow"
-            android:layout_width="12.76dp"
-            android:layout_height="6.09dp"
-            android:layout_marginEnd="28dp"
-            android:contentDescription="@string/todo"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="@+id/tvToDoDate"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvToDoDate"
-            app:srcCompat="@drawable/ic_arrow_down" />
+            <TextView
+                android:id="@+id/tvToDoDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="27dp"
+                android:layout_marginEnd="27dp"
+                android:layout_marginTop="27dp"
+                android:textColor="@color/toDoTitleColor"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/ivToDoArrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivToDoArrow"
+                android:layout_width="12.76dp"
+                android:layout_height="6.09dp"
+                android:layout_marginEnd="28dp"
+                android:contentDescription="@string/todo"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="@+id/tvToDoDate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvToDoDate"
+                app:srcCompat="@drawable/ic_arrow_down" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ListView
+            android:id="@+id/listToDo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="8dp"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:scrollbars="none"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/clToDoDate"
+            tools:layout_editor_absoluteX="0dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ListView
-        android:id="@+id/listToDo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:paddingBottom="8dp"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:scrollbars="none"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/clToDoDate"
-        tools:layout_editor_absoluteX="0dp" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

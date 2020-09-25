@@ -8,7 +8,7 @@ import tk.lorddarthart.smartnavigation.SmartNavigator
 import javax.inject.Singleton
 
 @Module
-class NavigationModule {
+class AppModule {
     @Provides
     @Singleton
     fun provideNavigationUtils(): NavUtils {

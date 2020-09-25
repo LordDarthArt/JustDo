@@ -46,7 +46,6 @@ class MainFragment : BaseMainFragment(), MainFragmentView {
     }
 
     override fun start() {
-        navUtils.showLoading()
         initializeActionBar()
         (fragmentBinding as FragmentMainBinding).fragmentMainBottomNavigationView.selectedItemId = R.id.navigation_main
     }

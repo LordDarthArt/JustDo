@@ -1,22 +1,16 @@
 package tk.lorddarthart.justdoitlist.app.view.activity
 
 import android.os.Bundle
-import android.view.View
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.app.App
+import tk.lorddarthart.justdoitlist.app.component.DaggerAppComponent
+import tk.lorddarthart.justdoitlist.app.module.AppModule
+import tk.lorddarthart.justdoitlist.app.module.DataModule
 import tk.lorddarthart.justdoitlist.app.presenter.activity.BaseActivityPresenter
 import tk.lorddarthart.justdoitlist.util.IOnBackPressedListener
-import tk.lorddarthart.justdoitlist.util.helper.longSnackbar
-import tk.lorddarthart.justdoitlist.util.navigation.DaggerNavigationComponent
 import tk.lorddarthart.justdoitlist.util.navigation.NavUtils
-import tk.lorddarthart.justdoitlist.util.navigation.NavigationComponent
-import tk.lorddarthart.smartnavigation.SmartNavigator
 import javax.inject.Inject
 
 /**
@@ -42,8 +36,8 @@ class BaseActivity : MvpAppCompatActivity(), BaseActivityView {
     }
 
     private fun setup() {
-        App.NavComponent = DaggerNavigationComponent.create()
-        App.NavComponent?.inject(this)
+        App.APP_COMPONENT = DaggerAppComponent.create()
+        App.APP_COMPONENT?.inject(this)
 
         setupNavigation()
     }

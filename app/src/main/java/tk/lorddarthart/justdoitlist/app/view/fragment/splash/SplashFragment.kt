@@ -6,18 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
-import io.reactivex.Completable
-import kotlinx.coroutines.*
-import tk.lorddarthart.justdoitlist.app.App
 
 import tk.lorddarthart.justdoitlist.app.presenter.fragment.splash.SplashPresenter
 import tk.lorddarthart.justdoitlist.app.view.fragment.splash.base.BaseSplashFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentSplashBinding
-import tk.lorddarthart.justdoitlist.util.constants.TimeConstant.ONE_SECOND
 import tk.lorddarthart.justdoitlist.util.helper.logError
-import tk.lorddarthart.justdoitlist.util.navigation.DaggerNavigationComponent
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils
-import javax.inject.Inject
 
 class SplashFragment : BaseSplashFragment(), SplashFragmentView {
     @InjectPresenter lateinit var splashPresenter: SplashPresenter

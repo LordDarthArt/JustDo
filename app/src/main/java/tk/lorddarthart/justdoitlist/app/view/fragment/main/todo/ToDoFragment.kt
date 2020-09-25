@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
+import tk.lorddarthart.justdoitlist.app.model.holder.ToDoListHolder
 import tk.lorddarthart.justdoitlist.app.view.fragment.main.todo.adapter.ToDoViewAdapter
 import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemDayModel
 import tk.lorddarthart.justdoitlist.app.presenter.fragment.main.todo.ToDoPresenter
@@ -16,14 +17,13 @@ import tk.lorddarthart.justdoitlist.app.view.fragment.main.todo.add.AddFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentToDoBinding
 import tk.lorddarthart.smartnavigation.types.NavigationActionType
 import tk.lorddarthart.smartnavigation.types.NavigationAnimType
+import javax.inject.Inject
 
 class ToDoFragment : BaseFragment(), ToDoFragmentView {
-    @InjectPresenter
-    lateinit var toDoPresenter: ToDoPresenter
+    @InjectPresenter lateinit var toDoPresenter: ToDoPresenter
 
     @SuppressLint("SimpleDateFormat")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         fragmentBinding = FragmentToDoBinding.inflate(inflater, container, false)
 
         initialization()
@@ -33,14 +33,16 @@ class ToDoFragment : BaseFragment(), ToDoFragmentView {
 
     override fun initListeners() {
         with (fragmentBinding as FragmentToDoBinding) {
-            addToDoButton.setOnClickListener {
-                navUtils.baseNavigator.navigate(AddFragment(), NavigationActionType.AddToBackStackAction, NavigationAnimType.FadeAnim)
-            }
+            addToDoButton.setOnClickListener { navUtils.openAddFragment() }
         }
     }
 
     override fun start() {
-        initializeAdapter(activity.baseActivityPresenter.toDoList)
+        if (toDoListHolder.toDoList.isEmpty()) {
+            navUtils.showLoading()
+        } else {
+            initializeAdapter(toDoListHolder.toDoList)
+        }
     }
 
     private fun initializeAdapter(todoofday: List<ToDoItemDayModel>) {

@@ -1,7 +1,7 @@
 package tk.lorddarthart.justdoitlist.app
 
 import android.app.Application
-import tk.lorddarthart.justdoitlist.util.navigation.NavigationComponent
+import tk.lorddarthart.justdoitlist.app.component.AppComponent
 
 class App: Application() {
 
@@ -12,6 +12,6 @@ class App: Application() {
 
     companion object {
         lateinit var INSTANCE: Application
-        var NavComponent: NavigationComponent? = null
+        var APP_COMPONENT: AppComponent? = null
     }
 }

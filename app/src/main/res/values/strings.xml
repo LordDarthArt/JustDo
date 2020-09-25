@@ -6,7 +6,7 @@
     <string name="agreement_decline_text">By declining this agreement, you are confirming application\'s closing</string>
     <string name="btn_exit">Exit</string>
     <string name="btn_stay">Stay</string>
-    <string name="agree">By accessing your account, you agree to our</string>
+    <string name="agree">By accessing your account, you agree to our %1$s and %2$s</string>
     <string name="terms_and_conditions_and_privacy_policy">%1$s and %2$s</string>
     <string name="terms_and_conditions">Terms and Conditions</string>
     <string name="privacy_policy">Privacy Policy</string>

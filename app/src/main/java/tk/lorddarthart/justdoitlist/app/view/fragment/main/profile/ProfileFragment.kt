@@ -13,9 +13,7 @@ import tk.lorddarthart.justdoitlist.app.view.fragment.main.base.BaseMainTabFragm
 import tk.lorddarthart.justdoitlist.databinding.FragmentAccountBinding
 
 class ProfileFragment : BaseMainTabFragment(), ProfileFragmentView {
-
-    @InjectPresenter
-    lateinit var profilePresenter: ProfilePresenter
+    @InjectPresenter lateinit var profilePresenter: ProfilePresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         fragmentBinding = FragmentAccountBinding.inflate(inflater, container, false)
@@ -27,13 +25,13 @@ class ProfileFragment : BaseMainTabFragment(), ProfileFragmentView {
 
     override fun start() {
         with (fragmentBinding as FragmentAccountBinding) {
-            tvUserLogIn.text = FirebaseAuth.getInstance().currentUser?.email
+            userEmail.text = FirebaseAuth.getInstance().currentUser?.email
         }
     }
 
     override fun initListeners() {
         with (fragmentBinding as FragmentAccountBinding) {
-            clUserLogOut.setOnClickListener {
+            userLogOut.setOnClickListener {
                 activity.finish()
                 val intent = Intent(activity, BaseActivity::class.java)
                 intent.putExtra("email", FirebaseAuth.getInstance().currentUser?.email)

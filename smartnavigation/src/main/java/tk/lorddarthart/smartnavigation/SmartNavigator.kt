@@ -40,15 +40,15 @@ class SmartNavigator(
                     NavigationActionType.ShowAction -> {
                         if (!backStack.contains(targetFragment.backStackKey)) {
                             getActiveTab()?.let {
-                                hide(it).add(containerId, targetFragment).commitNow()
+                                hide(it).add(containerId, targetFragment).commit()
                             } ?: apply {
-                                add(containerId, targetFragment).commitNow()
+                                add(containerId, targetFragment).commit()
                             }
                         } else {
                             getActiveTab()?.let {
-                                hide(it).show(targetFragment).commitNow()
+                                hide(it).show(targetFragment).commit()
                             } ?: apply {
-                                show(targetFragment).commitNow()
+                                show(targetFragment).commit()
                             }
 
                             backStack.iterator().let { backStackIterator ->

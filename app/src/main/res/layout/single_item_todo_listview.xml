@@ -2,87 +2,72 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="86dp"
-        android:orientation="vertical">
+        android:layout_margin="8dp"
+        android:background="@drawable/shape_primary_card">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvToDoCard"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/ivPriorityMarker"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="21dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/shape_circle" />
+
+        <CheckBox
+            android:id="@+id/chkToDo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPriorityMarker"
+            app:layout_constraintStart_toEndOf="@+id/ivPriorityMarker"
+            app:layout_constraintTop_toTopOf="@+id/ivPriorityMarker" />
+
+        <TextView
+            android:id="@+id/tvToDoTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
-            app:cardUseCompatPadding="true">
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text=""
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/chkToDo"
+            app:layout_constraintEnd_toStartOf="@+id/tvToDoTime"
+            app:layout_constraintStart_toEndOf="@+id/chkToDo"
+            app:layout_constraintTop_toTopOf="@+id/chkToDo" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tvToDoComment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="13dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/textDisabledColor"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvToDoTime"
+            app:layout_constraintStart_toStartOf="@+id/tvToDoTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvToDoTitle" />
 
-                <ImageView
-                    android:id="@+id/ivPriorityMarker"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="21dp"
-                    android:contentDescription="@string/todo"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/shape_circle" />
-
-                <CheckBox
-                    android:id="@+id/chkToDo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/ivPriorityMarker"
-                    app:layout_constraintStart_toEndOf="@+id/ivPriorityMarker"
-                    app:layout_constraintTop_toTopOf="@+id/ivPriorityMarker" />
-
-                <TextView
-                    android:id="@+id/tvToDoTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text=""
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/chkToDo"
-                    app:layout_constraintEnd_toStartOf="@+id/tvToDoTime"
-                    app:layout_constraintStart_toEndOf="@+id/chkToDo"
-                    app:layout_constraintTop_toTopOf="@+id/chkToDo" />
-
-                <TextView
-                    android:id="@+id/tvToDoComment"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="13dp"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text=""
-                    android:textColor="@color/textDisabledColor"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/tvToDoTime"
-                    app:layout_constraintStart_toStartOf="@+id/tvToDoTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/tvToDoTitle" />
-
-                <TextView
-                    android:id="@+id/tvToDoTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="21dp"
-                    android:text=""
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvToDoTitle"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvToDoTitle" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tvToDoTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="21dp"
+            android:text=""
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tvToDoTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvToDoTitle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

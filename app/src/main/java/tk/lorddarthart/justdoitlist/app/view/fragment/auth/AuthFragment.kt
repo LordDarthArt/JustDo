@@ -54,11 +54,7 @@ class AuthFragment : BaseAuthFragment(), AuthFragmentView {
             agreementBottomSentence.text = authPresenter.agreementText
 
             activity.setSupportActionBar(authHead)
-            authHeadTitle.text = getString(R.string.progress_auth)
-            activity.supportActionBar?.let {
-                it.show()
-                it.elevation = 0f
-            }
+            authHeadTitle.text = getString(R.string.authentication)
         }
         setSpan()
     }

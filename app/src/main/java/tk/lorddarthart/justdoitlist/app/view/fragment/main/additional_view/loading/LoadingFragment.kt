@@ -10,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemDayModel
 import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemModel
 import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
+import tk.lorddarthart.justdoitlist.app.view.fragment.main.base.BaseMainTabFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentLoadingBinding
 import tk.lorddarthart.justdoitlist.util.comparators.CompareObjectsToDoItemDayModel
 import tk.lorddarthart.justdoitlist.util.comparators.CompareObjectsToDoItemModel
@@ -20,20 +21,46 @@ import tk.lorddarthart.justdoitlist.util.constants.cloudfirestorestructure.todo.
 import tk.lorddarthart.justdoitlist.util.converters.DayTitleConverter
 import tk.lorddarthart.justdoitlist.util.helper.logDebug
 import tk.lorddarthart.justdoitlist.util.helper.logError
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Inject
 
-class LoadingFragment : BaseFragment(), LoadingFragmentView {
-    private lateinit var loadingFragmentBinding: FragmentLoadingBinding
-    private val toDoMonth: MutableList<MutableList<ToDoItemDayModel>> = mutableListOf()
-
+class LoadingFragment : BaseMainTabFragment(), LoadingFragmentView {
     @SuppressLint("SimpleDateFormat")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        loadingFragmentBinding = FragmentLoadingBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        fragmentBinding = FragmentLoadingBinding.inflate(inflater, container, false)
+
+        initialization()
+
+        return fragmentBinding.root
+    }
+
+    private fun toCalendar(date: Date): Calendar {
+        val cal = Calendar.getInstance()
+        cal.time = date
+        return cal
+    }
+
+    private fun noTasks() {
+        logDebug { "Currently no tasks" }
+
+        if (this@LoadingFragment.isVisible) {
+            navUtils.moveToNoToDos()
+        }
+    }
+
+    private fun onFailure(e: Exception) {
+        logError(e) { "data request to Firebase failed: ${e.message}" }
+
+        if (this@LoadingFragment.isVisible) {
+            navUtils.moveToError()
+        }
+    }
+
+    override fun initListeners() {
+        // do nothing
+    }
+
+    override fun start() {
         val fromDatabaseToTimestamp = SimpleDateFormat(DateFormatsTemplates.fromDatabaseToTimestamp)
         val tododay = mutableListOf<ToDoItemDayModel>()
         if (FirebaseAuth.getInstance().currentUser != null) {
@@ -103,36 +130,5 @@ class LoadingFragment : BaseFragment(), LoadingFragmentView {
                         onFailure(it)
                     }
         }
-        return loadingFragmentBinding.root
-    }
-
-    private fun toCalendar(date: Date): Calendar {
-        val cal = Calendar.getInstance()
-        cal.time = date
-        return cal
-    }
-
-    private fun noTasks() {
-        logDebug { "Currently no tasks" }
-
-        if (this@LoadingFragment.isVisible) {
-            navUtils.moveToNoToDos()
-        }
-    }
-
-    private fun onFailure(e: Exception) {
-        logError(e) { "data request to Firebase failed. You know why? Oh, this is simple: " }
-
-        if (this@LoadingFragment.isVisible) {
-            navUtils.moveToError()
-        }
-    }
-
-    override fun initListeners() {
-
-    }
-
-    override fun start() {
-
     }
 }

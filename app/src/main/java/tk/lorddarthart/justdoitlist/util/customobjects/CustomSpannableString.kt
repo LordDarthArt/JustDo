@@ -10,22 +10,17 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.app.App
-import tk.lorddarthart.justdoitlist.app.model.pojo.auth.Link
-import tk.lorddarthart.justdoitlist.app.view.fragment.auth.AuthFragment
-import tk.lorddarthart.justdoitlist.app.view.fragment.auth.additional_info.AdditionalInfoFragment
-import tk.lorddarthart.justdoitlist.util.navigation.NavUtils
-import tk.lorddarthart.smartnavigation.types.NavigationActionType
-import tk.lorddarthart.smartnavigation.types.NavigationAnimType
+import tk.lorddarthart.justdoitlist.model.pojo.auth.Link
+import tk.lorddarthart.justdoitlist.presentation.auth.AuthFragment
+import tk.lorddarthart.justdoitlist.router.Router
 import java.util.regex.Pattern
 import javax.inject.Inject
 
 class CustomSpannableString(
-        spannableText: String,
-        private val links: List<Link>,
-        private val spannableHolderView: TextView
+    spannableText: String,
+    private val links: List<Link>,
+    private val spannableHolderView: TextView
 ): SpannableString(spannableText) {
-    @Inject lateinit var navUtils: NavUtils
 
     fun createForAuthScreen(context: Context, authFragment: AuthFragment) {
         for (link in links) {

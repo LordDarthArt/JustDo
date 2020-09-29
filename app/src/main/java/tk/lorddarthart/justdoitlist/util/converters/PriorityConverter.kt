@@ -2,7 +2,7 @@ package tk.lorddarthart.justdoitlist.util.converters
 
 import androidx.core.content.ContextCompat
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.app.App
+import tk.lorddarthart.justdoitlist.App
 import tk.lorddarthart.justdoitlist.util.constants.DigitalConstant.PRIORITY_IMPORTANT_CODE
 import tk.lorddarthart.justdoitlist.util.constants.DigitalConstant.PRIORITY_NEUTRAL_CODE
 import tk.lorddarthart.justdoitlist.util.constants.DigitalConstant.PRIORITY_NORMAL_CODE

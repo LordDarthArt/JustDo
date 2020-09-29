@@ -77,9 +77,8 @@ dependencies {
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlin.version}"
 
-    // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutines.version}"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutines.version}"
+    // RxJava
+    implementation "io.reactivex.rxjava3:rxjava:${rxjava.version}"
 
     // Anko
     implementation "org.jetbrains.anko:anko:${anko.version}"

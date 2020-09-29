@@ -7,8 +7,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.app.App
-import tk.lorddarthart.justdoitlist.app.view.fragment.base.BaseFragment
+import tk.lorddarthart.justdoitlist.App
+import tk.lorddarthart.justdoitlist.presentation.base.BaseFragment
 
 fun Button.setTextDisabled() {
     this.setTextColor(ContextCompat.getColor(App.INSTANCE, R.color.textDisabledColor))

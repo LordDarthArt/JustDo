@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".app.view.fragment.auth.sign_up.SignUpFragment">
+        tools:context=".presentation.auth.sign_up.SignUpFragment">
 
         <Button
             android:id="@+id/sign_up_button"

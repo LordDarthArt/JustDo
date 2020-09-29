@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".app.view.fragment.auth.AuthFragment">
+    tools:context=".presentation.auth.AuthFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -15,13 +15,13 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/auth_head"
+                android:elevation="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/auth_head_title"
                     style="@style/HeaderTitleStyle"
-                    android:elevation="0dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"/>
 

@@ -1,6 +1,6 @@
 package tk.lorddarthart.justdoitlist.util.comparators
 
-import tk.lorddarthart.justdoitlist.app.model.pojo.main.ToDoItemModel
+import tk.lorddarthart.justdoitlist.model.pojo.main.ToDoItemModel
 
 class CompareObjectsToDoItemModel {
 

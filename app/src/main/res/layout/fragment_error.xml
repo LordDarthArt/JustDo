@@ -38,7 +38,7 @@
                 android:id="@+id/layout_error"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".app.view.fragment.main.additional_view.error.ErrorFragment">
+                tools:context=".presentation.main.additional_view.error.ErrorFragment">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"

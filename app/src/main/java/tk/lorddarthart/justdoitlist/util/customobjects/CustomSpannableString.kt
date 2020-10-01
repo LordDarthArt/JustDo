@@ -12,9 +12,7 @@ import androidx.core.content.ContextCompat
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.model.pojo.auth.Link
 import tk.lorddarthart.justdoitlist.presentation.auth.AuthFragment
-import tk.lorddarthart.justdoitlist.router.Router
 import java.util.regex.Pattern
-import javax.inject.Inject
 
 class CustomSpannableString(
     spannableText: String,

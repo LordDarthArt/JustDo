@@ -7,15 +7,15 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.App
+import tk.lorddarthart.justdoitlist.JustDoItListApp
 import tk.lorddarthart.justdoitlist.presentation.base.BaseFragment
 
 fun Button.setTextDisabled() {
-    this.setTextColor(ContextCompat.getColor(App.INSTANCE, R.color.textDisabledColor))
+    this.setTextColor(ContextCompat.getColor(JustDoItListApp.INSTANCE, R.color.textDisabledColor))
 }
 
 fun Button.setTextEnabled() {
-    this.setTextColor(ContextCompat.getColor(App.INSTANCE, R.color.textColor))
+    this.setTextColor(ContextCompat.getColor(JustDoItListApp.INSTANCE, R.color.textColor))
 }
 
 fun ImageView.clickHidePass(editText: EditText) {

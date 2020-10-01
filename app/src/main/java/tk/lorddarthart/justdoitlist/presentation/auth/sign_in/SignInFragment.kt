@@ -25,16 +25,10 @@ class SignInFragment : BaseAuthFragment(), SignInFragmentView {
     private lateinit var loadingDialog: ProgressDialog
     @Inject lateinit var auth: FirebaseAuth
 
-    @InjectPresenter
-    lateinit var signInPresenter: SignInPresenter
+    @InjectPresenter lateinit var signInPresenter: SignInPresenter
 
-    @SuppressLint("SetTextI18n", "CommitTransaction")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = FragmentSignInBinding.inflate(inflater, container, false)
-
-        initialization()
-
-        return fragmentBinding.root
     }
 
     private fun buildLoading() {

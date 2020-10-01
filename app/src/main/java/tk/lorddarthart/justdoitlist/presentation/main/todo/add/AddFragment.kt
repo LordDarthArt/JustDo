@@ -1,13 +1,12 @@
 package tk.lorddarthart.justdoitlist.presentation.main.todo.add
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.presentation.main.base.BaseMainFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentAddBinding
+import tk.lorddarthart.justdoitlist.databinding.FragmentToDoBinding
+import tk.lorddarthart.justdoitlist.presentation.main.base.BaseMainFragment
 import tk.lorddarthart.justdoitlist.util.constants.StringConstant.PRIORITY_IMPORTANT
 import tk.lorddarthart.justdoitlist.util.constants.StringConstant.PRIORITY_NORMAL
 import tk.lorddarthart.justdoitlist.util.constants.StringConstant.PRIORITY_URGENTLY
@@ -16,18 +15,11 @@ import tk.lorddarthart.justdoitlist.util.helper.logDebug
 import tk.lorddarthart.justdoitlist.util.helper.setVisibility
 
 class AddFragment : BaseMainFragment(), AddFragmentView {
-    @InjectPresenter
-    lateinit var addPresenter: AddPresenter
+    @InjectPresenter lateinit var addPresenter: AddPresenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        fragmentBinding = FragmentAddBinding.inflate(inflater, container, false)
-
-        initialization()
-
-        return fragmentBinding.root
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
+        fragmentBinding = FragmentToDoBinding.inflate(inflater, container, false)
     }
-
 
     override fun initListeners() {
         with(fragmentBinding as FragmentAddBinding) {
@@ -53,6 +45,7 @@ class AddFragment : BaseMainFragment(), AddFragmentView {
 
     override fun start() {
         activity.setActionBarTitle(getString(R.string.todo_add_bar_title))
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         getPriorityCode(activity.resources.getString(R.string.priority_neutral))?.let { priority ->
             addPresenter.priority = priority

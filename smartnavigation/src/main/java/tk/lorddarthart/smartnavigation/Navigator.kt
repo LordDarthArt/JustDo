@@ -6,14 +6,14 @@ import tk.lorddarthart.smartnavigation.types.NavigationActionType
 import tk.lorddarthart.smartnavigation.types.NavigationAnimType
 
 /** Specifications for [SmartNavigator] class. */
-interface INavigator {
-    /** Custom backstack of classes that realizes the [INavigator]. */
+interface Navigator {
+    /** Custom backstack of classes that realizes the [Navigator]. */
     val backStack: MutableList<String>
     /** Specifies the current realization's fragment container id to navigate in. */
     val containerId: Int
 
     /**
-     * Function for performing the navigation in classes that realizes the [INavigator].
+     * Function for performing the navigation in classes that realizes the [Navigator].
      *
      * @param targetFragment Fragment to navigate to;
      * @param actionType Specifies the action that should be performed;
@@ -28,14 +28,14 @@ interface INavigator {
     )
 
     /**
-     * Sets up the current realization of [INavigator] (specifies the fragment manager will be used).
+     * Sets up the current realization of [Navigator] (specifies the fragment manager will be used).
      *
      * @param fragmentManager [FragmentManager] that should be used for performing the navigations;
      */
     fun init(fragmentManager: FragmentManager)
 
     /**
-     * Function for performing the removing of [NavigatableFragment] in classes that realizes the [INavigator].
+     * Function for performing the removing of [NavigatableFragment] in classes that realizes the [Navigator].
      *
      * @param fragmentToRemove Fragment to remove from current fragment manager;
      */

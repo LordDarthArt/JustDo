@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
-import tk.lorddarthart.justdoitlist.App
+import tk.lorddarthart.justdoitlist.JustDoItListApp
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.model.pojo.main.ToDoItemModel
 import tk.lorddarthart.justdoitlist.databinding.SingleItemTodoListviewBinding
@@ -19,7 +19,7 @@ import java.util.*
 class ListViewAdapter(
         private val resource: Int,
         private val toDoItemModels: List<ToDoItemModel>
-) : ArrayAdapter<ToDoItemModel>(App.INSTANCE, resource, toDoItemModels) {
+) : ArrayAdapter<ToDoItemModel>(JustDoItListApp.INSTANCE, resource, toDoItemModels) {
 
     // items count
     override fun getCount(): Int {

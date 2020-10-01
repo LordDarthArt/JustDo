@@ -7,7 +7,7 @@ import tk.lorddarthart.smartnavigation.types.NavigationAnimType
 
 class SmartNavigator(
    override val containerId: Int
-): INavigator {
+): Navigator {
     private var fragmentManager: FragmentManager? = null
     override val backStack = mutableListOf<String>()
 

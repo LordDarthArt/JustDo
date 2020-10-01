@@ -11,13 +11,8 @@ import tk.lorddarthart.justdoitlist.databinding.FragmentNoToDoBinding
 class NoToDoFragment : BaseFragment(), NoToDoFragmentView {
     @InjectPresenter lateinit var noToDoPresenter: NoToDoPresenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = FragmentNoToDoBinding.inflate(inflater, container, false)
-
-        initialization()
-
-        return fragmentBinding.root
     }
 
     override fun initListeners() {

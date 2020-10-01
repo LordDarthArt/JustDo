@@ -3,7 +3,7 @@ package tk.lorddarthart.justdoitlist
 import android.app.Application
 import tk.lorddarthart.justdoitlist.di.component.AppComponent
 
-class App: Application() {
+class JustDoItListApp: Application() {
 
     override fun onCreate() {
         super.onCreate()

@@ -6,5 +6,4 @@ import android.widget.EditText
 import android.widget.ImageView
 import tk.lorddarthart.justdoitlist.R
 
-object HidePass {
-}
+object HidePass

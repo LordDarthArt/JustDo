@@ -1,27 +1,20 @@
 package tk.lorddarthart.justdoitlist.presentation.auth.additional_info
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.presentation.base.BaseFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentAdditionalInfoBinding
+import tk.lorddarthart.justdoitlist.presentation.base.BaseFragment
 import tk.lorddarthart.justdoitlist.util.constants.ArgumentsKeysConstant
 import tk.lorddarthart.justdoitlist.util.constants.DefaultValuesConstant
 
 class AdditionalInfoFragment : BaseFragment(), AdditionalInfoFragmentView {
-    @InjectPresenter
-    lateinit var additionalInfoPresenter: AdditionalInfoPresenter
+    @InjectPresenter lateinit var additionalInfoPresenter: AdditionalInfoPresenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = FragmentAdditionalInfoBinding.inflate(inflater, container, false)
-
-        initialization()
-
-        return fragmentBinding.root
     }
 
     override fun start() {
@@ -29,7 +22,7 @@ class AdditionalInfoFragment : BaseFragment(), AdditionalInfoFragmentView {
     }
 
     override fun initListeners() {
-        with (fragmentBinding as FragmentAdditionalInfoBinding) {
+        with(fragmentBinding as FragmentAdditionalInfoBinding) {
             if (arguments != null && requireArguments().containsKey(ArgumentsKeysConstant.ACTIVITY)) {
                 if (requireArguments().getString(ArgumentsKeysConstant.ACTIVITY)!! == DefaultValuesConstant.TERMS_AND_CONDITIONS) {
                     agreementText.text = getString(R.string.terms_condition_txt)

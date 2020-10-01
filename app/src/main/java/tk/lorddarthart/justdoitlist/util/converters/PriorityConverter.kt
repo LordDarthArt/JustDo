@@ -2,7 +2,7 @@ package tk.lorddarthart.justdoitlist.util.converters
 
 import androidx.core.content.ContextCompat
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.App
+import tk.lorddarthart.justdoitlist.JustDoItListApp
 import tk.lorddarthart.justdoitlist.util.constants.DigitalConstant.PRIORITY_IMPORTANT_CODE
 import tk.lorddarthart.justdoitlist.util.constants.DigitalConstant.PRIORITY_NEUTRAL_CODE
 import tk.lorddarthart.justdoitlist.util.constants.DigitalConstant.PRIORITY_NORMAL_CODE
@@ -14,7 +14,7 @@ import tk.lorddarthart.justdoitlist.util.constants.StringConstant.PRIORITY_URGEN
 
 object PriorityConverter {
     fun getPriorityName(priority: Long?): String? {
-        with (App.INSTANCE) {
+        with (JustDoItListApp.INSTANCE) {
             return when (priority) {
                 PRIORITY_NEUTRAL_CODE -> { getString(R.string.priority_neutral) }
                 PRIORITY_NORMAL_CODE-> { getString(R.string.priority_normal) }
@@ -26,7 +26,7 @@ object PriorityConverter {
     }
 
     fun getColor(priority: Long?): Int {
-        with(App.INSTANCE) {
+        with(JustDoItListApp.INSTANCE) {
             return when (priority) {
                 0L -> { ContextCompat.getColor(this, R.color.emptyPriorityMarkColor) }
                 1L -> { ContextCompat.getColor(this, R.color.lowPriorityMarkColor) }

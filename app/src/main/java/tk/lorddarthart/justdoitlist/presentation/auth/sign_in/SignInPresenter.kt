@@ -4,5 +4,4 @@ import com.arellomobile.mvp.InjectViewState
 import tk.lorddarthart.justdoitlist.presentation.base.BaseFragmentPresenter
 
 @InjectViewState
-class SignInPresenter: BaseFragmentPresenter<SignInFragmentView>() {
-}
+class SignInPresenter: BaseFragmentPresenter<SignInFragmentView>()

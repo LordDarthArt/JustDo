@@ -5,5 +5,4 @@ import tk.lorddarthart.justdoitlist.presentation.base.BaseFragmentPresenter
 import tk.lorddarthart.justdoitlist.presentation.main.MainFragmentView
 
 @InjectViewState
-class MainPresenter : BaseFragmentPresenter<MainFragmentView>() {
-}
+class MainPresenter : BaseFragmentPresenter<MainFragmentView>()

@@ -9,6 +9,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.presentation.main.base.BaseMainFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentMainBinding
+import tk.lorddarthart.justdoitlist.databinding.FragmentSignUpBinding
 import tk.lorddarthart.justdoitlist.util.constants.DateArrays.getRussianMonthName
 import tk.lorddarthart.justdoitlist.util.constants.DateFormatsTemplates
 import tk.lorddarthart.justdoitlist.util.helper.LocaleHelper.isRussianLocalization
@@ -18,12 +19,8 @@ class MainFragment : BaseMainFragment(), MainFragmentView {
     @InjectPresenter
     lateinit var mainPresenter: MainPresenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = FragmentMainBinding.inflate(inflater, container, false)
-
-        initialization()
-
-        return fragmentBinding.root
     }
 
 

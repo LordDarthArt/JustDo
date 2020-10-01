@@ -24,14 +24,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class LoadingFragment : BaseMainTabFragment(), LoadingFragmentView {
-
-    @SuppressLint("SimpleDateFormat")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = FragmentLoadingBinding.inflate(inflater, container, false)
-
-        initialization()
-
-        return fragmentBinding.root
     }
 
     private fun toCalendar(date: Date): Calendar {
@@ -63,9 +57,9 @@ class LoadingFragment : BaseMainTabFragment(), LoadingFragmentView {
     override fun start() {
         val fromDatabaseToTimestamp = SimpleDateFormat(DateFormatsTemplates.fromDatabaseToTimestamp)
         val tododay = mutableListOf<ToDoItemDayModel>()
-        if (FirebaseAuth.getInstance().currentUser != null) {
+        FirebaseAuth.getInstance().currentUser?.let { currentUser ->
             FirebaseFirestore.getInstance().collection(CloudFirestoreMainPage.field_todo_name)
-                    .document(FirebaseAuth.getInstance().currentUser!!.uid).collection(
+                    .document(currentUser.uid).collection(
                             SimpleDateFormat(DateFormatsTemplates.mYear).format(System.currentTimeMillis()).toString())
                     .get().addOnSuccessListener { years ->
                         if (!years.isEmpty) {
@@ -105,7 +99,7 @@ class LoadingFragment : BaseMainTabFragment(), LoadingFragmentView {
                                                 tododay.add(ToDoItemDayModel(title, todo))
                                                 tododay.sortWith(CompareObjectsToDoItemDayModel)
                                                 if (z == month.documents.lastIndex) {
-                                                    with(toDoListHolder.toDoList) {
+                                                    with(toDoHolder.toDoList) {
                                                         clear()
                                                         addAll(tododay)
                                                     }

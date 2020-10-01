@@ -24,15 +24,10 @@ import javax.inject.Inject
 class SignUpFragment : BaseAuthFragment(), SignUpFragmentView {
     @Inject lateinit var auth: FirebaseAuth
 
-    @InjectPresenter
-    lateinit var signUpPresenter: SignUpPresenter
+    @InjectPresenter lateinit var signUpPresenter: SignUpPresenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = FragmentSignUpBinding.inflate(inflater, container, false)
-
-        initialization()
-
-        return fragmentBinding.root
     }
 
     override fun start() {

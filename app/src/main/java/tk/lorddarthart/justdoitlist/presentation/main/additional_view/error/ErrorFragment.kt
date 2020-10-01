@@ -9,13 +9,8 @@ import tk.lorddarthart.justdoitlist.databinding.FragmentErrorBinding
 
 class ErrorFragment : BaseMainTabFragment(), ErrorFragmentView {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = FragmentErrorBinding.inflate(inflater, container, false)
-
-        initialization()
-
-        return fragmentBinding.root
     }
 
     override fun initListeners() {

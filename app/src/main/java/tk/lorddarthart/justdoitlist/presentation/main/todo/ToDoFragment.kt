@@ -15,13 +15,8 @@ import tk.lorddarthart.justdoitlist.presentation.main.todo.adapter.ToDoViewAdapt
 class ToDoFragment : BaseFragment(), ToDoFragmentView {
     @InjectPresenter lateinit var toDoPresenter: ToDoPresenter
 
-    @SuppressLint("SimpleDateFormat")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = FragmentToDoBinding.inflate(inflater, container, false)
-
-        initialization()
-
-        return fragmentBinding.root
     }
 
     override fun initListeners() {
@@ -31,10 +26,10 @@ class ToDoFragment : BaseFragment(), ToDoFragmentView {
     }
 
     override fun start() {
-        if (toDoListHolder.toDoList.isEmpty()) {
+        if (toDoHolder.toDoList.isEmpty()) {
             router.moveToLoading()
         } else {
-            initializeAdapter(toDoListHolder.toDoList)
+            initializeAdapter(toDoHolder.toDoList)
         }
     }
 

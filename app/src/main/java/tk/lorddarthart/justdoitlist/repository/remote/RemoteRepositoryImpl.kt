@@ -1,4 +1,3 @@
 package tk.lorddarthart.justdoitlist.repository.remote
 
-interface IRemoteRepository {
-}
+class RemoteRepositoryImpl: RemoteRepository

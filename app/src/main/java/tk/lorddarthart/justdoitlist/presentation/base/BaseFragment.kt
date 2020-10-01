@@ -6,23 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import com.arellomobile.mvp.MvpView
-import com.arellomobile.mvp.presenter.InjectPresenter
-import tk.lorddarthart.justdoitlist.App
-import tk.lorddarthart.justdoitlist.model.holder.ToDoListHolder
-import tk.lorddarthart.justdoitlist.presentation.auth.AuthPresenter
+import tk.lorddarthart.justdoitlist.JustDoItListApp
+import tk.lorddarthart.justdoitlist.model.holder.ToDoHolder
 import tk.lorddarthart.justdoitlist.presentation.root.RootActivity
-import tk.lorddarthart.justdoitlist.router.IRouter
+import tk.lorddarthart.justdoitlist.router.Router
 import tk.lorddarthart.justdoitlist.util.helper.Loggable
 import tk.lorddarthart.smartnavigation.NavigatableFragment
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 abstract class BaseFragment : NavigatableFragment(), IBaseFragment, Loggable {
-    @Inject protected lateinit var router: IRouter
-    @Inject protected lateinit var toDoListHolder: ToDoListHolder
+    @Inject protected lateinit var router: Router
+    @Inject protected lateinit var toDoHolder: ToDoHolder
 
-    protected lateinit var activity: RootActivity
-    protected lateinit var fragmentBinding: ViewDataBinding
+    protected var activity by Delegates.notNull<RootActivity>()
+    protected var fragmentBinding by Delegates.notNull<ViewDataBinding>()
 
     override val backStackKey: String by lazy {
         javaClass.simpleName
@@ -39,7 +37,7 @@ abstract class BaseFragment : NavigatableFragment(), IBaseFragment, Loggable {
     }
 
     override fun initialization(inflater: LayoutInflater, container: ViewGroup?) {
-        App.component?.inject(this)
+        JustDoItListApp.component?.inject(this)
 
         activity.supportActionBar?.title = ""
 

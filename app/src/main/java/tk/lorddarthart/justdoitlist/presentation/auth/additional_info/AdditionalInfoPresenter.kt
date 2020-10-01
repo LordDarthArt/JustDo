@@ -4,5 +4,4 @@ import com.arellomobile.mvp.InjectViewState
 import tk.lorddarthart.justdoitlist.presentation.base.BaseFragmentPresenter
 
 @InjectViewState
-class AdditionalInfoPresenter: BaseFragmentPresenter<AdditionalInfoFragmentView>() {
-}
+class AdditionalInfoPresenter: BaseFragmentPresenter<AdditionalInfoFragmentView>()

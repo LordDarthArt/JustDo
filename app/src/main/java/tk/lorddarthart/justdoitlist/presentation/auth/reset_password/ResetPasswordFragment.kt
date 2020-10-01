@@ -14,16 +14,10 @@ import tk.lorddarthart.justdoitlist.util.helper.shortSnackbar
 import tk.lorddarthart.justdoitlist.util.verificators.PasswordEmailValidator.isValidEmailAddress
 
 class ResetPasswordFragment : BaseAuthFragment(), ResetPasswordFragmentView {
-    @InjectPresenter
-    lateinit var resetPasswordPresenter: ResetPasswordPresenter
+    @InjectPresenter lateinit var resetPasswordPresenter: ResetPasswordPresenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = FragmentResetPasswordBinding.inflate(inflater, container, false)
-
-        initialization()
-
-        return fragmentBinding.root
     }
 
     override fun start() {

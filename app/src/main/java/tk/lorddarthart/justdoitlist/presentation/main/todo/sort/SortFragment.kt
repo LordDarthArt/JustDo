@@ -9,16 +9,10 @@ import tk.lorddarthart.justdoitlist.presentation.base.BaseFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentSortBinding
 
 class SortFragment : BaseFragment(), SortFragmentView {
-    @InjectPresenter
-    lateinit var sortPresenter: SortPresenter
+    @InjectPresenter lateinit var sortPresenter: SortPresenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = FragmentSortBinding.inflate(inflater, container, false)
-
-        initialization()
-
-        return fragmentBinding.root
     }
 
     override fun initListeners() {

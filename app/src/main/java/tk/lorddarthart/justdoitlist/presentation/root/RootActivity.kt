@@ -4,20 +4,20 @@ import android.os.Bundle
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.App
+import tk.lorddarthart.justdoitlist.JustDoItListApp
 import tk.lorddarthart.justdoitlist.di.component.DaggerAppComponent
-import tk.lorddarthart.justdoitlist.router.IRouter
-import tk.lorddarthart.justdoitlist.util.IOnBackPressedListener
+import tk.lorddarthart.justdoitlist.router.Router
+import tk.lorddarthart.justdoitlist.util.OnBackPressable
 import javax.inject.Inject
 
 /**
  * Base & Single [MvpAppCompatActivity] for JustDoItList application. Implements
- * [IOnBackPressedListener].
+ * [OnBackPressable].
  *
  * @author Artyom Tarasov
  */
 class RootActivity : MvpAppCompatActivity(), RootActivityView {
-    @Inject lateinit var router: IRouter
+    @Inject lateinit var router: Router
     private var doubleBackToExitPressedOnce = false
     private lateinit var mainTitle: String
 
@@ -33,8 +33,8 @@ class RootActivity : MvpAppCompatActivity(), RootActivityView {
     }
 
     private fun setup() {
-        App.component = DaggerAppComponent.create()
-        App.component?.inject(this)
+        JustDoItListApp.component = DaggerAppComponent.create()
+        JustDoItListApp.component?.inject(this)
 
         setupNavigation()
     }

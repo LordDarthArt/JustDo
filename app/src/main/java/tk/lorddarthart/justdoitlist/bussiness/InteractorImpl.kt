@@ -1,4 +1,3 @@
 package tk.lorddarthart.justdoitlist.bussiness
 
-interface IInteractor {
-}
+class InteractorImpl: Interactor

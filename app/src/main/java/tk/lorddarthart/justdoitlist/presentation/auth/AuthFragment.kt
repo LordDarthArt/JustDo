@@ -31,30 +31,14 @@ class AuthFragment : BaseAuthFragment(), AuthFragmentView {
 
     private val agreementText = String.format(getString(R.string.terms_and_conditions_and_privacy_policy), getString(R.string.terms_and_conditions), getString(R.string.privacy_policy))
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = FragmentAuthBinding.inflate(inflater, container, false)
-
-        initialization()
-
-        return fragmentBinding.root
     }
 
     override fun initListeners() {
         with(fragmentBinding as FragmentAuthBinding) {
-            buttonSignIn.setOnClickListener {
-                if (router.authNavigator.backStack.last() != SignInFragment::class.java.simpleName) {
-                    authPresenter.moveToSignIn()
-                    buttonSignUp.setTextDisabled()
-                    buttonSignIn.setTextEnabled()
-                }
-            }
-            buttonSignUp.setOnClickListener {
-                if (router.authNavigator.backStack.last() != SignUpFragment::class.java.simpleName) {
-                    authPresenter.moveToSignUp()
-                    buttonSignUp.setTextEnabled()
-                    buttonSignIn.setTextDisabled()
-                }
-            }
+            buttonSignIn.setOnClickListener { authPresenter.moveToSignIn() }
+            buttonSignUp.setOnClickListener { authPresenter.moveToSignUp() }
         }
     }
 
@@ -69,7 +53,7 @@ class AuthFragment : BaseAuthFragment(), AuthFragmentView {
         setSpan()
     }
 
-    private fun setSpan() {
+    override fun setSpan() {
         with(fragmentBinding as FragmentAuthBinding) {
             agreementBottomSentence.text = CustomSpannableString(
                     agreementBottomSentence.text.toString(),
@@ -82,14 +66,22 @@ class AuthFragment : BaseAuthFragment(), AuthFragmentView {
     }
 
     override fun showSignIn() {
-        router.authNavigator.navigate(SignInFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
+        with (fragmentBinding as FragmentAuthBinding) {
+            buttonSignUp.setTextDisabled()
+            buttonSignIn.setTextEnabled()
+        }
+        router.moveToSignIn()
     }
 
     override fun showSignUp() {
-        router.authNavigator.navigate(SignUpFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
+        with (fragmentBinding as FragmentAuthBinding) {
+            buttonSignUp.setTextEnabled()
+            buttonSignIn.setTextDisabled()
+        }
+        router.moveToSignUp()
     }
 
     fun openAgreements(fragmentBundle: Bundle?) {
-        router.baseNavigator.navigate(AdditionalInfoFragment(), NavigationActionType.AddToBackStackAction, NavigationAnimType.FadeAnim, fragmentBundle)
+        router.showAgreement(fragmentBundle)
     }
 }

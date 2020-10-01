@@ -1,16 +1,14 @@
 package tk.lorddarthart.smartnavigation
 
-import android.app.Activity
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import tk.lorddarthart.smartnavigation.types.NavigationActionType
 import tk.lorddarthart.smartnavigation.types.NavigationAnimType
 
 class SmartNavigator(
-   private val containerId: Int
+   override val containerId: Int
 ): INavigator {
-    private lateinit var fragmentManager: FragmentManager
+    private var fragmentManager: FragmentManager? = null
     override val backStack = mutableListOf<String>()
 
     override fun init(fragmentManager: FragmentManager) {
@@ -21,7 +19,11 @@ class SmartNavigator(
         if (backStack.isEmpty() || backStack.last() != targetFragment.backStackKey) {
             arguments?.let { args -> targetFragment.arguments = args }
 
-            fragmentManager.beginTransaction().apply {
+            if (targetFragment is NavigationTab && targetFragment.INSTANCE == null) {
+                targetFragment.INSTANCE = targetFragment
+            }
+
+            fragmentManager?.beginTransaction()?.apply {
                 when (animType) {
                     NavigationAnimType.SlideAnim -> { setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left) }
                     NavigationAnimType.FadeAnim -> { setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out) }
@@ -75,7 +77,7 @@ class SmartNavigator(
             }
         }
 
-        fragmentManager.beginTransaction().remove(fragmentToRemove).commitNow()
+        fragmentManager?.beginTransaction()?.remove(fragmentToRemove)?.commitNow()
     }
 
     override fun removeFromBackStack(backStackKey: String) {
@@ -88,9 +90,18 @@ class SmartNavigator(
         }
     }
 
+    private fun getActiveFragment(): NavigatableFragment? {
+        fragmentManager?.fragments?.forEach { fragment ->
+            if (fragment is NavigatableFragment && fragment.isVisible && backStack.size > 0 && backStack.last() == fragment.backStackKey) {
+                return fragment
+            }
+        }
+        return null
+    }
+
     private fun getActiveTab(): NavigatableFragment? {
-        fragmentManager.fragments.forEach { fragment ->
-            if (fragment is NavigatableFragment && fragment.isVisible && backStack.contains(fragment.backStackKey)) {
+        fragmentManager?.fragments?.forEach { fragment ->
+            if (fragment is NavigationTab && fragment is NavigatableFragment && fragment.isVisible && backStack.contains(fragment.backStackKey)) {
                 return fragment
             }
         }

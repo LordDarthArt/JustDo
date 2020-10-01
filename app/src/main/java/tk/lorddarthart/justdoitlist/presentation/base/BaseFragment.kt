@@ -1,13 +1,19 @@
 package tk.lorddarthart.justdoitlist.presentation.base
 
 import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import com.arellomobile.mvp.MvpView
+import com.arellomobile.mvp.presenter.InjectPresenter
 import tk.lorddarthart.justdoitlist.App
 import tk.lorddarthart.justdoitlist.model.holder.ToDoListHolder
+import tk.lorddarthart.justdoitlist.presentation.auth.AuthPresenter
 import tk.lorddarthart.justdoitlist.presentation.root.RootActivity
 import tk.lorddarthart.justdoitlist.router.IRouter
 import tk.lorddarthart.justdoitlist.util.helper.Loggable
-import tk.lorddarthart.justdoitlist.router.Router
 import tk.lorddarthart.smartnavigation.NavigatableFragment
 import javax.inject.Inject
 
@@ -27,22 +33,18 @@ abstract class BaseFragment : NavigatableFragment(), IBaseFragment, Loggable {
         activity = context as RootActivity
     }
 
-    override fun initialization() {
-        App.component?.inject(this)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        initialization(inflater, container)
+        return fragmentBinding.root
+    }
 
-        with (router) {
-            clearBackStack()
-            baseNavigator.init(activity.supportFragmentManager)
-        }
+    override fun initialization(inflater: LayoutInflater, container: ViewGroup?) {
+        App.component?.inject(this)
 
         activity.supportActionBar?.title = ""
 
+        initBinding(inflater, container)
         initListeners()
         start()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (this !is ITab) {  }
     }
 }

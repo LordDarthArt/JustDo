@@ -8,7 +8,6 @@ import tk.lorddarthart.justdoitlist.App
 import tk.lorddarthart.justdoitlist.di.component.DaggerAppComponent
 import tk.lorddarthart.justdoitlist.router.IRouter
 import tk.lorddarthart.justdoitlist.util.IOnBackPressedListener
-import tk.lorddarthart.justdoitlist.router.Router
 import javax.inject.Inject
 
 /**
@@ -23,7 +22,7 @@ class RootActivity : MvpAppCompatActivity(), RootActivityView {
     private lateinit var mainTitle: String
 
     @InjectPresenter
-    lateinit var rootActivityPresenter: RootActivityActivityPresenter
+    lateinit var rootActivityPresenter: RootActivityPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +42,12 @@ class RootActivity : MvpAppCompatActivity(), RootActivityView {
     /** Configuring navigation for application to navigate correctly. */
     private fun setupNavigation() {
         with (router) {
+            clearBackStack()
+
             baseNavigator.init(supportFragmentManager)
             mainNavigator.init(supportFragmentManager)
             authNavigator.init(supportFragmentManager)
+
             openSplash()
         }
     }

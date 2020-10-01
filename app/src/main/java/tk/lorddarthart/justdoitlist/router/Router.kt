@@ -14,6 +14,7 @@ import tk.lorddarthart.justdoitlist.presentation.main.profile.ProfileFragment
 import tk.lorddarthart.justdoitlist.presentation.main.todo.ToDoFragment
 import tk.lorddarthart.justdoitlist.presentation.main.todo.add.AddFragment
 import tk.lorddarthart.justdoitlist.presentation.splash.SplashFragment
+import tk.lorddarthart.smartnavigation.NavigatableFragment
 import tk.lorddarthart.smartnavigation.SmartNavigator
 import tk.lorddarthart.smartnavigation.types.NavigationActionType
 import tk.lorddarthart.smartnavigation.types.NavigationAnimType
@@ -35,35 +36,35 @@ class Router(
         if (LoadingFragment.INSTANCE == null) {
             LoadingFragment.INSTANCE = LoadingFragment()
         }
-        mainNavigator.navigate(LoadingFragment.INSTANCE!!, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
+        mainNavigator.navigate(LoadingFragment.INSTANCE!! as NavigatableFragment, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
     }
 
     override fun moveToToDoList() {
         if (ToDoFragment.INSTANCE == null) {
             ToDoFragment.INSTANCE = ToDoFragment()
         }
-        mainNavigator.navigate(ToDoFragment.INSTANCE!!, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
+        mainNavigator.navigate(ToDoFragment.INSTANCE!! as NavigatableFragment, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
     }
 
     override fun moveToProfile() {
         if (ProfileFragment.INSTANCE == null) {
             ProfileFragment.INSTANCE = ProfileFragment()
         }
-        mainNavigator.navigate(ProfileFragment.INSTANCE!!, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
+        mainNavigator.navigate(ProfileFragment.INSTANCE!! as NavigatableFragment, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
     }
 
     override fun moveToError() {
         if (ErrorFragment.INSTANCE == null) {
             ErrorFragment.INSTANCE = ErrorFragment()
         }
-        mainNavigator.navigate(ErrorFragment.INSTANCE!!, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
+        mainNavigator.navigate(ErrorFragment.INSTANCE!! as NavigatableFragment, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
     }
 
     override fun moveToNoToDos() {
         if (NoToDoFragment.INSTANCE == null) {
             NoToDoFragment.INSTANCE = NoToDoFragment()
         }
-        mainNavigator.navigate(NoToDoFragment.INSTANCE!!, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
+        mainNavigator.navigate(NoToDoFragment.INSTANCE!! as NavigatableFragment, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
     }
 
     override fun openAddFragment() {

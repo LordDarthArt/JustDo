@@ -11,4 +11,4 @@ import tk.lorddarthart.justdoitlist.presentation.base.BaseActivityPresenter
  * @author Artyom Tarasov
  */
 @InjectViewState
-class RootActivityActivityPresenter : BaseActivityPresenter<RootActivityView>()
+class RootActivityPresenter : BaseActivityPresenter<RootActivityView>()

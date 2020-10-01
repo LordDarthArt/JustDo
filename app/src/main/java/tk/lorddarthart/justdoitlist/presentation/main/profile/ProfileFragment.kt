@@ -9,17 +9,21 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.firebase.auth.FirebaseAuth
 import tk.lorddarthart.justdoitlist.presentation.main.base.BaseMainTabFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentAccountBinding
+import tk.lorddarthart.justdoitlist.presentation.auth.AuthFragment
+import tk.lorddarthart.justdoitlist.presentation.base.ITab
 import tk.lorddarthart.justdoitlist.presentation.root.RootActivity
+import tk.lorddarthart.justdoitlist.util.constants.ArgumentsKeysConstant
+import tk.lorddarthart.smartnavigation.NavigationTab
+import tk.lorddarthart.smartnavigation.types.NavigationActionType
+import tk.lorddarthart.smartnavigation.types.NavigationAnimType
 
-class ProfileFragment : BaseMainTabFragment(), ProfileFragmentView {
+class ProfileFragment : BaseMainTabFragment(), NavigationTab, ProfileFragmentView {
     @InjectPresenter lateinit var profilePresenter: ProfilePresenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override var INSTANCE: NavigationTab? = ProfileFragment.INSTANCE
+
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = FragmentAccountBinding.inflate(inflater, container, false)
-
-        initialization()
-
-        return fragmentBinding.root
     }
 
     override fun start() {
@@ -30,17 +34,17 @@ class ProfileFragment : BaseMainTabFragment(), ProfileFragmentView {
 
     override fun initListeners() {
         with (fragmentBinding as FragmentAccountBinding) {
-            userLogOut.setOnClickListener {
-                activity.finish()
-                val intent = Intent(activity, RootActivity::class.java)
-                intent.putExtra("email", FirebaseAuth.getInstance().currentUser?.email)
-                FirebaseAuth.getInstance().signOut()
-                startActivity(intent)
-            }
+            userLogOut.setOnClickListener { profilePresenter.logOut() }
         }
     }
 
-    companion object {
-        var INSTANCE: ProfileFragment? = null
+    override fun logOut() {
+        router.baseNavigator.apply {
+            navigate(AuthFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
+        }
+    }
+
+    companion object: NavigationTab {
+        override var INSTANCE: NavigationTab? = null
     }
 }

@@ -17,6 +17,8 @@ import tk.lorddarthart.justdoitlist.util.constants.ArgumentsKeysConstant
 import tk.lorddarthart.justdoitlist.util.helper.logError
 import tk.lorddarthart.justdoitlist.util.helper.shortSnackbar
 import tk.lorddarthart.justdoitlist.util.verificators.PasswordEmailValidator
+import tk.lorddarthart.smartnavigation.types.NavigationActionType
+import tk.lorddarthart.smartnavigation.types.NavigationAnimType
 import javax.inject.Inject
 
 class SignInFragment : BaseAuthFragment(), SignInFragmentView {
@@ -61,7 +63,7 @@ class SignInFragment : BaseAuthFragment(), SignInFragmentView {
                                 if (task.isSuccessful) {
                                     if (auth.currentUser?.isEmailVerified == true) {
                                         val mFragment = MainFragment()
-                                        activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_base_container, mFragment).commit()
+                                        router.baseNavigator.navigate(mFragment, NavigationActionType.ReplaceAction, NavigationAnimType.NoAnim)
                                         loadingDialog.cancel()
                                     } else {
                                         fragmentBinding.root.shortSnackbar { "User's email hasn't been verified. Please check your email" }
@@ -89,7 +91,7 @@ class SignInFragment : BaseAuthFragment(), SignInFragmentView {
                     bundle.putString(ArgumentsKeysConstant.EMAIL, signInEmailInput.toString())
                 }
                 fragment.arguments = bundle
-                activity.supportFragmentManager.beginTransaction().add(R.id.fragment_base_container, fragment).addToBackStack(null).commit()
+                router.baseNavigator.navigate(fragment, NavigationActionType.AddToBackStackAction, NavigationAnimType.SlideAnim)
             }
         }
     }

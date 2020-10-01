@@ -17,20 +17,8 @@ class AdditionalInfoFragment : BaseFragment(), AdditionalInfoFragmentView {
         fragmentBinding = FragmentAdditionalInfoBinding.inflate(inflater, container, false)
     }
 
-    override fun start() {
-        activity.supportActionBar?.elevation = 0f
-    }
-
     override fun initListeners() {
         with(fragmentBinding as FragmentAdditionalInfoBinding) {
-            if (arguments != null && requireArguments().containsKey(ArgumentsKeysConstant.ACTIVITY)) {
-                if (requireArguments().getString(ArgumentsKeysConstant.ACTIVITY)!! == DefaultValuesConstant.TERMS_AND_CONDITIONS) {
-                    agreementText.text = getString(R.string.terms_condition_txt)
-                }
-                if (requireArguments().getString(ArgumentsKeysConstant.ACTIVITY)!! == (DefaultValuesConstant.PRIVACY_POLICY)) {
-                    agreementText.text = getString(R.string.privacy_policy_txt)
-                }
-            }
             buttonDisagree.setOnClickListener {
                 activity.supportFragmentManager.popBackStack()
             }
@@ -46,6 +34,22 @@ class AdditionalInfoFragment : BaseFragment(), AdditionalInfoFragmentView {
                     }
                     create()
                     show()
+                }
+            }
+        }
+    }
+
+    override fun start() {
+        activity.supportActionBar?.elevation = 0f
+        with (fragmentBinding as FragmentAdditionalInfoBinding) {
+            if (arguments != null && requireArguments().containsKey(ArgumentsKeysConstant.ACTIVITY)) {
+                if (requireArguments().getString(ArgumentsKeysConstant.ACTIVITY)!! == DefaultValuesConstant.TERMS_AND_CONDITIONS) {
+                    additionalInfoHeadTitle.text = getString(R.string.terms_and_conditions)
+                    agreementText.text = getString(R.string.terms_condition_txt)
+                }
+                if (requireArguments().getString(ArgumentsKeysConstant.ACTIVITY)!! == (DefaultValuesConstant.PRIVACY_POLICY)) {
+                    additionalInfoHeadTitle.text = getString(R.string.privacy_policy)
+                    agreementText.text = getString(R.string.privacy_policy_txt)
                 }
             }
         }

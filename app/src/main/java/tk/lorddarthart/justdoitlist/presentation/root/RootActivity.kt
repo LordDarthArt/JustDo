@@ -1,14 +1,23 @@
 package tk.lorddarthart.justdoitlist.presentation.root
 
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
+import io.reactivex.Scheduler
+import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.JustDoItListApp
+import tk.lorddarthart.justdoitlist.databinding.ActivityBaseBinding
 import tk.lorddarthart.justdoitlist.di.component.DaggerAppComponent
 import tk.lorddarthart.justdoitlist.router.Router
 import tk.lorddarthart.justdoitlist.util.OnBackPressable
+import tk.lorddarthart.justdoitlist.util.converters.PriorityConverter
+import tk.lorddarthart.justdoitlist.util.helper.longSnackbar
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 /**
  * Base & Single [MvpAppCompatActivity] for JustDoItList application. Implements
@@ -18,35 +27,38 @@ import javax.inject.Inject
  */
 class RootActivity : MvpAppCompatActivity(), RootActivityView {
     @Inject lateinit var router: Router
+    @Inject lateinit var priorityConverter: PriorityConverter
+
     private var doubleBackToExitPressedOnce = false
     private lateinit var mainTitle: String
+    private var activityBinding by Delegates.notNull<ActivityBaseBinding>()
 
     @InjectPresenter
     lateinit var rootActivityPresenter: RootActivityPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_base)
 
         setup()
-
-        setContentView(R.layout.activity_base)
     }
 
-    private fun setup() {
-        JustDoItListApp.component = DaggerAppComponent.create()
-        JustDoItListApp.component?.inject(this)
-
+    override fun setup() {
+        setupDependencyInjection()
         setupNavigation()
+
+        priorityConverter.init(this)
     }
 
-    /** Configuring navigation for application to navigate correctly. */
-    private fun setupNavigation() {
+    override fun setupDependencyInjection() {
+        JustDoItListApp.component?.inject(this)
+    }
+
+    override fun setupNavigation() {
         with (router) {
             clearBackStack()
 
             baseNavigator.init(supportFragmentManager)
-            mainNavigator.init(supportFragmentManager)
-            authNavigator.init(supportFragmentManager)
 
             openSplash()
         }
@@ -57,17 +69,18 @@ class RootActivity : MvpAppCompatActivity(), RootActivityView {
             finishAffinity()
         }
         when {
-//            baseActivityPresenter.currentFragment is IOnBackPressedListener -> {
-//                (baseActivityPresenter.currentFragment as IOnBackPressedListener).onBackPressed()
-//            }
-//            supportFragmentManager.backStackEntryCount == 0 -> {
-//                doubleBackToExitPressedOnce = true
-//                findViewById<View>(android.R.id.content).longSnackbar { App.instance.getString(R.string.press_back_twice) }
-//                GlobalScope.launch(Dispatchers.IO) {
-//                    delay(2000L)
-//                    doubleBackToExitPressedOnce = false
-//                }
-//            }
+            router.authNavigator.getActiveTab() is OnBackPressable -> { (router.authNavigator.getActiveTab() as OnBackPressable).onBackPressed() }
+            router.mainNavigator.getActiveTab() is OnBackPressable -> { (router.mainNavigator.getActiveTab() as OnBackPressable).onBackPressed() }
+            router.baseNavigator.getActiveFragment() is OnBackPressable -> { (router.baseNavigator.getActiveFragment() as OnBackPressable).onBackPressed() }
+            supportFragmentManager.backStackEntryCount == 0 -> {
+                doubleBackToExitPressedOnce = true
+                activityBinding.root.longSnackbar { getString(R.string.press_back_twice) }
+                Single.create<() -> Unit> { it.onSuccess { doubleBackToExitPressedOnce = false } }.subscribeOn(Schedulers.newThread())
+                    .delay(2, TimeUnit.SECONDS)
+                    .subscribe { executable ->
+                        executable()
+                    }
+                }
             else -> { super.onBackPressed() }
         }
     }

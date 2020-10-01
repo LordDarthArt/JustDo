@@ -15,16 +15,10 @@ interface Router {
 
     /** Opens the agreement fragment user is trying to access using [baseNavigator] */
     fun showAgreement(fragmentBundle: Bundle?)
-    /** Opens loading tab using [mainNavigator]. */
-    fun moveToLoading()
     /** Opens to-do list tab using [mainNavigator]. */
     fun moveToToDoList()
     /** Opens profile tab using [mainNavigator]. */
     fun moveToProfile()
-    /** Opens error tab using [mainNavigator]. */
-    fun moveToError()
-    /** Opens no to-dos tab using [mainNavigator]. */
-    fun moveToNoToDos()
     /** Opens sign-in tab using [authNavigator]. */
     fun moveToSignIn()
     /** Opens sign-up tab using [authNavigator]. */
@@ -38,4 +32,5 @@ interface Router {
 
     /** Clears every navigator's custom backStack. */
     fun clearBackStack()
+    fun showResetPassword(bundle: Bundle)
 }

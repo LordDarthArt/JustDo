@@ -6,6 +6,8 @@ import dagger.Provides
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.router.Router
 import tk.lorddarthart.justdoitlist.router.RouterImpl
+import tk.lorddarthart.justdoitlist.util.converters.PriorityConverter
+import tk.lorddarthart.justdoitlist.util.converters.PriorityConverterImpl
 import tk.lorddarthart.smartnavigation.SmartNavigator
 import javax.inject.Singleton
 
@@ -25,5 +27,11 @@ class AppModule {
     @Singleton
     fun provideAuth(): FirebaseAuth {
         return FirebaseAuth.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun providePriorityConverter(): PriorityConverter {
+        return PriorityConverterImpl()
     }
 }

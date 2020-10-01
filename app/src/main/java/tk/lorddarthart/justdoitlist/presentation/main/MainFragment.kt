@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.presentation.main.base.BaseMainFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentMainBinding
@@ -16,28 +17,22 @@ import tk.lorddarthart.justdoitlist.util.helper.LocaleHelper.isRussianLocalizati
 import java.text.SimpleDateFormat
 
 class MainFragment : BaseMainFragment(), MainFragmentView {
-    @InjectPresenter
-    lateinit var mainPresenter: MainPresenter
+    @InjectPresenter lateinit var mainPresenter: MainPresenter
+
+    private val bottomNavigationListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_main -> { router.moveToToDoList(); true }
+            R.id.navigation_account -> { router.moveToProfile(); true }
+            else -> { false }
+        }
+    }
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = FragmentMainBinding.inflate(inflater, container, false)
     }
 
-
     override fun initListeners() {
-        (fragmentBinding as FragmentMainBinding).fragmentMainBottomNavigationView.setOnNavigationItemSelectedListener{ item ->
-            when (item.itemId) {
-                R.id.navigation_main -> {
-                    router.moveToToDoList()
-                    return@setOnNavigationItemSelectedListener true
-                }
-                R.id.navigation_account -> {
-                    router.moveToProfile()
-                    return@setOnNavigationItemSelectedListener true
-                }
-                else -> return@setOnNavigationItemSelectedListener false
-            }
-        }
+        (fragmentBinding as FragmentMainBinding).fragmentMainBottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener)
     }
 
     override fun start() {

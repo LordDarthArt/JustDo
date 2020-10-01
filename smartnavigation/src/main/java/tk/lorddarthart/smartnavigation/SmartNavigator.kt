@@ -44,28 +44,30 @@ class SmartNavigator(
                         add(containerId, targetFragment).addToBackStack(getActiveTab()?.backStackKey).commit()
                     }
                     NavigationActionType.ShowAction -> {
-                        if (!backStack.contains(targetFragment.backStackKey)) {
-                            getActiveTab()?.let {
-                                hide(it).add(containerId, targetFragment).commit()
-                            } ?: apply {
-                                add(containerId, targetFragment).commit()
-                            }
-                        } else {
-                            getActiveTab()?.let {
-                                hide(it).show(targetFragment).commit()
-                            } ?: apply {
-                                show(targetFragment).commit()
-                            }
+                        if (targetFragment is NavigationTab) {
+                            if (!backStack.contains(targetFragment.backStackKey)) {
+                                getActiveTab()?.let {
+                                    hide(it).add(containerId, targetFragment.INSTANCE as NavigatableFragment).commit()
+                                } ?: apply {
+                                    add(containerId, targetFragment.INSTANCE as NavigatableFragment).commit()
+                                }
+                            } else {
+                                getActiveTab()?.let {
+                                    hide(it).show(targetFragment.INSTANCE as NavigatableFragment).commit()
+                                } ?: apply {
+                                    show(targetFragment.INSTANCE as NavigatableFragment).commit()
+                                }
 
-                            backStack.iterator().let { backStackIterator ->
-                                backStackIterator.forEach {
-                                    if (it == targetFragment.backStackKey) {
-                                        backStackIterator.remove()
+                                backStack.iterator().let { backStackIterator ->
+                                    backStackIterator.forEach {
+                                        if (it == targetFragment.backStackKey) {
+                                            backStackIterator.remove()
+                                        }
                                     }
                                 }
                             }
+                            backStack.add(targetFragment.backStackKey)
                         }
-                        backStack.add(targetFragment.backStackKey)
                     }
                 }
             }
@@ -94,7 +96,7 @@ class SmartNavigator(
         }
     }
 
-    private fun getActiveFragment(): NavigatableFragment? {
+    override fun getActiveFragment(): NavigatableFragment? {
         fragmentManager?.fragments?.forEach { fragment ->
             if (fragment is NavigatableFragment && fragment.isVisible && backStack.size > 0 && backStack.last() == fragment.backStackKey) {
                 return fragment
@@ -103,12 +105,16 @@ class SmartNavigator(
         return null
     }
 
-    private fun getActiveTab(): NavigatableFragment? {
+    override fun getActiveTab(): NavigatableFragment? {
         fragmentManager?.fragments?.forEach { fragment ->
             if (fragment is NavigationTab && fragment is NavigatableFragment && fragment.isVisible && backStack.contains(fragment.backStackKey)) {
                 return fragment
             }
         }
         return null
+    }
+
+    override fun popBackStack() {
+        fragmentManager?.popBackStack()
     }
 }

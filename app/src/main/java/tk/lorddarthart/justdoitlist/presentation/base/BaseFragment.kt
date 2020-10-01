@@ -32,17 +32,21 @@ abstract class BaseFragment : NavigatableFragment(), IBaseFragment, Loggable {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        initialization(inflater, container)
+        initBinding(inflater, container)
         return fragmentBinding.root
     }
 
-    override fun initialization(inflater: LayoutInflater, container: ViewGroup?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialization()
+    }
+
+    override fun initialization() {
         JustDoItListApp.component?.inject(this)
 
-        activity.supportActionBar?.title = ""
-
-        initBinding(inflater, container)
         initListeners()
         start()
+
+        activity.supportActionBar?.title = ""
     }
 }

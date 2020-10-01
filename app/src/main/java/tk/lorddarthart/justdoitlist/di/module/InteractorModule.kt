@@ -10,7 +10,7 @@ import javax.inject.Singleton
 class InteractorModule {
     @Provides
     @Singleton
-    fun provideLocalInteractor(): Interactor {
+    fun provideInteractor(): Interactor {
         return InteractorImpl()
     }
 }

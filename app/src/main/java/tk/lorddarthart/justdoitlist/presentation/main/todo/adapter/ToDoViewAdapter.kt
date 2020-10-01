@@ -88,7 +88,7 @@ class ToDoViewAdapter(
 
     private fun initializeListView(list: ListView, lists: List<ToDoItemModel>) {
         context?.let { context ->
-            val adapter = ListViewAdapter(R.layout.single_item_todo_listview, lists)
+            val adapter = ListViewAdapter(context, R.layout.single_item_todo_listview, lists)
             adapter.notifyDataSetChanged()
             list.adapter = adapter
             val height = Utility.setListViewHeightBasedOnChildren(list, context)

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
+import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.databinding.FragmentResetPasswordBinding
 import tk.lorddarthart.justdoitlist.presentation.auth.base.BaseAuthFragment
 import tk.lorddarthart.justdoitlist.util.constants.IntentExtraConstNames
@@ -27,9 +28,15 @@ class ResetPasswordFragment : BaseAuthFragment(), ResetPasswordFragmentView {
     }
 
     override fun start() {
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        if (activity.intent.hasExtra(IntentExtraConstNames.EMAIL)) {
-            (fragmentBinding as FragmentResetPasswordBinding).passwordResetEmailInput.setText(activity.intent.getStringExtra(IntentExtraConstNames.EMAIL))
+        with (fragmentBinding as FragmentResetPasswordBinding) {
+            with (activity) {
+                setSupportActionBar(resetPasswordHeader)
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                resetPasswordHeaderTitle.text = getString(R.string.reset_password)
+                if (intent.hasExtra(IntentExtraConstNames.EMAIL)) {
+                    passwordResetEmailInput.setText(intent.getStringExtra(IntentExtraConstNames.EMAIL))
+                }
+            }
         }
     }
 
@@ -40,14 +47,14 @@ class ResetPasswordFragment : BaseAuthFragment(), ResetPasswordFragmentView {
                     FirebaseAuth.getInstance().sendPasswordResetEmail(passwordResetEmailInput.text.toString(), actionCodeSettings)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                activity.supportFragmentManager.popBackStack()
-                                fragmentBinding.root.shortSnackbar { "Password reset instructions have been sent. Please check your email" }
+                                router.baseNavigator.popBackStack()
+                                root.shortSnackbar { getString(R.string.password_reset_instructions_has_been_set) }
                             } else {
-                                logError(task.exception) { "Can't send password reset, the problem is: " }
+                                logError(task.exception) { "Can't send password reset, the problem is: ${task.exception?.message}" }
                             }
                         }
                 } else {
-                    fragmentBinding.root.shortSnackbar { "email is not valid" }
+                    root.shortSnackbar { getString(R.string.error_email_not_valid) }
                 }
             }
         }

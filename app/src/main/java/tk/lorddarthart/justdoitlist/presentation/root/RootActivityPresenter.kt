@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import tk.lorddarthart.justdoitlist.presentation.base.BaseActivityPresenter
 
 /**
- * [BaseActivityPresenter] for [RootActivity] which holds all values and business logic.
+ * [BaseActivityPresenter] for [RootActivity].
  *
  * @author Artyom Tarasov
  */

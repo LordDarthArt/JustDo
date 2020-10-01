@@ -10,11 +10,13 @@ import tk.lorddarthart.justdoitlist.presentation.main.base.BaseMainFragment
 import tk.lorddarthart.justdoitlist.util.constants.StringConstant.PRIORITY_IMPORTANT
 import tk.lorddarthart.justdoitlist.util.constants.StringConstant.PRIORITY_NORMAL
 import tk.lorddarthart.justdoitlist.util.constants.StringConstant.PRIORITY_URGENTLY
-import tk.lorddarthart.justdoitlist.util.converters.PriorityConverter.getPriorityCode
+import tk.lorddarthart.justdoitlist.util.converters.PriorityConverter
 import tk.lorddarthart.justdoitlist.util.helper.logDebug
 import tk.lorddarthart.justdoitlist.util.helper.setVisibility
+import javax.inject.Inject
 
 class AddFragment : BaseMainFragment(), AddFragmentView {
+    @Inject lateinit var priorityConverter: PriorityConverter
     @InjectPresenter lateinit var addPresenter: AddPresenter
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
@@ -44,10 +46,12 @@ class AddFragment : BaseMainFragment(), AddFragmentView {
     }
 
     override fun start() {
-        activity.setActionBarTitle(getString(R.string.todo_add_bar_title))
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        with (activity) {
+            setActionBarTitle(getString(R.string.todo_add_bar_title))
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
 
-        getPriorityCode(activity.resources.getString(R.string.priority_neutral))?.let { priority ->
+        priorityConverter.getPriorityCode(getString(R.string.priority_neutral))?.let { priority ->
             addPresenter.priority = priority
             logDebug { "Priority was set to neutral" }
         }

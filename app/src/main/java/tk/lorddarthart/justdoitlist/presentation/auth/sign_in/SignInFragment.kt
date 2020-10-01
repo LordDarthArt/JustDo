@@ -1,31 +1,34 @@
 package tk.lorddarthart.justdoitlist.presentation.auth.sign_in
 
-import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.firebase.auth.FirebaseAuth
 import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.presentation.auth.base.BaseAuthFragment
 import tk.lorddarthart.justdoitlist.databinding.FragmentSignInBinding
+import tk.lorddarthart.justdoitlist.presentation.auth.base.BaseAuthFragment
 import tk.lorddarthart.justdoitlist.presentation.auth.reset_password.ResetPasswordFragment
 import tk.lorddarthart.justdoitlist.presentation.main.MainFragment
 import tk.lorddarthart.justdoitlist.util.constants.ArgumentsKeysConstant
 import tk.lorddarthart.justdoitlist.util.helper.logError
 import tk.lorddarthart.justdoitlist.util.helper.shortSnackbar
 import tk.lorddarthart.justdoitlist.util.verificators.PasswordEmailValidator
+import tk.lorddarthart.smartnavigation.NavigationTab
 import tk.lorddarthart.smartnavigation.types.NavigationActionType
 import tk.lorddarthart.smartnavigation.types.NavigationAnimType
 import javax.inject.Inject
 
-class SignInFragment : BaseAuthFragment(), SignInFragmentView {
+class SignInFragment : BaseAuthFragment(), NavigationTab, SignInFragmentView {
     private lateinit var loadingDialog: ProgressDialog
+    @InjectPresenter lateinit var signInPresenter: SignInPresenter
+
     @Inject lateinit var auth: FirebaseAuth
 
-    @InjectPresenter lateinit var signInPresenter: SignInPresenter
+    override var INSTANCE: NavigationTab?
+        get() { return SignInFragment.INSTANCE }
+        set(value) { SignInFragment.INSTANCE = value }
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = FragmentSignInBinding.inflate(inflater, container, false)
@@ -53,24 +56,24 @@ class SignInFragment : BaseAuthFragment(), SignInFragmentView {
                     }
                     buildLoading()
                     auth.signInWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(activity) { task ->
-                                if (task.isSuccessful) {
-                                    if (auth.currentUser?.isEmailVerified == true) {
-                                        val mFragment = MainFragment()
-                                        router.baseNavigator.navigate(mFragment, NavigationActionType.ReplaceAction, NavigationAnimType.NoAnim)
-                                        loadingDialog.cancel()
-                                    } else {
-                                        fragmentBinding.root.shortSnackbar { "User's email hasn't been verified. Please check your email" }
-                                        auth.signOut()
-                                        loadingDialog.cancel()
-                                    }
+                        .addOnCompleteListener(activity) { task ->
+                            if (task.isSuccessful) {
+                                if (auth.currentUser?.isEmailVerified == true) {
+                                    val mFragment = MainFragment()
+                                    router.baseNavigator.navigate(mFragment, NavigationActionType.ReplaceAction, NavigationAnimType.NoAnim)
+                                    loadingDialog.cancel()
                                 } else {
-                                    logError(task.exception) { "Sign-in failed, the reason is: " }
-
-                                    fragmentBinding.root.shortSnackbar { "Authentication failed." }
+                                    root.shortSnackbar { "User's email hasn't been verified. Please check your email" }
+                                    auth.signOut()
                                     loadingDialog.cancel()
                                 }
+                            } else {
+                                logError(task.exception) { "Sign-in failed, the reason is: ${task.exception?.message}" }
+
+                                root.shortSnackbar { "Authentication failed." }
+                                loadingDialog.cancel()
                             }
+                        }
                 } else {
                     when {
                         email == "" -> signInEmailLayout.error = "email must be not empty"
@@ -79,13 +82,11 @@ class SignInFragment : BaseAuthFragment(), SignInFragmentView {
                 }
             }
             signInForgotPassButton.setOnClickListener {
-                val fragment = ResetPasswordFragment()
                 val bundle = Bundle()
                 if (!signInEmailInput.text.isNullOrBlank()) {
                     bundle.putString(ArgumentsKeysConstant.EMAIL, signInEmailInput.toString())
                 }
-                fragment.arguments = bundle
-                router.baseNavigator.navigate(fragment, NavigationActionType.AddToBackStackAction, NavigationAnimType.SlideAnim)
+                router.showResetPassword(bundle)
             }
         }
     }
@@ -102,5 +103,9 @@ class SignInFragment : BaseAuthFragment(), SignInFragmentView {
                 signInEmailInput.setText(activity.intent.getStringExtra(ArgumentsKeysConstant.EMAIL))
             }
         }
+    }
+
+    companion object : NavigationTab {
+        override var INSTANCE: NavigationTab? = null
     }
 }

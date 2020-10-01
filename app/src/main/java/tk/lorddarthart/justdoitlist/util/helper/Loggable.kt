@@ -9,8 +9,8 @@ interface Loggable
 inline fun <reified T: Loggable> T.logDebug( lazyMessage: () -> String) {
     if (isDebug) {
         Log.d(
-                classSimpleName,
-                lazyMessage.invoke()
+            classSimpleName,
+            lazyMessage.invoke()
         )
     }
 }
@@ -19,8 +19,8 @@ inline fun <reified T: Loggable> T.logDebug( lazyMessage: () -> String) {
 inline fun <reified T : Loggable> T.logVerbose(lazyMessage: () -> String) {
      if (isDebug) {
         Log.v(
-                classSimpleName,
-                lazyMessage.invoke()
+            classSimpleName,
+            lazyMessage.invoke()
         )
     }
 }
@@ -29,8 +29,8 @@ inline fun <reified T : Loggable> T.logVerbose(lazyMessage: () -> String) {
 inline fun <reified T : Loggable> T.logInfo(lazyMessage: () -> String) {
      if (isDebug) {
         Log.i(
-                classSimpleName,
-                lazyMessage.invoke()
+            classSimpleName,
+            lazyMessage.invoke()
         )
     }
 }
@@ -39,8 +39,8 @@ inline fun <reified T : Loggable> T.logInfo(lazyMessage: () -> String) {
 inline fun <reified T : Loggable> T.logWarning(lazyMessage: () -> String) {
      if (isDebug) {
         Log.w(
-                classSimpleName,
-                lazyMessage.invoke()
+            classSimpleName,
+            lazyMessage.invoke()
         )
     }
 }
@@ -49,9 +49,9 @@ inline fun <reified T : Loggable> T.logWarning(lazyMessage: () -> String) {
 inline fun <reified T : Loggable> T.logError(exception: Exception? = null, lazyMessage: () -> String) {
      if (isDebug) {
         Log.e(
-                classSimpleName,
-                lazyMessage.invoke(),
-                exception
+            classSimpleName,
+            lazyMessage.invoke(),
+            exception
         )
     }
 }
@@ -60,8 +60,8 @@ inline fun <reified T : Loggable> T.logError(exception: Exception? = null, lazyM
 inline fun <reified T : Loggable> T.logError(lazyMessage: () -> String) {
      if (isDebug) {
         Log.e(
-                classSimpleName,
-                lazyMessage.invoke()
+            classSimpleName,
+            lazyMessage.invoke()
         )
     }
 }

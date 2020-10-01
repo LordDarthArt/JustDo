@@ -47,4 +47,7 @@ interface Navigator {
      * @param backStackKey The specified backStackKey which should be removed;
      */
     fun removeFromBackStack(backStackKey: String)
+    fun popBackStack()
+    fun getActiveFragment(): NavigatableFragment?
+    fun getActiveTab(): NavigatableFragment?
 }

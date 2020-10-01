@@ -68,4 +68,5 @@
     <string name="todo_add_bar_title">Adding To Do task</string>
 
     <string name="press_back_twice">"Press \"BACK\" again to exit"</string>
+    <string name="password_reset_instructions_has_been_set">\"Password reset instructions have been sent. Please check your email</string>
 </resources>

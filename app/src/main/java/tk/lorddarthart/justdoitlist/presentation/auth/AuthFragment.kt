@@ -40,6 +40,7 @@ class AuthFragment : BaseAuthFragment(), AuthFragmentView {
     }
 
     override fun start() {
+        router.authNavigator.init(childFragmentManager)
         with(fragmentBinding as FragmentAuthBinding) {
             authPresenter.moveToSignIn()
             agreementTopSentence.text = agreementText

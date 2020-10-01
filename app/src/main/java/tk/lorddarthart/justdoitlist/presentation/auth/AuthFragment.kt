@@ -25,7 +25,7 @@ class AuthFragment : BaseAuthFragment(), AuthFragmentView {
     }
 
     private val agreementText: String by lazy {
-        String.format(getString(R.string.terms_and_conditions_and_privacy_policy), getString(R.string.terms_and_conditions), getString(R.string.privacy_policy))
+        String.format(getString(R.string.agree), getString(R.string.terms_and_conditions), getString(R.string.privacy_policy))
     }
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
@@ -42,7 +42,7 @@ class AuthFragment : BaseAuthFragment(), AuthFragmentView {
     override fun start() {
         with(fragmentBinding as FragmentAuthBinding) {
             authPresenter.moveToSignIn()
-            agreementBottomSentence.text = agreementText
+            agreementTopSentence.text = agreementText
 
             activity.setSupportActionBar(authHead)
             authHeadTitle.text = getString(R.string.authentication)
@@ -52,10 +52,10 @@ class AuthFragment : BaseAuthFragment(), AuthFragmentView {
 
     override fun setSpan() {
         with(fragmentBinding as FragmentAuthBinding) {
-            agreementBottomSentence.text = CustomSpannableString(
-                agreementBottomSentence.text.toString(),
+            agreementTopSentence.text = CustomSpannableString(
+                agreementTopSentence.text.toString(),
                 agreementLinks,
-                agreementBottomSentence
+                agreementTopSentence
             ).apply {
                 createForAuthScreen(activity, this@AuthFragment)
             }

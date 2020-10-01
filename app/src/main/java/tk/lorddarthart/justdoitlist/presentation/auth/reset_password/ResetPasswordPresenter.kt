@@ -6,11 +6,4 @@ import tk.lorddarthart.justdoitlist.JustDoItListApp
 import tk.lorddarthart.justdoitlist.presentation.base.BaseFragmentPresenter
 
 @InjectViewState
-class ResetPasswordPresenter: BaseFragmentPresenter<ResetPasswordFragmentView>() {
-    val actionCodeSettings: ActionCodeSettings by lazy {
-        ActionCodeSettings.newBuilder()
-                .setUrl("https://tk-lorddarthart-justdo.firebaseapp.com")
-                .setAndroidPackageName(JustDoItListApp.INSTANCE.packageName, false, null)
-                .build()
-    }
-}
+class ResetPasswordPresenter: BaseFragmentPresenter<ResetPasswordFragmentView>()

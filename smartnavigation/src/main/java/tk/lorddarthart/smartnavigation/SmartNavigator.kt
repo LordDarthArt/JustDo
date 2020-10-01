@@ -23,10 +23,14 @@ class SmartNavigator(
                 targetFragment.INSTANCE = targetFragment
             }
 
+            if (targetFragment.openedBy == null) {
+                targetFragment.openedBy = this
+            }
+
             fragmentManager?.beginTransaction()?.apply {
                 when (animType) {
-                    NavigationAnimType.SlideAnim -> { setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left) }
-                    NavigationAnimType.FadeAnim -> { setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out) }
+                    NavigationAnimType.SlideAnim -> { setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_right) }
+                    NavigationAnimType.FadeAnim -> { setCustomAnimations(android.R.anim.fade_in, 0, 0, android.R.anim.fade_out) }
                     NavigationAnimType.NoAnim -> {}
                 }
                 when (actionType) {

@@ -4,8 +4,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.content.Context
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +12,10 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
+import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.single_item_todo.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,11 +28,12 @@ import tk.lorddarthart.justdoitlist.util.constants.TimeConstant.ONE_HUNDRED_MILL
 import tk.lorddarthart.justdoitlist.util.constants.TimeConstant.ONE_SECOND
 import tk.lorddarthart.justdoitlist.util.constants.Utility
 import java.text.SimpleDateFormat
+import java.util.concurrent.TimeUnit
 
 
 class ToDoViewAdapter(
-        private var context: Context?,
-        private var toDoItems: List<ToDoItemDayModel>
+    private var context: Context?,
+    private var toDoItems: List<ToDoItemDayModel>
 ) : RecyclerView.Adapter<ToDoViewAdapter.ViewHolder>() {
     private lateinit var view: View
     private lateinit var viewHolder: ViewHolder
@@ -47,19 +50,20 @@ class ToDoViewAdapter(
         SimpleDateFormat.getDateInstance()
         val objects: ToDoItemDayModel = this.toDoItems[position]
         holder.toDoDateText.text = objects.titleDay
-        holder.toDoDate.setOnClickListener {
+        holder.toDoDate.setOnClickListener { toDoDate ->
             if (holder.listToDo.visibility == View.VISIBLE) {
                 collapse(holder.listToDo, ONE_SECOND.toInt(), 0)
-                holder.toDoArrow.startAnimation(AnimationUtils.loadAnimation(context,R.anim.arrow_down))
+                holder.toDoArrow.startAnimation(AnimationUtils.loadAnimation(context, R.anim.arrow_down))
             } else if (holder.listToDo.visibility == View.GONE) {
                 initializeListView(holder.listToDo, objects.listToDoModel!!)
-                holder.toDoArrow.startAnimation(AnimationUtils.loadAnimation(context,R.anim.arrow_up))
+                holder.toDoArrow.startAnimation(AnimationUtils.loadAnimation(context, R.anim.arrow_up))
             }
-            it.isEnabled = false
-            CoroutineScope(Dispatchers.Main).launch {
-                delay(ONE_SECOND)
-                it.isEnabled = true
-            }
+            toDoDate.isEnabled = false
+            Single.create<() -> Unit> { toDoDate.isEnabled = true }.subscribeOn(Schedulers.newThread())
+                .delay(1, TimeUnit.SECONDS)
+                .subscribe { executable ->
+                    executable()
+                }
         }
     }
 
@@ -89,14 +93,14 @@ class ToDoViewAdapter(
             list.adapter = adapter
             val height = Utility.setListViewHeightBasedOnChildren(list, context)
             height?.let { heightValue ->
-                expand(list, 1000, heightValue)
+                expand(list, heightValue)
             }
             list.divider = null
             list.dividerHeight = 0
         }
     }
 
-    private fun expand(v: View, duration: Int, targetHeight: Int) {
+    private fun expand(v: View, targetHeight: Int) {
 
         val prevHeight = v.height
 
@@ -106,13 +110,15 @@ class ToDoViewAdapter(
             v.requestLayout()
         }
         valueAnimator.interpolator = DecelerateInterpolator()
-        valueAnimator.duration = duration.toLong()
+        valueAnimator.duration = ONE_SECOND
         val listener = object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator?) {
-                CoroutineScope(Dispatchers.Main).launch {
-                    delay(ONE_HUNDRED_MILLIS)
-                    v.visibility = View.VISIBLE
-                }
+                Single.create<() -> Unit> { v.visibility = View.VISIBLE  }
+                    .subscribeOn(Schedulers.single())
+                    .delay(ONE_HUNDRED_MILLIS, TimeUnit.MILLISECONDS)
+                    .subscribe { executable ->
+                        executable()
+                    }
             }
         }
         valueAnimator.addListener(listener)
@@ -126,7 +132,7 @@ class ToDoViewAdapter(
         valueAnimator.addUpdateListener { animation ->
             v.layoutParams.height = animation.animatedValue as Int
             v.requestLayout()
-            if (v.layoutParams.height<=0) {
+            if (v.layoutParams.height <= 0) {
                 CoroutineScope(Dispatchers.Main).launch {
                     v.visibility = View.GONE
                 }

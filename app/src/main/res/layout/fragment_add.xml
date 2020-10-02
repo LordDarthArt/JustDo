@@ -278,45 +278,62 @@
                         </LinearLayout>
                     </HorizontalScrollView>
 
-                    <EditText
-                        android:id="@+id/new_todo_title_input"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/new_todo_title"
+                        style="@style/TextInputLayoutStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:layout_marginEnd="14dp"
-                        android:ems="10"
-                        android:hint="@string/todo_add_title"
-                        android:inputType="textPersonName"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/scroll_view_priorities" />
+                        app:layout_constraintTop_toBottomOf="@+id/scroll_view_priorities">
 
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/new_todo_title_input"
+                            style="@style/TextInputEditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:hint="@string/todo_add_title"
+                            android:inputType="textPersonName" />
 
-                    <EditText
-                        android:id="@+id/new_todo_description_input"
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/new_todo_description"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_marginTop="16dp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:ems="10"
-                        android:gravity="start"
-                        android:hint="@string/todo_add_description"
-                        android:inputType="textMultiLine"
-                        android:overScrollMode="always"
-                        android:scrollbarStyle="insideInset"
-                        android:scrollbars="vertical"
-                        android:isScrollContainer="true"
-                        android:maxLines="5"
-                        app:layout_constraintEnd_toEndOf="@+id/new_todo_title_input"
-                        app:layout_constraintStart_toStartOf="@+id/new_todo_title_input"
-                        app:layout_constraintTop_toBottomOf="@+id/new_todo_title_input" />
+                        app:layout_constraintEnd_toEndOf="@+id/new_todo_title"
+                        app:layout_constraintStart_toStartOf="@+id/new_todo_title"
+                        app:layout_constraintTop_toBottomOf="@+id/new_todo_title" >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/new_todo_description_input"
+                            style="@style/TextInputEditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:gravity="start"
+                            android:hint="@string/todo_add_description"
+                            android:inputType="textMultiLine"
+                            android:overScrollMode="always"
+                            android:scrollbarStyle="insideInset"
+                            android:scrollbars="vertical"
+                            android:isScrollContainer="true"
+                            android:maxLines="5"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <CalendarView
                         android:id="@+id/new_todo_date_selector"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="@+id/new_todo_description_input"
-                        app:layout_constraintStart_toStartOf="@+id/new_todo_description_input"
-                        app:layout_constraintTop_toBottomOf="@+id/new_todo_description_input" />
+                        app:layout_constraintEnd_toEndOf="@+id/new_todo_description"
+                        app:layout_constraintStart_toStartOf="@+id/new_todo_description"
+                        app:layout_constraintTop_toBottomOf="@+id/new_todo_description" />
 
                     <TextView
                         android:id="@+id/new_todo_time_selector"

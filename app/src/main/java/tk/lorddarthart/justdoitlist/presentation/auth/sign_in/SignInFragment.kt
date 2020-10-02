@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.firebase.auth.FirebaseAuth
+import tk.lorddarthart.justdoitlist.JustDoItListApp
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.databinding.FragmentSignInBinding
 import tk.lorddarthart.justdoitlist.presentation.auth.base.BaseAuthFragment
@@ -21,10 +22,10 @@ import tk.lorddarthart.smartnavigation.types.NavigationAnimType
 import javax.inject.Inject
 
 class SignInFragment : BaseAuthFragment(), NavigationTab, SignInFragmentView {
-    private lateinit var loadingDialog: ProgressDialog
+    @Inject lateinit var auth: FirebaseAuth
     @InjectPresenter lateinit var signInPresenter: SignInPresenter
 
-    @Inject lateinit var auth: FirebaseAuth
+    private lateinit var loadingDialog: ProgressDialog
 
     override var INSTANCE: NavigationTab?
         get() { return SignInFragment.INSTANCE }
@@ -59,8 +60,7 @@ class SignInFragment : BaseAuthFragment(), NavigationTab, SignInFragmentView {
                         .addOnCompleteListener(activity) { task ->
                             if (task.isSuccessful) {
                                 if (auth.currentUser?.isEmailVerified == true) {
-                                    val mFragment = MainFragment()
-                                    router.baseNavigator.navigate(mFragment, NavigationActionType.ReplaceAction, NavigationAnimType.NoAnim)
+                                    router.openNextAfterSplash()
                                     loadingDialog.cancel()
                                 } else {
                                     root.shortSnackbar { "User's email hasn't been verified. Please check your email" }
@@ -92,12 +92,10 @@ class SignInFragment : BaseAuthFragment(), NavigationTab, SignInFragmentView {
     }
 
     override fun start() {
+        JustDoItListApp.component?.inject(this)
         with(fragmentBinding as FragmentSignInBinding) {
-            if (arguments != null && (arguments?.containsKey("email") == true)) {
-                signInEmailInput.setText(arguments?.getString("email"))
-            }
-            if (activity.intent.hasExtra("email")) {
-                signInEmailInput.setText(activity.intent.getStringExtra("email"))
+            if (arguments != null && (arguments?.containsKey(ArgumentsKeysConstant.EMAIL) == true)) {
+                signInEmailInput.setText(arguments?.getString(ArgumentsKeysConstant.EMAIL))
             }
             if (activity.intent.hasExtra(ArgumentsKeysConstant.EMAIL)) {
                 signInEmailInput.setText(activity.intent.getStringExtra(ArgumentsKeysConstant.EMAIL))

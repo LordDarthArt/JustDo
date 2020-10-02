@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -33,8 +34,7 @@ class RootActivity : MvpAppCompatActivity(), RootActivityView {
     private lateinit var mainTitle: String
     private var activityBinding by Delegates.notNull<ActivityBaseBinding>()
 
-    @InjectPresenter
-    lateinit var rootActivityPresenter: RootActivityPresenter
+    @InjectPresenter lateinit var rootActivityPresenter: RootActivityPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

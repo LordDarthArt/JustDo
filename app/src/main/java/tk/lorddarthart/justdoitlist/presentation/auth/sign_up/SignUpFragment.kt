@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_sign_up.*
+import tk.lorddarthart.justdoitlist.JustDoItListApp
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.databinding.FragmentSignUpBinding
 import tk.lorddarthart.justdoitlist.presentation.auth.base.BaseAuthFragment
@@ -16,25 +17,20 @@ import tk.lorddarthart.smartnavigation.NavigationTab
 import javax.inject.Inject
 
 class SignUpFragment : BaseAuthFragment(), NavigationTab, SignUpFragmentView {
-    @InjectPresenter
-    lateinit var signUpPresenter: SignUpPresenter
+    @InjectPresenter lateinit var signUpPresenter: SignUpPresenter
 
-    @Inject
-    lateinit var auth: FirebaseAuth
+    @Inject lateinit var auth: FirebaseAuth
 
     override var INSTANCE: NavigationTab?
-        get() {
-            return SignUpFragment.INSTANCE
-        }
-        set(value) {
-            SignUpFragment.INSTANCE = value
-        }
+        get() { return SignUpFragment.INSTANCE }
+        set(value) { SignUpFragment.INSTANCE = value }
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = FragmentSignUpBinding.inflate(inflater, container, false)
     }
 
     override fun start() {
+        JustDoItListApp.component?.inject(this)
         with(fragmentBinding as FragmentSignUpBinding) {
             arguments?.let { arguments ->
                 if (arguments.containsKey(IntentExtraConstNames.EMAIL)) {

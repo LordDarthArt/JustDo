@@ -33,6 +33,7 @@ abstract class BaseFragment : NavigatableFragment(), IBaseFragment, Loggable {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         initBinding(inflater, container)
+        JustDoItListApp.component?.inject(this)
         return fragmentBinding.root
     }
 
@@ -42,8 +43,6 @@ abstract class BaseFragment : NavigatableFragment(), IBaseFragment, Loggable {
     }
 
     override fun initialization() {
-        JustDoItListApp.component?.inject(this)
-
         initListeners()
         start()
 

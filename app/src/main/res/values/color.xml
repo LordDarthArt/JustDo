@@ -12,6 +12,7 @@
     <color name="middlePriorityMarkColor">#FCD3A0</color>
     <color name="lowPriorityMarkColor">#BDC3FB</color>
     <color name="emptyPriorityMarkColor">#DADADE</color>
+    <color name="textInputLayoutStrokeColor">@color/toDoTitleColor</color>
 
     <!--   // Old Colors   -->
     <!--<color name="colorButtonStart">#7D85C3</color>-->

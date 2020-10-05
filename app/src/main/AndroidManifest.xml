@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         android:fullBackupContent="false"
         android:allowBackup="false">
-        <activity android:name="tk.lorddarthart.justdoitlist.presentation.root.RootActivity"
+        <activity android:name="tk.lorddarthart.justdoitlist.view.root.RootActivity"
             android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

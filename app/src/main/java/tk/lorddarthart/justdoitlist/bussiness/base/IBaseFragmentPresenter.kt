@@ -1,0 +1,3 @@
+package tk.lorddarthart.justdoitlist.bussiness.base
+
+interface IBaseFragmentPresenter

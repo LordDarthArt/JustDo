@@ -1,4 +1,4 @@
-package tk.lorddarthart.justdoitlist.util.constants.cloudfirestorestructure.todo.year.month.day.list
+package tk.lorddarthart.justdoitlist.util.constants.cloudfirestorestructure.todo.year.month
 
 object CloudFirestoreToDoYearMonth {
     const val field_monthname_name = "monthName"

@@ -26,7 +26,7 @@ interface Router {
     /** Opens next fragment after splash using [baseNavigator]. */
     fun openNextAfterSplash()
     /** Opens add to-do fragment using [baseNavigator]. */
-    fun openAddFragment()
+    fun showAddFragment()
     /** Opens splash fragment using [baseNavigator]. */
     fun openSplash()
 

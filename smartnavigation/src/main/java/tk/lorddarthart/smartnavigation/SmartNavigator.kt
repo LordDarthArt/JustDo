@@ -2,6 +2,7 @@ package tk.lorddarthart.smartnavigation
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
+import tk.lorddarthart.smartnavigation.exception.ShowForNonTabFragmentException
 import tk.lorddarthart.smartnavigation.types.NavigationActionType
 import tk.lorddarthart.smartnavigation.types.NavigationAnimType
 
@@ -67,6 +68,8 @@ class SmartNavigator(
                                 }
                             }
                             backStack.add(targetFragment.backStackKey)
+                        } else {
+                            throw ShowForNonTabFragmentException("You have specified $targetFragment which is not implementing ${NavigationTab::class.java.simpleName} interface, to perform \"Show\" navigation action. To be able to perform this action, setup your fragment as ${NavigationTab::class.java.simpleName}.")
                         }
                     }
                 }

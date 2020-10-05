@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/add_head_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/add_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/add_head_title"
+                    style="@style/HeaderTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:fillViewport="true"
+            android:scrollbarSize="0dp"
+            android:scrollbarThumbHorizontal="@null"
+            android:scrollbarThumbVertical="@null"
+            android:scrollbars="none"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:context=".view.main.home.todo.add.AddFragment">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <HorizontalScrollView
+                        android:id="@+id/scroll_view_priorities"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scrollbarSize="0dp"
+                        android:scrollbarThumbHorizontal="@null"
+                        android:scrollbarThumbVertical="@null"
+                        android:scrollbars="none"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:id="@+id/list_of_priorities"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <FrameLayout
+                                android:id="@+id/card_view_urgently_new_todo_layout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/card_view_urgently_new_todo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="24dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:layout_marginBottom="24dp"
+                                    app:cardCornerRadius="8dp"
+                                    app:cardElevation="3dp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="horizontal"
+                                        android:gravity="center_vertical">
+
+                                        <ImageView
+                                            android:id="@+id/priority_urgently_indicator"
+                                            android:layout_width="10dp"
+                                            android:layout_height="10dp"
+                                            android:layout_marginStart="8dp"
+                                            android:layout_marginTop="8dp"
+                                            android:layout_marginEnd="8dp"
+                                            android:layout_marginBottom="8dp"
+                                            android:contentDescription="@string/todo"
+                                            android:src="@drawable/shape_circle"
+                                            app:tint="@color/highPriorityMarkColor"/>
+
+                                        <TextView
+                                            android:id="@+id/priority_urgently_text"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="8dp"
+                                            android:layout_marginTop="8dp"
+                                            android:layout_marginEnd="8dp"
+                                            android:layout_marginBottom="8dp"
+                                            android:text="@string/priority_urgently"
+                                            android:textSize="17sp" />
+
+                                        <ImageView
+                                            android:id="@+id/priority_urgently_selected_indicator"
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            android:layout_marginEnd="8dp"
+                                            android:src="@drawable/ic_tick"
+                                            android:visibility="gone" />
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:id="@+id/card_view_important_new_todo_layout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="0dp">
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/card_view_important_new_todo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginTop="24dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:layout_marginBottom="24dp"
+                                    app:cardCornerRadius="8dp"
+                                    app:cardElevation="3dp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center_vertical">
+
+                                        <ImageView
+                                            android:id="@+id/priority_important_indicator"
+                                            android:layout_width="10dp"
+                                            android:layout_height="10dp"
+                                            android:layout_marginStart="8dp"
+                                            android:layout_marginTop="8dp"
+                                            android:layout_marginEnd="8dp"
+                                            android:layout_marginBottom="8dp"
+                                            android:contentDescription="@string/todo"
+                                            android:src="@drawable/shape_circle"
+                                            app:tint="@color/middlePriorityMarkColor"/>
+
+                                        <TextView
+                                            android:id="@+id/priority_important_text"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="8dp"
+                                            android:layout_marginTop="8dp"
+                                            android:layout_marginEnd="8dp"
+                                            android:layout_marginBottom="8dp"
+                                            android:text="@string/priority_important"
+                                            android:textSize="17sp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintEnd_toStartOf="@+id/priority_important_selected_indicator"
+                                            app:layout_constraintStart_toEndOf="@+id/priority_important_indicator"
+                                            app:layout_constraintTop_toTopOf="parent" />
+
+                                        <ImageView
+                                            android:id="@+id/priority_important_selected_indicator"
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            android:layout_marginEnd="8dp"
+                                            android:src="@drawable/ic_tick"
+                                            android:visibility="gone"
+                                            app:layout_constraintBottom_toBottomOf="@+id/priority_important_text"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintTop_toTopOf="@+id/priority_important_text" />
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:id="@+id/card_view_normal_new_to_do_layout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="0dp">
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/card_view_normal_new_todo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginTop="24dp"
+                                    android:layout_marginEnd="16dp"
+                                    android:layout_marginBottom="24dp"
+                                    app:cardCornerRadius="8dp"
+                                    app:cardElevation="3dp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="horizontal"
+                                        android:gravity="center_vertical">
+
+                                        <ImageView
+                                            android:id="@+id/priority_normal_indicator"
+                                            android:layout_width="10dp"
+                                            android:layout_height="10dp"
+                                            android:layout_marginStart="8dp"
+                                            android:layout_marginTop="8dp"
+                                            android:layout_marginBottom="8dp"
+                                            android:contentDescription="@string/todo"
+                                            android:src="@drawable/shape_circle"
+                                            app:tint="@color/lowPriorityMarkColor" />
+
+                                        <TextView
+                                            android:id="@+id/priority_normal_text"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="8dp"
+                                            android:layout_marginTop="8dp"
+                                            android:layout_marginEnd="8dp"
+                                            android:layout_marginBottom="8dp"
+                                            android:text="@string/priority_normal"
+                                            android:textSize="17sp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintEnd_toStartOf="@+id/priority_normal_selected_indicator"
+                                            app:layout_constraintStart_toEndOf="@+id/priority_normal_indicator"
+                                            app:layout_constraintTop_toTopOf="parent"
+                                            app:layout_constraintVertical_bias="0.0" />
+
+                                        <ImageView
+                                            android:id="@+id/priority_normal_selected_indicator"
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            android:layout_marginEnd="8dp"
+                                            android:src="@drawable/ic_tick"
+                                            android:visibility="gone"/>
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+                            </FrameLayout>
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/new_todo_title"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/scroll_view_priorities">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/new_todo_title_input"
+                            style="@style/TextInputEditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/todo_add_title"
+                            android:inputType="textPersonName" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/new_todo_description"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/new_todo_description_input"
+                            style="@style/TextInputEditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:hint="@string/todo_add_description"
+                            android:inputType="textMultiLine"
+                            android:isScrollContainer="true"
+                            android:maxLines="5"
+                            android:overScrollMode="always"
+                            android:scrollbarStyle="insideInset"
+                            android:scrollbars="vertical" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <CalendarView
+                        android:id="@+id/new_todo_date_selector"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="@+id/new_todo_description"
+                        app:layout_constraintStart_toStartOf="@+id/new_todo_description"
+                        app:layout_constraintTop_toBottomOf="@+id/new_todo_description" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/new_todo_time_selector"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="32dp"
+                            android:text="00:00"
+                            android:textColor="@color/textColor"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/new_to_do_reminder_description"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/todo_add_reminder"
+                            android:textColor="@color/textColor"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="32dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/spinner"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/spinner" />
+
+                        <Spinner
+                            android:id="@+id/spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:spinnerMode="dropdown"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/new_to_do_reminder_description"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/buttons_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp">
+
+                            <Button
+                                android:id="@+id/new_todo_button_cancel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:text="@android:string/cancel"
+                                android:textColor="@color/textColor"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/view2"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp">
+
+                            <Button
+                                android:id="@+id/new_todo_button_add"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/button_gradient"
+                                android:text="@string/todo_add_btn"
+                                android:textColor="@android:color/white"
+                                android:layout_gravity="center"/>
+
+                        </FrameLayout>
+                    </LinearLayout>
+                </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

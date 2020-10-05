@@ -1,26 +1,25 @@
 package tk.lorddarthart.justdoitlist.util.constants
 
-import android.content.Context
-import tk.lorddarthart.justdoitlist.util.helper.Locale.isRussianLocalization
+import tk.lorddarthart.justdoitlist.util.helper.locale.LocaleHelper
 import java.util.*
 
 object DateFormatsTemplates {
     const val fromDatabaseToTimestamp = "dd.MM.yyyy"
-    const val mDayTime = "HH:mm"
-    const val mYear = "yyyy"
-    const val mMonth = "MM"
-    const val mMonthWord = "MMMM"
-    const val mDay = "dd"
-    private lateinit var mFromTimestampToTitle: String
+    const val dayTime = "HH:mm"
+    const val year = "yyyy"
+    const val month = "MM"
+    const val monthWord = "MMMM"
+    const val day = "dd"
+    private lateinit var fromTimestampToTitle: String
 
-    fun getFromTimestampToTitle(currentCalDate: Calendar, mContext: Context): String{
-        mFromTimestampToTitle = if (!isRussianLocalization(mContext)) {
+    fun getFromTimestampToTitle(currentCalDate: Calendar, localeHelper: LocaleHelper): String{
+        fromTimestampToTitle = if (!localeHelper.isRussianLocalization()) {
             val dayNumberSuffix = getDayNumberSuffix(currentCalDate.get(Calendar.DAY_OF_MONTH))
             "MMMM dd'$dayNumberSuffix', EEEE"
         } else {
             "EEEE, dd MMMM"
         }
-        return mFromTimestampToTitle
+        return fromTimestampToTitle
     }
 
     private fun getDayNumberSuffix(day: Int): String {

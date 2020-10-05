@@ -1,4 +1,4 @@
-package tk.lorddarthart.justdoitlist.util.constants.cloudfirestorestructure.todo.year.month.day.list.todoofday
+package tk.lorddarthart.justdoitlist.util.constants.cloudfirestorestructure.todo.year.month.day.todoofday
 
 object CloudFirestoreToDoDayItem {
     const val field_comment_name = "comment"

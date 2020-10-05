@@ -2,17 +2,15 @@ package tk.lorddarthart.justdoitlist.router
 
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
-import tk.lorddarthart.justdoitlist.presentation.auth.AuthFragment
-import tk.lorddarthart.justdoitlist.presentation.auth.additional_info.AdditionalInfoFragment
-import tk.lorddarthart.justdoitlist.presentation.auth.reset_password.ResetPasswordFragment
-import tk.lorddarthart.justdoitlist.presentation.auth.sign_in.SignInFragment
-import tk.lorddarthart.justdoitlist.presentation.auth.sign_up.SignUpFragment
-import tk.lorddarthart.justdoitlist.presentation.main.MainFragment
-import tk.lorddarthart.justdoitlist.presentation.main.profile.ProfileFragment
-import tk.lorddarthart.justdoitlist.presentation.main.todo.ToDoFragment
-import tk.lorddarthart.justdoitlist.presentation.main.todo.add.AddFragment
-import tk.lorddarthart.justdoitlist.presentation.splash.SplashFragment
-import tk.lorddarthart.smartnavigation.NavigatableFragment
+import tk.lorddarthart.justdoitlist.view.auth.AuthFragment
+import tk.lorddarthart.justdoitlist.view.auth.additionalinfo.AdditionalInfoFragment
+import tk.lorddarthart.justdoitlist.view.auth.resetpassword.ResetPasswordFragment
+import tk.lorddarthart.justdoitlist.view.auth.signin.SignInFragment
+import tk.lorddarthart.justdoitlist.view.auth.signup.SignUpFragment
+import tk.lorddarthart.justdoitlist.view.main.home.profile.ProfileFragment
+import tk.lorddarthart.justdoitlist.view.main.home.todo.ToDoFragment
+import tk.lorddarthart.justdoitlist.view.main.home.todo.add.AddFragment
+import tk.lorddarthart.justdoitlist.view.splash.SplashFragment
 import tk.lorddarthart.smartnavigation.SmartNavigator
 import tk.lorddarthart.smartnavigation.types.NavigationActionType
 import tk.lorddarthart.smartnavigation.types.NavigationAnimType
@@ -26,7 +24,7 @@ class RouterImpl(
         if (FirebaseAuth.getInstance().currentUser == null) {
             baseNavigator.navigate(AuthFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
         } else {
-            baseNavigator.navigate(MainFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
+            baseNavigator.navigate(HomeFragment(), NavigationActionType.ReplaceAction, NavigationAnimType.FadeAnim)
         }
     }
 
@@ -35,14 +33,11 @@ class RouterImpl(
     }
 
     override fun moveToProfile() {
-        if (ProfileFragment.INSTANCE == null) {
-            ProfileFragment.INSTANCE = ProfileFragment()
-        }
-        mainNavigator.navigate(ProfileFragment.INSTANCE!! as NavigatableFragment, NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
+        mainNavigator.navigate(ProfileFragment(), NavigationActionType.ShowAction, NavigationAnimType.FadeAnim)
     }
 
-    override fun openAddFragment() {
-        mainNavigator.navigate(AddFragment(), NavigationActionType.AddToBackStackAction, NavigationAnimType.SlideAnim)
+    override fun showAddFragment() {
+        baseNavigator.navigate(AddFragment(), NavigationActionType.AddToBackStackAction, NavigationAnimType.SlideAnim)
     }
 
     override fun openSplash() {

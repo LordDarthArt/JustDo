@@ -4,12 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.sign_up_fragment.*
 import tk.lorddarthart.justdoitlist.JustDoItListApp
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.bussiness.auth.signup.SignUpPresenter
 import tk.lorddarthart.justdoitlist.databinding.SignUpFragmentBinding
+import tk.lorddarthart.justdoitlist.util.constants.IntentExtraConstNames
+import tk.lorddarthart.justdoitlist.util.customobjects.SimpleTextWatcher
 import tk.lorddarthart.justdoitlist.view.auth.base.BaseAuthFragment
 import tk.lorddarthart.justdoitlist.util.helper.shortSnackbar
+import tk.lorddarthart.justdoitlist.util.verificators.PasswordEmailValidator
 import tk.lorddarthart.smartnavigation.NavigationTab
 import javax.inject.Inject
 
@@ -55,7 +59,7 @@ class SignUpFragment : BaseAuthFragment(), NavigationTab, SignUpFragmentView {
                     && PasswordEmailValidator.isValidPassword(signUpPasswordInput.text.toString())
                     && signUpPresenter.passwordString == signUpPresenter.confirmPasswordString) {
                     auth.createUserWithEmailAndPassword(signUpPresenter.emailString!!, signUpPresenter.passwordString!!)
-                        .addOnCompleteListener(activity) { task ->
+                        .addOnCompleteListener(requireActivity()) { task ->
                             if (task.isSuccessful) {
                                 sendVerificationEmail()
                             } else {
@@ -95,9 +99,9 @@ class SignUpFragment : BaseAuthFragment(), NavigationTab, SignUpFragmentView {
                     if (task.isSuccessful) {
                         FirebaseAuth.getInstance().signOut()
                         router.openNextAfterSplash()
-                        fragmentBinding.root.shortSnackbar { activity.resources.getString(R.string.reg_success) }
+                        fragmentBinding.root.shortSnackbar { requireContext().resources.getString(R.string.reg_success) }
                     } else {
-                        fragmentBinding.root.shortSnackbar { activity.resources.getString(R.string.verification_problem) + " ${task.exception.toString()}" }
+                        fragmentBinding.root.shortSnackbar { requireContext().resources.getString(R.string.verification_problem) + " ${task.exception.toString()}" }
                     }
                 }
         }

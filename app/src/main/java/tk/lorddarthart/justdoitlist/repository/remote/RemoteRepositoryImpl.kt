@@ -25,6 +25,7 @@ class RemoteRepositoryImpl: RemoteRepository, Loggable {
     @Inject lateinit var toDoHolder: ToDoHolder
     @Inject lateinit var auth: FirebaseAuth
     @Inject lateinit var localeHelper: LocaleHelper
+    @Inject lateinit var dayTitleConverter: DayTitleConverter
 
     override fun init() {
         JustDoItListApp.component?.inject(this)
@@ -49,7 +50,7 @@ class RemoteRepositoryImpl: RemoteRepository, Loggable {
                                         val mFromTimestampToTitle = SimpleDateFormat(
                                             DateFormatsTemplates.getFromTimestampToTitle(toCalendar(fromDatabaseToTimestamp.parse(day.reference.id + "." + month.documents[0].reference.parent.id + "." + year.reference.parent.id)), localeHelper)
                                         )
-                                        val title: String = DayTitleConverter.convertToPreferred(
+                                        val title: String = dayTitleConverter.convertToPreferred(
                                             mFromTimestampToTitle,
                                             fromDatabaseToTimestamp.parse(day.reference.id + "." + month.documents[0].reference.parent.id + "." + year.reference.parent.id)
                                         )
@@ -99,7 +100,7 @@ class RemoteRepositoryImpl: RemoteRepository, Loggable {
     }
 
     private fun toCalendar(date: Date): Calendar {
-        val cal = Calendar.getInstance()
+        val cal = Calendar.getInstance(TimeZone.getDefault())
         cal.time = date
         return cal
     }

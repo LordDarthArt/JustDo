@@ -5,6 +5,7 @@
     tools:context=".view.auth.AuthFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/auth_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -38,7 +39,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:paddingBottom="32dp">
 
                 <ImageView
                     android:id="@+id/imageview_header_logo"
@@ -91,32 +93,33 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageview_header_logo" />
 
-                <FrameLayout
-                    android:id="@+id/fragment_enter"
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/auth_container"
+                    android:name="tk.lorddarthart.justdoitlist.view.auth.signin.SignInFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button_sign_in"/>
+                    app:layout_constraintTop_toBottomOf="@+id/button_sign_in" />
 
                 <TextView
                     android:id="@+id/agreement_top_sentence"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginBottom="32dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
                     android:singleLine="false"
-                    app:lineHeight="22sp"
                     android:text="@string/agree"
                     android:textAlignment="center"
                     android:textColor="@color/textDisabledColor"
                     android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/auth_container"
+                    app:lineHeight="22sp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

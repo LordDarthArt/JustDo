@@ -1,4 +1,4 @@
-package tk.lorddarthart.justdoitlist.view.main.home.todo.add
+package tk.lorddarthart.justdoitlist.view.main.add
 
 import tk.lorddarthart.justdoitlist.view.main.base.BaseMainView
 import tk.lorddarthart.justdoitlist.util.appsection.Tab

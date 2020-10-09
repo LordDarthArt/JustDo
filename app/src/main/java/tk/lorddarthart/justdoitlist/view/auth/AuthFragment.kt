@@ -3,6 +3,7 @@ package tk.lorddarthart.justdoitlist.view.auth
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.bussiness.auth.AuthPresenter
@@ -46,7 +47,7 @@ class AuthFragment : BaseAuthFragment(), AuthFragmentView {
             authPresenter.moveToSignIn()
             agreementTopSentence.text = agreementText
 
-            activity.setSupportActionBar(authHead)
+            (requireActivity() as AppCompatActivity).setSupportActionBar(authHead)
             authHeadTitle.text = getString(R.string.authentication)
         }
         setSpan()
@@ -59,7 +60,7 @@ class AuthFragment : BaseAuthFragment(), AuthFragmentView {
                 agreementLinks,
                 agreementTopSentence
             ).apply {
-                createForAuthScreen(activity, this@AuthFragment)
+                createForAuthScreen(requireActivity(), this@AuthFragment)
             }
         }
     }

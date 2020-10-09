@@ -8,7 +8,7 @@ ext {
 
     // Gradle
     gradleBuild = [
-        version: '4.0.1'
+        version: '4.0.2'
     ]
 
     // Google Play Services
@@ -25,16 +25,18 @@ ext {
     // Testing
     testing = [
         junit_version: '4.13',
-        androidx_junit_version: '1.1.2',
-        espresso_version: '3.3.0'
+        android_junit_version: '1.1.2',
+        espresso_version: '3.3.0',
+        androidx_testing: '1.3.0',
+        androidx_fragment_testing_version: '1.1.0-beta01'
     ]
 
     // Design
     design = [
-        constraint_layout_version: '2.0.1',
+        constraint_layout_version: '2.0.2',
         recycler_view_version: '1.1.0',
         card_view_version: '1.0.0',
-        material_version: '1.3.0-alpha02'
+        material_version: '1.3.0-alpha03'
     ]
 
     // CircleImageView
@@ -49,7 +51,7 @@ ext {
 
     // RxJava
     rxjava = [
-        version: '3.0.6'
+        version: '3.0.7'
     ]
 
     // Anko
@@ -101,6 +103,6 @@ ext {
     // Firebase
     firebase = [
         auth_version: '19.4.0',
-        firestore_version: '21.6.0'
+        firestore_version: '21.7.1'
     ]
 }

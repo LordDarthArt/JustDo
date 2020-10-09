@@ -1,16 +1,14 @@
 package tk.lorddarthart.justdoitlist.di.module
 
-import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
-import tk.lorddarthart.justdoitlist.R
-import tk.lorddarthart.justdoitlist.router.Router
-import tk.lorddarthart.justdoitlist.router.RouterImpl
+import tk.lorddarthart.justdoitlist.util.converters.DayTitleConverter
+import tk.lorddarthart.justdoitlist.util.converters.DayTitleConverterImpl
 import tk.lorddarthart.justdoitlist.util.converters.PriorityConverter
 import tk.lorddarthart.justdoitlist.util.converters.PriorityConverterImpl
 import tk.lorddarthart.justdoitlist.util.helper.locale.LocaleHelper
 import tk.lorddarthart.justdoitlist.util.helper.locale.LocaleHelperImpl
-import tk.lorddarthart.smartnavigation.SmartNavigator
+import java.util.*
 import javax.inject.Singleton
 
 @Module
@@ -25,5 +23,17 @@ class AppModule {
     @Singleton
     fun provideLocaleHelper(): LocaleHelper {
         return LocaleHelperImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDayTitleConverter(): DayTitleConverter {
+        return DayTitleConverterImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCalendar(): Calendar {
+        return Calendar.getInstance(TimeZone.getDefault())
     }
 }

@@ -1,5 +1,7 @@
 package tk.lorddarthart.smartnavigation
 
+import com.arellomobile.mvp.MvpAppCompatFragment
+
 abstract class NavigatableFragment: MvpFragment() {
     var openedBy: SmartNavigator? = null
     abstract val backStackKey: String

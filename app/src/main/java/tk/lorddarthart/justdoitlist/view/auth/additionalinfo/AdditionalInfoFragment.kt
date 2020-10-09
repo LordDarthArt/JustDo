@@ -3,6 +3,7 @@ package tk.lorddarthart.justdoitlist.view.auth.additionalinfo
 import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.bussiness.auth.additionalinfo.AdditionalInfoPresenter
@@ -21,7 +22,7 @@ class AdditionalInfoFragment : BaseFragment(), AdditionalInfoFragmentView {
     override fun initListeners() {
         with(fragmentBinding as AdditionalInfoFragmentBinding) {
             buttonDisagree.setOnClickListener {
-                activity.supportFragmentManager.popBackStack()
+                (requireActivity() as AppCompatActivity).supportFragmentManager.popBackStack()
             }
             buttonAgree.setOnClickListener {
                 with(AlertDialog.Builder(activity)) {
@@ -41,7 +42,7 @@ class AdditionalInfoFragment : BaseFragment(), AdditionalInfoFragmentView {
     }
 
     override fun start() {
-        activity.supportActionBar?.elevation = 0f
+        (requireActivity() as AppCompatActivity).supportActionBar?.elevation = 0f
         with (fragmentBinding as AdditionalInfoFragmentBinding) {
             if (arguments != null && requireArguments().containsKey(ArgumentsKeysConstant.ACTIVITY)) {
                 if (requireArguments().getString(ArgumentsKeysConstant.ACTIVITY)!! == DefaultValuesConstant.TERMS_AND_CONDITIONS) {
@@ -57,6 +58,6 @@ class AdditionalInfoFragment : BaseFragment(), AdditionalInfoFragmentView {
     }
 
     private fun closeApplication() {
-        activity.finishAffinity()
+        requireActivity().finishAffinity()
     }
 }

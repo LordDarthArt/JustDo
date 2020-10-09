@@ -54,7 +54,7 @@ class SignInFragment : BaseAuthFragment(), NavigationTab, SignInFragmentView {
                     }
                     buildLoading()
                     auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(activity) { task ->
+                        .addOnCompleteListener(requireActivity()) { task ->
                             if (task.isSuccessful) {
                                 if (auth.currentUser?.isEmailVerified == true) {
                                     router.openNextAfterSplash()
@@ -95,8 +95,8 @@ class SignInFragment : BaseAuthFragment(), NavigationTab, SignInFragmentView {
             if (arguments != null && (arguments?.containsKey(ArgumentsKeysConstant.EMAIL) == true)) {
                 signInEmailInput.setText(arguments?.getString(ArgumentsKeysConstant.EMAIL))
             }
-            if (activity.intent.hasExtra(ArgumentsKeysConstant.EMAIL)) {
-                signInEmailInput.setText(activity.intent.getStringExtra(ArgumentsKeysConstant.EMAIL))
+            if (requireActivity().intent.hasExtra(ArgumentsKeysConstant.EMAIL)) {
+                signInEmailInput.setText(requireActivity().intent.getStringExtra(ArgumentsKeysConstant.EMAIL))
             }
         }
     }

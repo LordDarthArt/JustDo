@@ -4,6 +4,8 @@ import tk.lorddarthart.justdoitlist.util.helper.locale.LocaleHelper
 import java.util.*
 
 object DateFormatsTemplates {
+    const val minutes = "mm"
+    const val hours = "HH"
     const val fromDatabaseToTimestamp = "dd.MM.yyyy"
     const val dayTime = "HH:mm"
     const val year = "yyyy"

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.firebase.auth.FirebaseAuth
@@ -28,9 +29,9 @@ class ProfileFragment : BaseMainTabFragment(), NavigationTab, ProfileFragmentVie
 
     override fun setupNavBar(toolbar: Toolbar) {
         (fragmentBinding as ProfileFragmentBinding).profileHeadTitle.text = getString(R.string.profile)
-        activity.setSupportActionBar(toolbar)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
 
-        activity.supportActionBar?.title = ""
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = ""
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

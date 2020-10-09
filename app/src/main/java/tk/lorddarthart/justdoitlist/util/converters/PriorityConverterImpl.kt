@@ -36,10 +36,10 @@ class PriorityConverterImpl: PriorityConverter {
     override fun getColor(priority: Long?): Int {
         with(context) {
             return when (priority) {
-                0L -> { ContextCompat.getColor(this, R.color.emptyPriorityMarkColor) }
-                1L -> { ContextCompat.getColor(this, R.color.lowPriorityMarkColor) }
-                2L -> { ContextCompat.getColor(this, R.color.middlePriorityMarkColor) }
-                3L -> { ContextCompat.getColor(this, R.color.highPriorityMarkColor) }
+                PRIORITY_NEUTRAL_CODE -> { ContextCompat.getColor(this, R.color.emptyPriorityMarkColor) }
+                PRIORITY_NORMAL_CODE -> { ContextCompat.getColor(this, R.color.lowPriorityMarkColor) }
+                PRIORITY_IMPORTANT_CODE -> { ContextCompat.getColor(this, R.color.middlePriorityMarkColor) }
+                PRIORITY_URGENTLY_CODE -> { ContextCompat.getColor(this, R.color.highPriorityMarkColor) }
                 else -> ContextCompat.getColor(this, R.color.emptyPriorityMarkColor)
             }
         }

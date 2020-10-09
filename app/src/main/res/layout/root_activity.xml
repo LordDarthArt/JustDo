@@ -4,7 +4,7 @@
     tools:context=".view.root.RootActivity">
 
     <FrameLayout
-        android:id="@+id/fragment_base_container"
+        android:id="@+id/base_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"/>

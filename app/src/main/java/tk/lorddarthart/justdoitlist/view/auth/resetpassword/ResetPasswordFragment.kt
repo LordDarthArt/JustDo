@@ -2,6 +2,7 @@ package tk.lorddarthart.justdoitlist.view.auth.resetpassword
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
@@ -28,18 +29,18 @@ class ResetPasswordFragment : BaseAuthFragment(), ResetPasswordFragmentView {
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = ResetPasswordFragmentBinding.inflate(inflater, container, false)
+        with (requireActivity() as AppCompatActivity) {
+            setSupportActionBar((fragmentBinding as ResetPasswordFragmentBinding).resetPasswordHeader)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     override fun start() {
         with (fragmentBinding as ResetPasswordFragmentBinding) {
-            with (activity) {
-                setSupportActionBar(resetPasswordHeader)
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 resetPasswordHeaderTitle.text = getString(R.string.reset_password)
-                if (intent.hasExtra(IntentExtraConstNames.EMAIL)) {
-                    passwordResetEmailInput.setText(intent.getStringExtra(IntentExtraConstNames.EMAIL))
+                if (requireActivity().intent.hasExtra(IntentExtraConstNames.EMAIL)) {
+                    passwordResetEmailInput.setText(requireActivity().intent.getStringExtra(IntentExtraConstNames.EMAIL))
                 }
-            }
         }
     }
 
@@ -50,7 +51,7 @@ class ResetPasswordFragment : BaseAuthFragment(), ResetPasswordFragmentView {
                     auth.sendPasswordResetEmail(passwordResetEmailInput.text.toString(), actionCodeSettings)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                router.baseNavigator.popBackStack()
+                                router.baseNavigator.getBack()
                                 root.shortSnackbar { getString(R.string.password_reset_instructions_has_been_set) }
                             } else {
                                 logError(task.exception) { "Can't send password reset, the problem is: ${task.exception?.message}" }

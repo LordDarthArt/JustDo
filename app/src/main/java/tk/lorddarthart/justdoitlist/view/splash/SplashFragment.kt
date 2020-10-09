@@ -1,6 +1,5 @@
 package tk.lorddarthart.justdoitlist.view.splash
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -8,12 +7,13 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import tk.lorddarthart.justdoitlist.bussiness.splash.SplashPresenter
 import tk.lorddarthart.justdoitlist.databinding.SplashFragmentBinding
-import tk.lorddarthart.justdoitlist.view.splash.base.BaseSplashFragment
 import tk.lorddarthart.justdoitlist.util.helper.logError
+import tk.lorddarthart.justdoitlist.view.splash.base.BaseSplashFragment
 import java.util.concurrent.TimeUnit
 
 class SplashFragment : BaseSplashFragment(), SplashFragmentView {
-    @InjectPresenter lateinit var splashPresenter: SplashPresenter
+    @InjectPresenter
+    lateinit var splashPresenter: SplashPresenter
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = SplashFragmentBinding.inflate(inflater, container, false)
@@ -23,10 +23,8 @@ class SplashFragment : BaseSplashFragment(), SplashFragmentView {
         // do something
     }
 
-    @SuppressLint("CheckResult")
     override fun start() {
         try {
-            activity.supportActionBar?.hide()
             Single.create<() -> Unit> {
                 it.onSuccess {
                     router.openNextAfterSplash()

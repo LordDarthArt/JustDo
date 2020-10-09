@@ -7,9 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.content.ContextCompat
+import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.model.pojo.main.ToDoItemModel
 import tk.lorddarthart.justdoitlist.databinding.SingleItemTodoListviewBinding
 import tk.lorddarthart.justdoitlist.util.converters.PriorityConverterImpl
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ListViewAdapter(
     private val actualContext: Context,

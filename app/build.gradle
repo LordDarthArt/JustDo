@@ -25,7 +25,6 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-            versionNameSuffix "-release"
         }
         debug {
             versionNameSuffix "-dev"
@@ -61,9 +60,14 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:${base.legacy_support_version}"
 
     // Testing
-    testImplementation "junit:junit:${testing.junit_version}"
-    androidTestImplementation "androidx.test.ext:junit:${testing.androidx_junit_version}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${testing.espresso_version}"
+    debugImplementation "junit:junit:${testing.junit_version}"
+    debugImplementation "androidx.test.ext:junit:${testing.android_junit_version}"
+    debugImplementation "androidx.test.espresso:espresso-core:${testing.espresso_version}"
+    debugImplementation "androidx.test.espresso:espresso-contrib:${testing.espresso_version}"
+    debugImplementation "androidx.test:runner:${testing.androidx_testing}"
+    debugImplementation "androidx.test:core:${testing.androidx_testing}"
+    debugImplementation "androidx.test.ext:junit-ktx:${testing.android_junit_version}"
+    debugImplementation "androidx.fragment:fragment-testing:${testing.androidx_fragment_testing_version}"
 
     // Design
     implementation "androidx.constraintlayout:constraintlayout:${design.constraint_layout_version}"

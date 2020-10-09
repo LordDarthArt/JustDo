@@ -1,4 +1,4 @@
-package tk.lorddarthart.justdoitlist.view.main.home.todo.sort
+package tk.lorddarthart.justdoitlist.view.main.sort
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

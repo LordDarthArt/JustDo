@@ -117,7 +117,7 @@ class SmartNavigator(
         return null
     }
 
-    override fun popBackStack() {
+    override fun getBack() {
         fragmentManager?.popBackStack()
     }
 }

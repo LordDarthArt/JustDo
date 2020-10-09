@@ -1,40 +1,49 @@
-package tk.lorddarthart.justdoitlist.view.main.home.todo.add
+package tk.lorddarthart.justdoitlist.view.main.add
 
-import android.os.Bundle
+import android.app.TimePickerDialog
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import tk.lorddarthart.justdoitlist.JustDoItListApp
 import tk.lorddarthart.justdoitlist.R
 import tk.lorddarthart.justdoitlist.bussiness.main.todo.add.AddPresenter
 import tk.lorddarthart.justdoitlist.databinding.AddFragmentBinding
+import tk.lorddarthart.justdoitlist.util.constants.DateFormatsTemplates
+import tk.lorddarthart.justdoitlist.util.constants.StringConstant.PRIORITY_IMPORTANT
+import tk.lorddarthart.justdoitlist.util.constants.StringConstant.PRIORITY_NORMAL
+import tk.lorddarthart.justdoitlist.util.constants.StringConstant.PRIORITY_URGENTLY
 import tk.lorddarthart.justdoitlist.view.main.base.BaseMainFragment
 import tk.lorddarthart.justdoitlist.util.converters.PriorityConverter
 import tk.lorddarthart.justdoitlist.util.helper.logDebug
+import tk.lorddarthart.justdoitlist.util.helper.setVisibility
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
+import javax.inject.Named
 
 class AddFragment : BaseMainFragment(), AddFragmentView {
     @Inject lateinit var priorityConverter: PriorityConverter
+    @Inject lateinit var calendar: Calendar
+
+    @Inject @field:[Named(DateFormatsTemplates.dayTime)] lateinit var dayTimeFormat: SimpleDateFormat
+    @field:[Inject Named(DateFormatsTemplates.hours)] lateinit var hoursFormat: SimpleDateFormat
+    @field:[Inject Named(DateFormatsTemplates.minutes)] lateinit var minutesFormat: SimpleDateFormat
+
     @InjectPresenter lateinit var addPresenter: AddPresenter
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         fragmentBinding = AddFragmentBinding.inflate(inflater, container, false)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
         with (fragmentBinding as AddFragmentBinding) {
             addHeadTitle.text = getString(R.string.create_new_task)
-            activity.setSupportActionBar(addHead)
+            (requireActivity() as AppCompatActivity).setSupportActionBar(addHead)
         }
-        activity.supportActionBar?.let { toolbar ->
+        (requireActivity() as AppCompatActivity).supportActionBar?.let { toolbar ->
             with (toolbar) {
                 title = ""
                 setDisplayHomeAsUpEnabled(true)
             }
         }
-        return fragmentBinding.root
     }
 
     override fun initListeners() {
@@ -42,19 +51,18 @@ class AddFragment : BaseMainFragment(), AddFragmentView {
             cardViewUrgentlyNewTodoLayout.setOnClickListener { addPresenter.onTick(PRIORITY_URGENTLY) }
             cardViewImportantNewTodoLayout.setOnClickListener { addPresenter.onTick(PRIORITY_IMPORTANT) }
             cardViewNormalNewToDoLayout.setOnClickListener { addPresenter.onTick(PRIORITY_NORMAL) }
-//            TODO: MAKE SURE OF WHAT THAT IS
-//            newTodoDescriptionInput.setOnTouchListener { view, event ->
-//                view.parent.requestDisallowInterceptTouchEvent(true)
-//                if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
-//                    view.parent.requestDisallowInterceptTouchEvent(false)
-//                }
-//                return@setOnTouchListener false
-//            }
+            newTodoTimeSelector.setOnClickListener { TimePickerDialog(requireContext(), { view, hourOfDay, minute -> newTodoTimeSelector.text = "${dayTimeFormat.apply { timeZone = TimeZone.getTimeZone("GMT") }.format((1000 * 60 * 60 * hourOfDay) + (1000 * 60 * minute))}" }, hoursFormat.apply { timeZone = calendar.timeZone }.format(dayTimeFormat.apply { timeZone = calendar.timeZone }.parse(newTodoTimeSelector.text.toString())).toString().toInt(), minutesFormat.apply { timeZone = calendar.timeZone }.format(dayTimeFormat.apply { timeZone = calendar.timeZone }.parse(newTodoTimeSelector.text.toString())).toString().toInt(), true).show()  }
+            newTodoButtonCancel.setOnClickListener { router.baseNavigator.getBack() }
+            newTodoButtonAdd.setOnClickListener {  }
         }
     }
 
     override fun start() {
         JustDoItListApp.component?.inject(this)
+
+        with (fragmentBinding as AddFragmentBinding) {
+            newTodoTimeSelector.text = addPresenter.getCurrentTime()
+        }
 
         priorityConverter.getPriorityCode(getString(R.string.priority_neutral))?.let { priority ->
             logDebug { "Priority was set to neutral" }

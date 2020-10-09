@@ -15,6 +15,7 @@ import tk.lorddarthart.justdoitlist.router.Router
 import tk.lorddarthart.justdoitlist.util.OnBackPressable
 import tk.lorddarthart.justdoitlist.util.converters.PriorityConverter
 import tk.lorddarthart.justdoitlist.util.helper.locale.LocaleHelper
+import tk.lorddarthart.justdoitlist.util.helper.longSnackbar
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -71,7 +72,7 @@ class RootActivity : MvpAppCompatActivity(), RootActivityView {
         with (router) {
             when {
                 authNavigator.getActiveTab() is OnBackPressable -> { (router.authNavigator.getActiveTab() as OnBackPressable).onBackPressed() }
-                mainNavigator.getActiveTab() is OnBackPressable -> { (router.mainNavigator.getActiveTab() as OnBackPressable).onBackPressed() }
+                homeNavigator.getActiveTab() is OnBackPressable -> { (router.homeNavigator.getActiveTab() as OnBackPressable).onBackPressed() }
                 baseNavigator.getActiveFragment() is OnBackPressable -> { (router.baseNavigator.getActiveFragment() as OnBackPressable).onBackPressed() }
                 supportFragmentManager.backStackEntryCount == 0 -> {
                     rootActivityPresenter.doubleBackToExitPressedOnce = true
